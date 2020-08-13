@@ -4,9 +4,11 @@ export class Product{
     constructor(public m_id: number,
                 public m_name: string,
                 public m_desription: string,
-                public m_season: string | null,
-                public m_category: string, 
-                public m_price: number){
+                public m_season: string | undefined,
+                public m_price: number,
+                public m_isShoe: boolean,
+                public m_category?: string, 
+                public m_size?: number){
         Product.s_id++;
     }
 

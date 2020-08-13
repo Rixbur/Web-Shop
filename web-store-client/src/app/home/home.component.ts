@@ -7,9 +7,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   public m_isSelectingShoe: boolean = false;
-  public m_selectedSeason: string = "";
+  public m_selectedSeason = "";
   public m_maxPrice: number = 100;
   public m_minPrice: number = 0;
+  public m_shoeSize: number = 39;
 
   constructor() { }
 
@@ -49,5 +50,19 @@ export class HomeComponent implements OnInit {
   }
   onChangeMax(_event: Event): void {
     this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )  
+  }
+
+  onShoeSizeChange(_event: Event){
+    this.m_shoeSize = parseInt((<HTMLInputElement>_event.target).value);
+  }
+
+  getFilters(){
+    return {
+    isSelectingShoe:this.m_isSelectingShoe,
+    selectedSeason:this.m_selectedSeason,
+    maxPrice:this.m_maxPrice,
+    minPrice:this.m_minPrice,
+    shoeSize:this.m_shoeSize
+    }
   }
 }

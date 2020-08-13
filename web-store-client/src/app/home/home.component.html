@@ -7,13 +7,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Disabled</a>
+        <a class="nav-link" href="/cart">Cart</a>
       </li>
     </ul>
   </div>
@@ -23,7 +20,7 @@
 
 
 <div class = "container">
-    <form class="my-2 my-lg-12">
+    <form class="my-2">
       <div class = "row pt-5">
         <input class="form-control mr-sm-6 col-lg-6" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success  my-sm-6 col-lg-6" type="submit">Search</button>
@@ -59,6 +56,10 @@
           <option value="snegarice">Snegarice</option>
         </select>
       </div>
+      
+        <div class="row">
+          <input type="number" placeholder="Shoe size" (input)="onShoeSizeChange($event)">
+        </div>
 
     </form>
 </div>
@@ -76,7 +77,7 @@
 <div class="products">
   <div class="row">
     <div class="col-md-12 col-lg-12">
-        <app-product-list></app-product-list>
+        <app-product-list [filterObject]="getFilters()"></app-product-list>
     </div>
   </div>
 </div>
