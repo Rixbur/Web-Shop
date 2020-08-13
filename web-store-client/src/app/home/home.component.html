@@ -31,8 +31,8 @@
       <div class="row">
         <select class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeProductCategory($event)" >
           <option selected value="0">Proizvodi</option>
-          <option value="1">Obuca</option>
-          <option value="2">Torbe i rancevi</option>
+          <option value="obuca">Obuca</option>
+          <option value="ostalo">Torbe i rancevi</option>
         </select>
         <select *ngIf="m_isSelectingShoe" class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeSeason($event)">
           <option selected value="no-season">Sezona</option>
@@ -63,7 +63,15 @@
     </form>
 </div>
 <div class="container">
-  <input class = "col-lg-6" value="100" type="range">
+  <label>Price range: {{m_minPrice}}$ - {{m_maxPrice}}$</label>
+  <br/>
+  <div>
+    <label for="price-min">Min:</label>
+    <input  type="range" name="price-min" id="price-min" [value]="m_minPrice" min="0" [max]="m_maxPrice" (input)="onChangeMin($event)" >
+    <br/>
+    <label for="price-max">Max:</label>
+    <input type="range" name="price-max" id="price-max" [value]="m_maxPrice" [min]="m_minPrice" max="100" (input)="onChangeMax($event)">
+  </div>
 </div>
 <div class="products">
   <div class="row">

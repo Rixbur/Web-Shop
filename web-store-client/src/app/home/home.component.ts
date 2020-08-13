@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
 
   public m_isSelectingShoe: boolean = false;
-  public m_season: string = "";
+  public m_selectedSeason: string = "";
+  public m_maxPrice: number = 100;
+  public m_minPrice: number = 0;
 
   constructor() { }
 
@@ -19,7 +21,7 @@ export class HomeComponent implements OnInit {
     console.log("onChangeProductCategory function:");
     console.log("html value:" + l_selectedCategory);
   
-    if(l_selectedCategory == '1')
+    if(l_selectedCategory == 'obuca')
     {
       this.m_isSelectingShoe=true;
     }else
@@ -32,13 +34,20 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeSeason(_event: Event): void{
-    this.m_season=(<HTMLOptionElement>_event.target).value;
+    this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
   }
   
-  isWinterAutumn(): boolean{
-      return this.m_season=='zima' || this.m_season=='jesen'; 
+  isWinterAutumn(): boolean {
+    return this.m_selectedSeason=='zima' || this.m_selectedSeason=='jesen'; 
   }
-  isSummerSpring(): boolean{
-      return this.m_season=='prolece' || this.m_season=="leto";
+  isSummerSpring(): boolean {
+    return this.m_selectedSeason=='prolece' || this.m_selectedSeason=="leto";
+  }
+
+  onChangeMin(_event: Event): void {
+    this.m_minPrice = parseInt( (<HTMLInputElement>_event.target).value )  
+  }
+  onChangeMax(_event: Event): void {
+    this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )  
   }
 }
