@@ -8,7 +8,7 @@ import { ProductService } from '../services/product.service'
 export class HomeComponent implements OnInit {
 
   public m_isShoe: boolean = undefined;
-  public m_selectedSeason = "";
+  public m_selectedSeason: string = "";
   public m_maxPrice: number = 100;
   public m_minPrice: number = 0;
   public m_shoeSize: number = 39;
@@ -25,12 +25,16 @@ export class HomeComponent implements OnInit {
     console.log("onChangeProductCategory function:");
     console.log("html value:" + l_selectedCategory);
   
-    if(l_selectedCategory == 'obuca')
-    {
+    if(l_selectedCategory == 'obuca'){
+      
       this.m_isShoe=true;
-    }else
-    {
+
+    }else if(l_selectedCategory == 'ostalo'){
+      
       this.m_isShoe=false;
+    
+    }else{
+      this.m_isShoe=undefined;
     }
     this.updateFilters(); 
   }
@@ -66,11 +70,11 @@ export class HomeComponent implements OnInit {
 
   updateFilters(){
     this.m_productService.updateFilters({
-      isShoe:this.m_isShoe,
-      selectedSeason:this.m_selectedSeason,
-      maxPrice:this.m_maxPrice,
-      minPrice:this.m_minPrice,
-      shoeSize:this.m_shoeSize
+      isShoe : this.m_isShoe,
+      selectedSeason : this.m_selectedSeason,
+      maxPrice : this.m_maxPrice,
+      minPrice : this.m_minPrice,
+      shoeSize : this.m_shoeSize
       });
     
   }

@@ -1,4 +1,3 @@
-
 <div class = "container">
     <form class="my-2">
       <div class = "row pt-5">
@@ -7,19 +6,19 @@
       </div>
       <div class="row">
         <select class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeProductCategory($event)" >
-          <option selected value="0">Proizvodi</option>
+          <option selected value="">Proizvodi</option>
           <option value="obuca">Obuca</option>
           <option value="ostalo">Torbe i rancevi</option>
         </select>
         <select *ngIf="m_isShoe" class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeSeason($event)">
-          <option selected value="no-season">Sezona</option>
+          <option selected value="">Sezona</option>
           <option value="prolece">Prolece</option>
           <option value="leto">Leto</option>
           <option value="jesen">Jesen</option>
           <option value="zima">Zima</option>
         </select>
         <select *ngIf="m_isShoe && isSummerSpring()" class="custom-select col-lg-4 col-md-4 col-sm-12">
-          <option selected value="no-category">Kategorija</option>
+          <option selected value="">Kategorija</option>
           <option value="papuce">Papuce</option>
           <option value="sandale">Sandale</option>
           <option value="cipele">Cipele</option>
@@ -27,7 +26,7 @@
           <option value="patike">Patike</option>
         </select>
         <select *ngIf="m_isShoe && isWinterAutumn()" class="custom-select col-lg-4 col-md-6 col-sm-12">
-          <option selected value="no-category">Kategorija</option>
+          <option selected value="">Kategorija</option>
           <option value="cizme">Cizme</option>
           <option value="patike">Patike</option>
           <option value="polucizme">Polucizme</option>
