@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -6,13 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  public m_isSelectingShoe: boolean = false;
-  public m_selectedSeason = "";
+  public m_isShoe: boolean = undefined;
+  public m_selectedSeason: string = "";
   public m_maxPrice: number = 100;
   public m_minPrice: number = 0;
   public m_shoeSize: number = 39;
 
-  constructor() { }
+  constructor(private m_productService: ProductService) { 
+    this.updateFilters();
+  }
 
   ngOnInit(): void {
   }
@@ -22,20 +25,26 @@ export class HomeComponent implements OnInit {
     console.log("onChangeProductCategory function:");
     console.log("html value:" + l_selectedCategory);
   
-    if(l_selectedCategory == 'obuca')
-    {
-      this.m_isSelectingShoe=true;
-    }else
-    {
-      this.m_isSelectingShoe=false;
+    if(l_selectedCategory == 'obuca'){
+      
+      this.m_isShoe=true;
+
+    }else if(l_selectedCategory == 'ostalo'){
+      
+      this.m_isShoe=false;
+    
+    }else{
+      this.m_isShoe=undefined;
     }
+    this.updateFilters(); 
   }
   onSearch(_event: Event): void{
-    this.m_isSelectingShoe=true;
+    this.m_isShoe=true;
   }
 
   onChangeSeason(_event: Event): void{
     this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
+    this.updateFilters(); 
   }
   
   isWinterAutumn(): boolean {
@@ -46,23 +55,27 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeMin(_event: Event): void {
-    this.m_minPrice = parseInt( (<HTMLInputElement>_event.target).value )  
+    this.m_minPrice = parseInt( (<HTMLInputElement>_event.target).value )
+    this.updateFilters();  
   }
   onChangeMax(_event: Event): void {
     this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )  
+    this.updateFilters();
   }
 
   onShoeSizeChange(_event: Event){
     this.m_shoeSize = parseInt((<HTMLInputElement>_event.target).value);
+    this.updateFilters();
   }
 
-  getFilters(){
-    return {
-    isSelectingShoe:this.m_isSelectingShoe,
-    selectedSeason:this.m_selectedSeason,
-    maxPrice:this.m_maxPrice,
-    minPrice:this.m_minPrice,
-    shoeSize:this.m_shoeSize
-    }
+  updateFilters(){
+    this.m_productService.updateFilters({
+      isShoe : this.m_isShoe,
+      selectedSeason : this.m_selectedSeason,
+      maxPrice : this.m_maxPrice,
+      minPrice : this.m_minPrice,
+      shoeSize : this.m_shoeSize
+      });
+    
   }
 }

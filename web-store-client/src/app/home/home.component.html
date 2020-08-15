@@ -1,53 +1,32 @@
-<nav class="cNavbar navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">FASHION <span class = "accented">UNLIMITED</span> </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active">
-        <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/cart">Cart</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-
-
-
-
 <div class = "container">
     <form class="my-2">
       <div class = "row pt-5">
-        <input class="form-control mr-sm-6 col-lg-6" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success  my-sm-6 col-lg-6" type="submit">Search</button>
+        <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success  my-sm-6 col-lg-1" type="submit">Search</button>
       </div>
       <div class="row">
         <select class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeProductCategory($event)" >
-          <option selected value="0">Proizvodi</option>
+          <option selected value="">Proizvodi</option>
           <option value="obuca">Obuca</option>
           <option value="ostalo">Torbe i rancevi</option>
         </select>
-        <select *ngIf="m_isSelectingShoe" class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeSeason($event)">
-          <option selected value="no-season">Sezona</option>
+        <select *ngIf="m_isShoe" class="custom-select col-lg-4 col-md-4 col-sm-12" (change)="onChangeSeason($event)">
+          <option selected value="">Sezona</option>
           <option value="prolece">Prolece</option>
           <option value="leto">Leto</option>
           <option value="jesen">Jesen</option>
           <option value="zima">Zima</option>
         </select>
-        <select *ngIf="m_isSelectingShoe && isSummerSpring()" class="custom-select col-lg-4 col-md-4 col-sm-12">
-          <option selected value="no-category">Kategorija</option>
+        <select *ngIf="m_isShoe && isSummerSpring()" class="custom-select col-lg-4 col-md-4 col-sm-12">
+          <option selected value="">Kategorija</option>
           <option value="papuce">Papuce</option>
           <option value="sandale">Sandale</option>
           <option value="cipele">Cipele</option>
           <option value="espadrile">Espadrile</option>
           <option value="patike">Patike</option>
         </select>
-        <select *ngIf="m_isSelectingShoe && isWinterAutumn()" class="custom-select col-lg-4 col-md-6 col-sm-12">
-          <option selected value="no-category">Kategorija</option>
+        <select *ngIf="m_isShoe && isWinterAutumn()" class="custom-select col-lg-4 col-md-6 col-sm-12">
+          <option selected value="">Kategorija</option>
           <option value="cizme">Cizme</option>
           <option value="patike">Patike</option>
           <option value="polucizme">Polucizme</option>
@@ -77,7 +56,8 @@
 <div class="products">
   <div class="row">
     <div class="col-md-12 col-lg-12">
-        <app-product-list [filterObject]="getFilters()"></app-product-list>
+        <!-- <app-product-list [filterObject]="getFilters()"></app-product-list> -->
+        <app-product-list></app-product-list>
     </div>
   </div>
 </div>
