@@ -30,42 +30,17 @@ const upload = multer({
 
 const Product = require("../product/productModel");
 
-router.get("/", (req, res, next) => {
-  Product.find()
-    .select("_id name description season price articleType cetegory size productImage productImage")
-    .exec()
-    .then(docs => {
-      const response = {
-        count: docs.length,
-        products: docs.map(doc => {
-          return {
-            name: doc.name,
-            price: doc.price,
-            productImage: doc.productImage,
-            _id: doc._id,
-            request: {
-              type: "GET",
-              url: "http://localhost:3000/products/" + doc._id
-            }
-          };
-        })
-      };
-      //   if (docs.length >= 0) {
-      res.status(200).json(response);
-      //   } else {
-      //       res.status(404).json({
-      //           message: 'No entries found'
-      //       });
-      //   }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+getProducts = async function (req, res, next) {
+  try {
+    const products = await Product.find({}).sort({ name: 1, price: -1 }).exec();
+    res.status(200).json(products);
+  } catch (err) {
+    next(err);
+  }
+};
+router.get('/', getProducts);
 
+//post napisan reaktivno zbog poziva middleware funkcije multer.single()
 router.post("/", upload.single('productImage'), (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
@@ -103,78 +78,61 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
     });
 });
 
-router.get("/:productId", (req, res, next) => {
-  const id = req.params.productId;
-  Product.findById(id)
-    .select('_id name description season price articleType cetegory size productImage productImage')
-    .exec()
-    .then(doc => {
-      console.log("From database", doc);
-      if (doc) {
-        res.status(200).json({
-            product: doc,
-            request: {
-                type: 'GET',
-                url: 'http://localhost:3000/products'
-            }
-        });
-      } else {
-        res
-          .status(404)
-          .json({ message: "No valid entry found for provided ID" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: err });
-    });
-});
 
-router.patch("/:productId", (req, res, next) => {
-  const id = req.params.productId;
-  const updateOps = {};
-  for (const ops of req.body) {
-    updateOps[ops.propName] = ops.value;
+getByProductId = async function (req, res, next) {
+  const productId = req.params.productId;
+
+  try {
+    const product = await Product.findById(productId).exec();
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: 'The product with given id does not exist' });
+    }
+    res.status(200).json(product);
+  } catch (err) {
+    next(err);
   }
-  Product.update({ _id: id }, { $set: updateOps })
-    .exec()
-    .then(result => {
-      res.status(200).json({
-          message: 'Product updated',
-          request: {
-              type: 'GET',
-              url: 'http://localhost:3000/products/' + id
-          }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+};
+router.get("/:productId", getByProductId);
 
-router.delete("/:productId", (req, res, next) => {
-  const id = req.params.productId;
-  Product.remove({ _id: id })
-    .exec()
-    .then(result => {
-      res.status(200).json({
-          message: 'Product deleted',
-          request: {
-              type: 'POST',
-              url: 'http://localhost:3000/products',
-              body: { name: 'String', price: 'Number' }
-          }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({
-        error: err
-      });
-    });
-});
+updateByProductId = async function (req, res, next) {
+  const productId = req.params.productId;
+
+  const updateOptions = {};
+  for (let i = 0; i < req.body.length; ++i) {
+    let option = req.body[i];
+    updateOptions[option.nazivPolja] = option.novaVrednost;
+  }
+
+  try {
+    await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
+    res.status(200).json({ message: 'The product is successfully updated' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+router.patch("/:productId", updateByProductId);
+
+
+deleteByProductId = async function (req, res, next) {
+  const productId = req.params.productId;
+
+  try {
+    // Prvo brisemo element ciji je identifikator prosledjeni ID proizvoda
+    await Product.deleteOne({ _id: productId }).exec();
+    // Zatim brisemo sve porudzbine
+    // u cijem se nizu "products" nalazi prosledjeni ID proizvoda.
+    // Vise o pisanju upita sa nizovima: https://docs.mongodb.com/manual/tutorial/query-arrays/
+    await Order.deleteMany({ products: productId }).exec();
+
+    res.status(200).json({ message: 'The product is successfully deleted' });
+  } catch (err) {
+    next(err);
+  }
+};
+router.delete("/:productId", deleteByProductId);
 
 module.exports = router;

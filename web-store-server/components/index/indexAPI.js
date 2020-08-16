@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/', function (req, res, next) {
   const api = [
-      { path: '/', children: [] },
+      { path: '/',method: 'GET', children: [] },
       { path: '/product', children: [
           { path: '/', method: 'GET', children: [] },
           { path: '/', method: 'POST', children: [] },
