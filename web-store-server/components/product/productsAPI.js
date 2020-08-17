@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, './images/');
   },
   filename: function(req, file, cb) {
-    cb(null, Date.now() + file.originalname);
+    cb(null, file.originalname);
   }
 });
   // reject a file
@@ -40,8 +40,8 @@ getProducts = async function (req, res, next) {
 };
 router.get('/', getProducts);
 
-//post napisan reaktivno zbog poziva middleware funkcije multer.single()
 router.post("/", upload.single('productImage'), (req, res, next) => {
+  
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -51,7 +51,7 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
     articleType: req.body.articleType,
     category: req.body.category,
     size: req.body.size,
-    productImage: req.file.path 
+    productImage: req.file.filename
   });
   product
     .save()
@@ -62,6 +62,7 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
         createdProduct: {
             name: result.name,
             price: result.price,
+            productImage: result.productImage,
             _id: result._id,
             request: {
                 type: 'GET',
@@ -126,7 +127,7 @@ deleteByProductId = async function (req, res, next) {
     // Zatim brisemo sve porudzbine
     // u cijem se nizu "products" nalazi prosledjeni ID proizvoda.
     // Vise o pisanju upita sa nizovima: https://docs.mongodb.com/manual/tutorial/query-arrays/
-    await Order.deleteMany({ products: productId }).exec();
+    await Order.deleteMany({ _id: productId }).exec();
 
     res.status(200).json({ message: 'The product is successfully deleted' });
   } catch (err) {
