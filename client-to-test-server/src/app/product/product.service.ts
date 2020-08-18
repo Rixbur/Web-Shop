@@ -41,8 +41,9 @@ export class ProductService extends HttpErrorHandler {
     const uploadData = new FormData();
     for (const key in data) {
       if (key == 'productImage') {
-
-        uploadData.append('productImage', data[key], data[key].name);
+        for(let image of data[key]){
+          uploadData.append('productImage', image, image.name);
+        }
       }
       else {
         uploadData.append(key, data[key]);

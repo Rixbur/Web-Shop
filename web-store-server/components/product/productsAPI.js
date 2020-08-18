@@ -40,8 +40,12 @@ getProducts = async function (req, res, next) {
 };
 router.get('/', getProducts);
 
-router.post("/", upload.single('productImage'), (req, res, next) => {
+router.post("/", upload.array('productImage'), (req, res, next) => {
   
+  const fileNames =[]
+  for(oneFile of req.files){
+    fileNames.push(oneFile.originalname);
+  }
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     name: req.body.name,
@@ -51,7 +55,7 @@ router.post("/", upload.single('productImage'), (req, res, next) => {
     articleType: req.body.articleType,
     category: req.body.category,
     size: req.body.size,
-    productImage: req.file.filename
+    productImage: fileNames
   });
   product
     .save()

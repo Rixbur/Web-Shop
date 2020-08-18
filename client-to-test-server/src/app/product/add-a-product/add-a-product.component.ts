@@ -32,8 +32,9 @@ export class AddAProductComponent implements OnInit {
       return;
     }
     console.log(image.files[0]);
+    console.log(image.files[1]);
     const data = this.addAProductForm.value;
-    data.productImage = image.files[0];
+    data.productImage = image.files;
     console.log(data.productImage);
 
     this.productService
