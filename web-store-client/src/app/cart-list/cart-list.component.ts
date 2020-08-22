@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product.model';
 import { CartService } from '../cart.service';
+
 type ShoppingCartItem = {product: Product, amount: number};
 
+
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  selector: 'app-cart-list',
+  templateUrl: './cart-list.component.html',
+  styleUrls: ['./cart-list.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartListComponent implements OnInit {
 
   get items() {
     return this.m_cartService.getProducts();
@@ -20,14 +22,17 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  calculateEntireAmount(): number {
-    let entireAmount=0;
-    for (let item of this.items) {
-      entireAmount+=item.amount*item.product.m_price;
-    }      
-    return entireAmount; 
+
+  onMinus(item: ShoppingCartItem){
+    if(item.amount>0){
+      item.amount=item.amount-1;
+    }
+    else{
+      
+    }
+  }
+  onPlus(item: ShoppingCartItem){
+    item.amount=item.amount+1;
 
   }
-
-
 }
