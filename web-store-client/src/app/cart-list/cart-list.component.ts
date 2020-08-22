@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../model/product.model';
 import { CartService } from '../cart.service';
+import { ProductService } from '../services/product.service';
 
 type ShoppingCartItem = {product: Product, amount: number};
 
@@ -28,12 +29,8 @@ export class CartListComponent implements OnInit {
       item.amount=item.amount-1;
     }
     else{
-
-      const index = this.items.indexOf(item, 0);
-      if (index > -1) {
-         this.items.splice(index, 1);
-        }
-      }
+        this.m_cartService.removeItemFromCart(item);
+    }
   }
   onPlus(item: ShoppingCartItem){
     item.amount=item.amount+1;

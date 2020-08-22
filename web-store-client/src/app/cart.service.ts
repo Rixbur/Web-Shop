@@ -19,6 +19,19 @@ export class CartService {
   getProducts(): ShoppingCartItem[]{
     return this.m_items;
   }
+
+  addProductToCart(prod: Product) {
+    this.m_items.push({product: prod, amount: 1});
+  }
+
+  removeItemFromCart(item: ShoppingCartItem){
+    
+    const index = this.m_items.indexOf(item, 0);
+    if (index > -1) {
+       this.m_items.splice(index, 1);
+      }
+    }
+  
   calculateEntireAmount(): number {
     let entireAmount=0;
     for (let item of this.m_items) {
