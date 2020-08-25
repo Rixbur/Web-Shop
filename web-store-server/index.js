@@ -64,7 +64,7 @@ async function sendMail(user, callback) {
         to: user.email,
         subject: "Order confirmed",
         html: `<h1>Hello, ${user.name}!</h1>
-          Thank you for thrusting us. You ordered: ${cart.order}.
+          Thank you for thrusting us. You ordered: ${user.cart}.
            Your order will be sent soon.
           Best wishes, oyur team! `
     };
