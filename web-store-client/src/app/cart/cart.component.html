@@ -1,3 +1,41 @@
-<p>cart works!</p>
 
-<button (click)="register()" color="primary">{{buttonText}}</button>
+<div class="products">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+        <app-cart-list></app-cart-list> 
+      </div>
+    </div>
+  </div>
+  
+  <div class = "container">
+      <form class="my-2">
+        <div class = "row pt-3">
+          <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Name" aria-label="Name">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Last name" aria-label="Last name">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="email" aria-label="email">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Telephone number" aria-label="Telephone number">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Street and number" aria-label="Street and number">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="City" aria-label="City">
+        </div>
+        <div class = "row pt-3">
+            <input class="form-control mr-sm-6 col-lg-3" type="text" placeholder="Post code" aria-label="Post code">
+        </div>
+        <hr>
+        <h4> Entire amount: {{calculateEntireAmount()}}</h4>
+        <hr>
+        <div class = "row pt-3">
+            <button class="btn btn-outline-success  my-sm-6 col-lg-1" type="submit">Order</button>
+        </div>
+    
+      </form>
+  </div>

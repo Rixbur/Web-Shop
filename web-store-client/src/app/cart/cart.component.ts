@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnectionService} from '../services/connection.service'
-
+import { ConnectionService} from '../services/connection.service';
+import { CartService } from '../cart.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -11,11 +11,14 @@ export class CartComponent implements OnInit {
   loading = false;
   public http: ConnectionService;
 
-  constructor() { }
+  constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
   }
+  calculateEntireAmount(){
+    return this.cartService.calculateEntireAmount();
 
+  }
   register() {
     this.loading = true;
     this.buttonText = "Submitting..";
