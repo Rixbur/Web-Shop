@@ -1,0 +1,71 @@
+import { map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ProductService } from '../product.service';
+import { Product } from '../product.model';
+import { CartService } from '../../orders/cart.service';
+
+@Component({
+  selector: 'app-product-info',
+  templateUrl: './product-info.component.html',
+  styleUrls: ['./product-info.component.css'],
+})
+export class ProductInfoComponent implements OnDestroy {
+  public product: Product;
+  private activeSubscriptions: Subscription[];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService,
+    private cartService: CartService
+  ) {
+    this.activeSubscriptions = [];
+    this.findProductById2();
+  }
+
+  //   private findProductById() {
+  //     this.route.paramMap.subscribe((params) => {
+  //       const pId = params.get('productId');
+  //       const getProductSub = this.productService
+  //         .getProductById(pId)
+  //         .subscribe((product) => (this.product = product));
+  //       this.activeSubscriptions.push(getProductSub);
+  //     });
+  //   }
+
+  private findProductById2() {
+    const getProductSub = this.route.paramMap
+      .pipe(
+        map((params) => params.get('productId')),
+        switchMap((productIdParam) =>
+          this.productService.getProductById(productIdParam)
+        )
+      )
+      .subscribe((product) => (this.product = product));
+    this.activeSubscriptions.push(getProductSub);
+  }
+
+  ngOnDestroy() {
+    this.activeSubscriptions.forEach((sub: Subscription) => {
+      sub.unsubscribe();
+    });
+  }
+
+  public addToCart() {
+    this.cartService.addToCart(this.product);
+    window.alert('Your product has been added to the cart!');
+  }
+
+  public removeFromStore() {
+    const deleteSub = this.productService
+      .removeProductById(this.product._id)
+      .subscribe(() => {
+        this.cartService.removeProductFromCartById(this.product._id);
+        this.router.navigate(['/']);
+      });
+    this.activeSubscriptions.push(deleteSub);
+  }
+}

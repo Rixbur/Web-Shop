@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service'
+import { FilterService } from '../product/filter.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   public m_minPrice: number = 0;
   public m_shoeSize: number = 39;
 
-  constructor(private m_productService: ProductService) { 
+  constructor(private m_productService: FilterService) {
     this.updateFilters();
   }
 
@@ -24,19 +24,19 @@ export class HomeComponent implements OnInit {
     let l_selectedCategory = (<HTMLOptionElement>(_event.target)).value;
     console.log("onChangeProductCategory function:");
     console.log("html value:" + l_selectedCategory);
-  
+
     if(l_selectedCategory == 'obuca'){
-      
+
       this.m_isShoe=true;
 
     }else if(l_selectedCategory == 'ostalo'){
-      
+
       this.m_isShoe=false;
-    
+
     }else{
       this.m_isShoe=undefined;
     }
-    this.updateFilters(); 
+    this.updateFilters();
   }
   onSearch(_event: Event): void{
     this.m_isShoe=true;
@@ -44,11 +44,11 @@ export class HomeComponent implements OnInit {
 
   onChangeSeason(_event: Event): void{
     this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
-    this.updateFilters(); 
+    this.updateFilters();
   }
-  
+
   isWinterAutumn(): boolean {
-    return this.m_selectedSeason=='zima' || this.m_selectedSeason=='jesen'; 
+    return this.m_selectedSeason=='zima' || this.m_selectedSeason=='jesen';
   }
   isSummerSpring(): boolean {
     return this.m_selectedSeason=='prolece' || this.m_selectedSeason=="leto";
@@ -56,10 +56,10 @@ export class HomeComponent implements OnInit {
 
   onChangeMin(_event: Event): void {
     this.m_minPrice = parseInt( (<HTMLInputElement>_event.target).value )
-    this.updateFilters();  
+    this.updateFilters();
   }
   onChangeMax(_event: Event): void {
-    this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )  
+    this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )
     this.updateFilters();
   }
 
@@ -76,6 +76,6 @@ export class HomeComponent implements OnInit {
       minPrice : this.m_minPrice,
       shoeSize : this.m_shoeSize
       });
-    
+
   }
 }

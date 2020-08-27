@@ -7,7 +7,7 @@ export class Product{
                 public m_season: string,
                 public m_price: number,
                 public m_isShoe: boolean,
-                public m_category?: string, 
+                public m_category?: string,
                 public m_size?: number){
         Product.s_id++;
     }
