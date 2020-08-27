@@ -9,8 +9,9 @@ import { ConnectionService} from '../services/connection.service'
 export class CartComponent implements OnInit {
   buttonText = "Submit";
   loading = false;
+  public http: ConnectionService;
 
-  constructor(public http: ConnectionService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -25,7 +26,7 @@ export class CartComponent implements OnInit {
     }
     this.http.sendEmail("http://localhost:3000/sendmail", user).subscribe(
       data => {
-        let res:any = data; 
+        let res:any = data;
         console.log("${user.name}, mail has been sent. Id:  ${res.messageId}");
       },
       err => {
