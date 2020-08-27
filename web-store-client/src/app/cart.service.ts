@@ -30,7 +30,8 @@ export class CartService {
     if (index > -1) {
        this.m_items.splice(index, 1);
       }
-    }
+    }ls
+    
   
   calculateEntireAmount(): number {
     let entireAmount=0;
