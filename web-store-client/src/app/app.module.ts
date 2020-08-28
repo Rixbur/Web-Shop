@@ -36,6 +36,7 @@ import { OrderByPipe } from './product/order-by.pipe';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Product } from './model/product.model';
+import { ExportableProduct } from './model/exportable.product.model';
 import { Observable } from 'rxjs';
 import { ProductService } from '../product/product.service';
 import { filter, map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +22,11 @@ export class FilterService {
   filteredProducts(): Observable<Product[]>{
     return this.m_productService.getProducts()
     .pipe(
-      map(_prodList => _prodList
+      map((_prodList: ExportableProduct[]) =>
+        _prodList
+        .map(_prod => Product.convertCtor(_prod))
         .filter(_prod => this.applyFilter(_prod)))
-      );
+    );
   }
 
   applyFilter(_prod){

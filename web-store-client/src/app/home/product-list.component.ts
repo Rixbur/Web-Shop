@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ProductListComponent implements OnInit {
 
   @Input('filterObject') public filterObject;
-  public m_productList: Observable<Product[]> = [];
+  public m_productList: Observable<Product[]>;
   public m_products: Product[] = [];
 
   constructor(public m_productService: FilterService) {

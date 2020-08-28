@@ -1,14 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from './product.model';
+import { ExportableProduct } from './model/exportable.product.model';
 
 @Pipe({
   name: 'sum'
 })
 export class SumPipe implements PipeTransform {
 
-  transform(products: Product[]): number {
+  transform(products: ExportableProduct[]): number {
     return products
-      .map(product => product.price)
+      .map(product => product.m_price)
       .reduceRight((acc, next) => acc + next);
   }
 

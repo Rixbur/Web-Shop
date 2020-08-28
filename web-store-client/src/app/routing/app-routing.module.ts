@@ -8,9 +8,11 @@ import { AddAProductComponent } from '../product/add-a-product/add-a-product.com
 import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { OrderInfoComponent } from '../orders/order-info/order-info.component';
 
+import { HomeComponent } from '../home/home.component';
+
 
 const routes: Routes = [
-  { path: '', component: ProductListComponent },
+  { path: '', component: HomeComponent },
   { path: 'checkout', component: CartComponent },
   { path: 'products/:productId', component: ProductInfoComponent },
   { path: 'add-a-product', component: AddAProductComponent },

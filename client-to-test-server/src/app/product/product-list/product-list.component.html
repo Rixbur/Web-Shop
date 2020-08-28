@@ -1,8 +1,0 @@
-<h2>Products</h2>
-<hr>
-
-<div *ngFor="let product of products | async | orderBy: false">
-  <h4>{{ product.name }}</h4>
-  <p>Price: {{ product.price }}</p>
-  <a [routerLink]="['/products', product._id]" class="btn btn-primary">See details</a>
-</div>

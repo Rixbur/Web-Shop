@@ -6,35 +6,35 @@ import { Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
 import { Order } from './order.model';
-import { Product } from '../product/product.model';
+import { ExportableProduct } from '../product/model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService extends HttpErrorHandler {
-  private items: Product[] = [];
+  private items: ExportableProduct[] = [];
   private readonly ordersUrl = 'http://localhost:3000/orders/';
 
   constructor(private http: HttpClient, router: Router) {
     super(router);
   }
 
-  public addToCart(product: Product): void {
+  public addToCart(product: ExportableProduct): void {
     this.items.push(product);
   }
 
-  public getItems(): Product[] {
+  public getItems(): ExportableProduct[] {
     return this.items;
   }
 
-  public clearCart(): Product[] {
+  public clearCart(): ExportableProduct[] {
     this.items = [];
     return this.items;
   }
 
-  public removeProductFromCartById(id: string): Product[] {
-    this.items = this.items.filter((p: Product) => p._id === id);
+  public removeProductFromCartById(id: string): ExportableProduct[] {
+    this.items = this.items.filter((p: ExportableProduct) => p._id === id);
     return this.items;
   }
 

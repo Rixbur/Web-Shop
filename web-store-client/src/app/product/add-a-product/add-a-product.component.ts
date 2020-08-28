@@ -1,4 +1,4 @@
-import { Product } from '../product.model';
+import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { ProductService } from '../product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -39,7 +39,7 @@ export class AddAProductComponent implements OnInit {
 
     this.productService
       .addAProduct(data)
-      .subscribe((product: Product) => {
+      .subscribe((product: ExportableProduct) => {
         window.alert('Successfully added a product!');
         console.log(product);
         this.addAProductForm.reset();

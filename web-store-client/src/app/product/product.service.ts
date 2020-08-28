@@ -5,14 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
-import { Product } from './product.model';
+import { ExportableProduct } from './model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService extends HttpErrorHandler {
-  private products: Observable<Product[]>;
+  private products: Observable<ExportableProduct[]>;
   private readonly productsUrl = 'http://localhost:3000/products/';
 
   constructor(private http: HttpClient, router: Router) {
@@ -20,20 +20,20 @@ export class ProductService extends HttpErrorHandler {
     this.refreshProducts();
   }
 
-  private refreshProducts(): Observable<Product[]> {
+  private refreshProducts(): Observable<ExportableProduct[]> {
     this.products = this.http
-      .get<Product[]>(this.productsUrl)
+      .get<ExportableProduct[]>(this.productsUrl)
       .pipe(catchError(super.handleError()));
     return this.products;
   }
 
-  public getProducts(): Observable<Product[]> {
+  public getProducts(): Observable<ExportableProduct[]> {
     return this.products;
   }
 
-  public getProductById(id: string): Observable<Product> {
+  public getProductById(id: string): Observable<ExportableProduct> {
     return this.http
-      .get<Product>(this.productsUrl + id)
+      .get<ExportableProduct>(this.productsUrl + id)
       .pipe(catchError(super.handleError()));
   }
 
@@ -50,11 +50,11 @@ export class ProductService extends HttpErrorHandler {
       }
     }
     return this.http
-      .post<Product>(this.productsUrl, uploadData)
+      .post<ExportableProduct>(this.productsUrl, uploadData)
       .pipe(catchError(super.handleError()));
   }
 
-  public removeProductById(id: string): Observable<Product[]> {
+  public removeProductById(id: string): Observable<ExportableProduct[]> {
     return this.http.delete(this.productsUrl + id).pipe(
       catchError(super.handleError()),
       switchMap(() => this.refreshProducts())

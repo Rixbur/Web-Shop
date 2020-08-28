@@ -4,7 +4,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../product.service';
-import { Product } from '../product.model';
+import { ExportableProduct } from '../model/exportable.product.model';
 import { CartService } from '../../orders/cart.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { CartService } from '../../orders/cart.service';
   styleUrls: ['./product-info.component.css'],
 })
 export class ProductInfoComponent implements OnDestroy {
-  public product: Product;
+  public product: ExportableProduct;
   private activeSubscriptions: Subscription[];
 
   constructor(

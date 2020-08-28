@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import { Order } from '../order.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../cart.service';
-import { Product } from '../../product/product.model';
+import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
 
@@ -12,7 +12,7 @@ import { nameValidator } from './name-validator';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit, OnDestroy {
-  public items: Product[];
+  public items: ExportableProduct[];
   public checkoutForm: FormGroup;
   private activeSubscriptions: Subscription[];
 
