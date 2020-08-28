@@ -1,0 +1,14 @@
+<h2>Product details</h2>
+<hr>
+
+<div *ngIf="product">
+  <h3>{{ product.name }}</h3>
+  <h4>{{ product.price | currency }}</h4>
+  <p>{{ product.description }}</p>
+
+  <div *ngFor= "let image of product.productImage; let i = index">
+  <img src="http://localhost:3000/images/{{product.productImage[i]}}" width="100" height="100">
+  </div>
+  <button (click)="addToCart()" class="btn btn-primary">Add to cart</button>
+  <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
+</div>

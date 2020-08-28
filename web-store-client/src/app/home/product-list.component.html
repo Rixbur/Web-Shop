@@ -1,13 +1,21 @@
-<div class="container" *ngFor= "let product of m_productService.filteredProducts()" >
+<!-- <div class="container" *ngFor= "let product of m_productService.filteredProducts()" >
     <div class="card bg-dark my-2 py-2 px-2" style="color: white;">
       <div class="down-content">
         <a><h4 class="card-title" style="color:blueviolet;">{{ product.m_name }}</h4></a>
         <h6>{{ product.m_price }}$</h6>
         <p>{{ product.m_desription }}</p>
-        <button class = "btn btn-secondary" 
+        <button class = "btn btn-secondary"
                 style="background-color: blueviolet;"
                 [routerLink]="['/products/',product.m_id]"
                 >See details</button>
       </div>
     </div>
+</div> -->
+
+<hr>
+<!-- HTML + Observable arrays don't mix very well -->
+<div *ngFor="let product of this.m_productList | async | orderBy: false">
+  <h4>{{ product.m_name }}</h4>
+  <p>Price: {{ product.m_price }}</p>
+  <a [routerLink]="['/products', product._id]" class="btn btn-primary">See details</a>
 </div>
