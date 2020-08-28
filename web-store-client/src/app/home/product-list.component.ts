@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product/model/product.model';
 import { FilterService } from '../product/filter.service';
 import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
