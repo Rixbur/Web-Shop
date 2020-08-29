@@ -1,6 +1,6 @@
 export interface ExportableProduct {
     _id: string;
-    m_name: string;
+    nekoIme: string;
     m_description: string;
     m_articleType: string;
     m_category: string;

@@ -1,8 +1,8 @@
-import { Product } from '../product/model/product.model';
+import { ExportableProduct } from '../product/model/exportable.product.model';
 
 export interface Order {
   _id: string;
-  products: string[] | Product[];
+  products: string[] | ExportableProduct[];
   name: string;
   address: string;
   email: string;

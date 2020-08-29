@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../product/model/product.model';
 import { FilterService } from '../product/filter.service';
 import { Observable } from 'rxjs';
 import { ExportableProduct } from '../product/model/exportable.product.model'

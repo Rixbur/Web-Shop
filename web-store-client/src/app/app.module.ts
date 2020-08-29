@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
-import { CartListComponent } from './cart-list/cart-list.component';
 import { ProductListComponent } from './home/product-list.component';
 import { NavigationComponent } from './routing/navigation/navigation.component';
 import { ProductInfoComponent } from './product/product-info/product-info.component';
@@ -28,7 +27,6 @@ import { OrderByPipe } from './product/order-by.pipe';
     CartComponent,
     NavigationComponent,
     ProductInfoComponent,
-    CartListComponent,
     SumPipe,
     AddAProductComponent,
     ErrorPageComponent,

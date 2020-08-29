@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Product } from './model/product.model';
 import { ExportableProduct } from './model/exportable.product.model';
 import { Observable } from 'rxjs';
 import { ProductService } from '../product/product.service';
@@ -30,30 +29,27 @@ export class FilterService {
   }
 
   applyFilter(_prod:ExportableProduct){
-
-    if(this.m_filterObject['isShoe'] == undefined){
-      return true;
-    }
+    console.log(_prod);
     console.log(this.m_filterObject['minPrice']);
     console.log(this.m_filterObject['maxPrice']);
-    console.log(_prod.m_category);
-    console.log(_prod.m_price);
+    console.log(_prod['category']);
+    console.log(_prod['price']);
     //Shoes
-    if(this.m_filterObject['isShoe'] && _prod.m_articleType){
-      if(this.m_filterObject['selectedSeason'] == _prod.m_season
+    if(this.m_filterObject['isShoe'] && _prod['articleType']){
+      if(this.m_filterObject['selectedSeason'] == _prod['season']
         || this.m_filterObject['selectedSeason'] == ""){
-        if(this.m_filterObject['shoeSize'] == _prod.m_size
+        if(this.m_filterObject['shoeSize'] == _prod['size']
           ||this.m_filterObject['shoeSize'] == 39){
-          if(this.m_filterObject['minPrice'] < _prod.m_price
-            &&this.m_filterObject['maxPrice'] > _prod.m_price){
+          if(this.m_filterObject['minPrice'] < _prod['price']
+            &&this.m_filterObject['maxPrice'] > _prod['price']){
               return true
           }
         }
       }
     //Misc
     }else{
-      if(this.m_filterObject['minPrice'] < _prod.m_price
-        &&this.m_filterObject['maxPrice'] > _prod.m_price
+      if(this.m_filterObject['minPrice'] < _prod['price']
+        &&this.m_filterObject['maxPrice'] > _prod['price']
         &&_prod.m_articleType == this.m_filterObject['isShoe']){
 
         return true;
