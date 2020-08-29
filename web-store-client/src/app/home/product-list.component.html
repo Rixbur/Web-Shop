@@ -15,7 +15,7 @@
 <hr>
 <!-- HTML + Observable arrays don't mix very well -->
 <div *ngFor="let product of this.m_productList | async | orderBy: false">
-  <h4>{{ product.m_name }}</h4>
-  <p>Price: {{ product.m_price }}</p>
+  <h4>{{ product.name }}</h4>
+  <p>Price: {{ product.price }}</p>
   <a [routerLink]="['/products', product._id]" class="btn btn-primary">See details</a>
 </div>

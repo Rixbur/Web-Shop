@@ -129,12 +129,10 @@ deleteByProductId = async function (req, res, next) {
   const productId = req.params.productId;
 
   try {
-    // Prvo brisemo element ciji je identifikator prosledjeni ID proizvoda
+    
     await Product.deleteOne({ _id: productId }).exec();
-    // Zatim brisemo sve porudzbine
-    // u cijem se nizu "products" nalazi prosledjeni ID proizvoda.
-    // Vise o pisanju upita sa nizovima: https://docs.mongodb.com/manual/tutorial/query-arrays/
-    await Order.deleteMany({ _id: productId }).exec();
+    
+    await Order.deleteMany({ Product: getByProductId(productId) }).exec();
 
     res.status(200).json({ message: 'The product is successfully deleted' });
   } catch (err) {
