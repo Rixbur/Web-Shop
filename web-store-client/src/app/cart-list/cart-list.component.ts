@@ -33,7 +33,9 @@ export class CartListComponent implements OnInit {
     }
   }
   onPlus(item: ShoppingCartItem){
-    item.amount=item.amount+1;
+    if(item.product.m_quantity > item.amount){
+      item.amount=item.amount+1;
+    }
 
   }
 }

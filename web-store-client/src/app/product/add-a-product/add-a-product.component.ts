@@ -10,6 +10,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddAProductComponent implements OnInit {
   public addAProductForm: FormGroup;
+  public allSizes: number[] = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46];
+  public selectedSizes = new Map<number, number>();
+
   constructor(
     private formBuilder: FormBuilder,
     private productService: ProductService
@@ -21,14 +24,12 @@ export class AddAProductComponent implements OnInit {
       category:['',[Validators.required]],
       season: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(1)]],
-      size: ['', [Validators.required]],
       productImage:['',[Validators.required]]
     });
   }
 
   public submitForm(image: HTMLInputElement): void {
     if (!this.addAProductForm.valid) {
-      window.alert('Not valid!');
       return;
     }
     console.log(image.files[0]);
@@ -37,13 +38,20 @@ export class AddAProductComponent implements OnInit {
     data.productImage = image.files;
     console.log(data.productImage);
 
-    this.productService
-      .addAProduct(data)
-      .subscribe((product: ExportableProduct) => {
-        window.alert('Successfully added a product!');
-        console.log(product);
-        this.addAProductForm.reset();
-      });
+    for (const [size, quantity] of this.selectedSizes) {
+      data.size = size;
+      data.quantity = quantity;
+      data.mapQuantOfSizes = this.selectedSizes;
+
+      this.productService
+        .addAProduct(data)
+        .subscribe((product: ExportableProduct) => {
+          window.alert('Successfully added a product!');
+          console.log(product);
+          this.addAProductForm.reset();
+          this.selectedSizes.clear();
+        });
+    }
   }
 
   public getNameErrors() {
@@ -66,6 +74,32 @@ export class AddAProductComponent implements OnInit {
   }
   public getProductImageErrors() {
     return this.addAProductForm.get('productImage').errors;
+  }
+
+  
+  public addSize(size:number){
+    if(this.selectedSizes.has(size)){
+      this.selectedSizes.delete(size);
+    } else {
+      this.selectedSizes.set(size, 1);
+    }
+  }
+
+  public minus(size:number){
+    const quantity = this.selectedSizes.get(size);
+    if(quantity > 0){
+      
+      this.selectedSizes.set(size, quantity - 1); 
+    }
+    if((quantity - 1) == 0){
+      
+      this.selectedSizes.delete(size);
+    }
+  }
+
+  public plus(size:number){
+    const quantity = this.selectedSizes.get(size);
+    this.selectedSizes.set(size, quantity + 1);
   }
 
   ngOnInit() {}

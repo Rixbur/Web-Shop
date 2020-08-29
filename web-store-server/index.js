@@ -64,9 +64,9 @@ async function sendMail(user, callback) {
         to: user.email,
         subject: "Order confirmed",
         html: `<h1>Hello, ${user.name}!</h1>
-          Thank you for thrusting us. You ordered: ${user.cart}.
+          Thank you for thrusting us. Yor address: ${user.address}.
            Your order will be sent soon.
-          Best wishes, oyur team! `
+          Best wishes, your team! `
     };
 
     let info = await transporter.sendMail(mailOptions);
