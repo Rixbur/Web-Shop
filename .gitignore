@@ -195,3 +195,5 @@ dist
 
 # End of https://www.toptal.com/developers/gitignore/api/node
 .vscode/launch.json
+
+.web-store-server/data/

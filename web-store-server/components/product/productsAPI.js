@@ -33,6 +33,9 @@ const Product = require("../product/productModel");
 getProducts = async function (req, res, next) {
   try {
     const products = await Product.find({}).sort({ name: 1, price: -1 }).exec();
+    for(product of products){
+      product.mapa =  new Map(JSON.parse(product.mapQuantOfSizes));
+    }
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -130,11 +133,13 @@ deleteByProductId = async function (req, res, next) {
 
   try {
     
-    await Product.deleteOne({ _id: productId }).exec();
-    
-    await Order.deleteMany({ Product: getByProductId(productId) }).exec();
-
-    res.status(200).json({ message: 'The product is successfully deleted' });
+    const deletedProducts = await Product.deleteOne({ _id: productId }).exec();
+    if(deletedProducts['deletedCount']){
+      res.status(200).json({ message: 'The product is successfully deleted' });
+    }
+    else{
+      res.status(200).json({ message: 'The product is already bought' });
+    }
   } catch (err) {
     next(err);
   }

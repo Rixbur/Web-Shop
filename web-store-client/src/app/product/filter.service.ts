@@ -17,29 +17,35 @@ export class FilterService {
     // this.m_products.push(new Product(2, "Nike ignis","Plave patike","leto",30,true,"patike",41));
     // this.m_products.push(new Product(3, "H&M splash","Zute cizme","jesen",10,false,"cizme",22));
   }
-
   filteredProducts(): Observable<ExportableProduct[]>{
     return this.m_productService.getProducts()
     .pipe(
       map((_prodList: ExportableProduct[]) =>
         _prodList
-        //.map(_prod => Product.convertCtor(_prod))
+        .map(_prod => this.volimte(_prod))
         .filter(_prod => this.applyFilter(_prod)))
     );
   }
-
+  public volimte(_prod:ExportableProduct){
+      for(const key in _prod){
+        if(key=='mapQuantOfSizes'){
+          _prod.mapa = new Map(JSON.parse(_prod[key]));
+        }
+      }
+      console.log(_prod.mapa);
+      return _prod;
+  }
   applyFilter(_prod:ExportableProduct){
-    console.log(_prod);
-    console.log(this.m_filterObject['minPrice']);
-    console.log(this.m_filterObject['maxPrice']);
-    console.log(_prod['category']);
-    console.log(_prod['price']);
-    //Shoes
+    // if(this.m_filterObject['isShoe'] == undefined){
+    //   return true;
+    // }
+    
     if(this.m_filterObject['isShoe'] && _prod['articleType']){
       if(this.m_filterObject['selectedSeason'] == _prod['season']
         || this.m_filterObject['selectedSeason'] == ""){
-        if(this.m_filterObject['shoeSize'] == _prod['size']
-          ||this.m_filterObject['shoeSize'] == 39){
+        if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
+          {
+            console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
           if(this.m_filterObject['minPrice'] < _prod['price']
             &&this.m_filterObject['maxPrice'] > _prod['price']){
               return true

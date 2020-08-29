@@ -7,6 +7,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 
 import { ExportableProduct } from './model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,15 @@ export class ProductService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
     return this.products;
   }
-
+  // public volimte(_prods:ExportableProduct[]){
+  //   for(const _prod of _prods){
+  //     for(const key in _prod){
+  //       if(key=='mapQuantOfSizes'){
+  //         _prod.mapa = new Map(JSON.parse(_prod[key]));
+  //       }
+  //     }
+  //   }
+  // }
   public getProducts(): Observable<ExportableProduct[]> {
     return this.products;
   }
