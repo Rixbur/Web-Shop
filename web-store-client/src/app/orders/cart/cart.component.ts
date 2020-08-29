@@ -5,6 +5,7 @@ import { CartService } from '../cart.service';
 import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
+import { ConnectionService } from '../../services/connection.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,6 +19,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
+    public http: ConnectionService,
     private formBuilder: FormBuilder
   ) {
     this.activeSubscriptions = [];
@@ -45,6 +47,7 @@ export class CartComponent implements OnInit, OnDestroy {
       window.alert('Not valid!');
       return;
     }
+    this.register(data);
 
     const createSub = this.cartService
       .createAnOrder(data)
@@ -56,6 +59,19 @@ export class CartComponent implements OnInit, OnDestroy {
         this.checkoutForm.reset();
       });
     this.activeSubscriptions.push(createSub);
+  }
+
+  register(data) {
+
+    this.http.sendEmail("http://localhost:3000/sendmail", data).subscribe(
+      data => {
+        let res:any = data;
+        console.log("${data.name}, mail has been sent. Id:  ${res.messageId}");
+      },
+      err => {
+        console.log(err);
+      },() => {}
+    );
   }
 
   public get name() {

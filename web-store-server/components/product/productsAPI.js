@@ -55,6 +55,8 @@ router.post("/", upload.array('productImage'), (req, res, next) => {
     articleType: req.body.articleType,
     category: req.body.category,
     size: req.body.size,
+    quantity: req.body.quantity,
+    //mapQuantOfSizes: req.body.mapQuantOfSizes,
     productImage: fileNames
   });
   product

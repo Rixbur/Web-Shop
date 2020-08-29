@@ -54,16 +54,26 @@
         formControlName="price"
       />
     </div>
-    <div class="form-group">
-      <label for="size">Size</label>
-      <input
-        type="number"
-        name="size"
-        id="size"
-        class="form-control"
-        formControlName="size"
-      />
+
+
+    <h2>All sizes:</h2>
+    <div style="display: inline-block" *ngFor="let size of allSizes">
+      <button class="btn btn-secondary" style="background-color: lightseagreen;" (click) = "addSize(size)">{{size}}</button>
     </div>
+  
+    <h2>Selected sizes:</h2>
+    <div *ngFor="let item of selectedSizes | keyvalue">
+      <div class="panel panel-default" style="border-style: solid;">
+        <div class="panel-body" >{{item.key}} <button class="btn btn-secondary" style="background-color: red;" (click) = "minus(item.key)">-</button> {{item.value}} <button class="btn btn-secondary" style="background-color: limegreen;" (click) = "plus(item.key)">+</button> </div>
+      </div>
+    </div>
+
+    <div>Summary:</div>
+    <div style="display: inline-block" *ngFor="let item of selectedSizes | keyvalue">
+      {{item.key}}:{{item.value}}, 
+    </div>
+
+
     <div class="form-group">
       <label for="productImage">Upload Image</label>
       <input type="file" multiple

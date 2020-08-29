@@ -27,6 +27,14 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    quantity: {
+        type: Number,
+        required: true
+    },
+    mapQuantOfSizes: {
+        type: Map,
+        of: Number
+    },
     productImage: {
          type: [String], 
          required: true 
