@@ -23,17 +23,16 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    size:{
-        type: Number,
-        required: true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
+    // size:{
+    //     type: Number,
+    //     required: true
+    // },
+    // quantity: {
+    //     type: Number,
+    //     required: true
+    // },
     mapQuantOfSizes: {
-        type: Map,
-        of: Number
+        type: String
     },
     productImage: {
          type: [String], 

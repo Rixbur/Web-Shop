@@ -45,6 +45,10 @@ export class ProductService extends HttpErrorHandler {
           uploadData.append('productImage', image, image.name);
         }
       }
+      if(key == 'mapQuantOfSizes'){
+        const mapa = JSON.stringify(Array.from(data[key].entries()));
+        uploadData.append(key,mapa);
+      }
       else {
         uploadData.append(key, data[key]);
       }

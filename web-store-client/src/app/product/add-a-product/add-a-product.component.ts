@@ -2,6 +2,7 @@ import { ExportableProduct } from '../../product/model/exportable.product.model'
 import { ProductService } from '../product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-add-a-product',
@@ -32,17 +33,16 @@ export class AddAProductComponent implements OnInit {
     if (!this.addAProductForm.valid) {
       return;
     }
-    console.log(image.files[0]);
-    console.log(image.files[1]);
+    
     const data = this.addAProductForm.value;
     data.productImage = image.files;
     console.log(data.productImage);
+    data.mapQuantOfSizes = new Map<number,number>();
 
     for (const [size, quantity] of this.selectedSizes) {
-      data.size = size;
-      data.quantity = quantity;
-      data.mapQuantOfSizes = this.selectedSizes;
-
+      
+      data.mapQuantOfSizes.set(size,quantity);
+    }
       this.productService
         .addAProduct(data)
         .subscribe((product: ExportableProduct) => {
@@ -51,7 +51,7 @@ export class AddAProductComponent implements OnInit {
           this.addAProductForm.reset();
           this.selectedSizes.clear();
         });
-    }
+    
   }
 
   public getNameErrors() {

@@ -8,7 +8,7 @@ export interface ExportableProduct {
     m_price: number;
     m_size: number;
     m_quantity: number;
-    //mapQuantOfSizes: Map<number, number>,
+    mapQuantOfSizes: Map<number, number>,
     m_productImage;
 
 };

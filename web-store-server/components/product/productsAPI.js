@@ -42,6 +42,7 @@ router.get('/', getProducts);
 
 router.post("/", upload.array('productImage'), (req, res, next) => {
   
+  console.log(req.body.mapQuantOfSizes);
   const fileNames =[]
   for(oneFile of req.files){
     fileNames.push(oneFile.originalname);
@@ -54,9 +55,9 @@ router.post("/", upload.array('productImage'), (req, res, next) => {
     price: req.body.price,
     articleType: req.body.articleType,
     category: req.body.category,
-    size: req.body.size,
-    quantity: req.body.quantity,
-    //mapQuantOfSizes: req.body.mapQuantOfSizes,
+    //size: req.body.size,
+    //quantity: req.body.quantity,
+    mapQuantOfSizes: req.body.mapQuantOfSizes,
     productImage: fileNames
   });
   product
