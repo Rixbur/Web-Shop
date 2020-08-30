@@ -6,8 +6,8 @@
     <div class="row">
       <div class="col-8">
             <owl-carousel-o [options]="customOptions">
-              <ng-container *ngFor="image of product.productImage, let i = index">
-                <ng-template carouselSlide>
+              <ng-container>
+                <ng-template carouselSlide *ngFor="let image of product.productImage, let i = index">
                   <img src="http://localhost:3000/images/{{product.productImage[i]}}">
                   <div class="carousel-caption">
                     <h3 style="color: black;">{{ product.name }}</h3>

@@ -5,6 +5,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+
+
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
@@ -17,7 +20,7 @@ import { ErrorPageComponent } from './routing/error-page/error-page.component';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderInfoComponent } from './orders/order-info/order-info.component';
 import { OrderByPipe } from './product/order-by.pipe';
-import { NgImageSliderModule } from 'ng-image-slider';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +46,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     AppRoutingModule,
     HttpClientModule,
     CarouselModule,
-    NgImageSliderModule
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

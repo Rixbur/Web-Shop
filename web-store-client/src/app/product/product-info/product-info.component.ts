@@ -73,6 +73,8 @@ export class ProductInfoComponent implements OnDestroy {
   }
 
   customOptions: OwlOptions = {
+    margin: 10,
+    stagePadding:20, //da li da se vide susedi
     loop: true,
     mouseDrag: true,
     touchDrag: true,
