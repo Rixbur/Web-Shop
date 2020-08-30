@@ -2,16 +2,32 @@
 <hr>
 
 <div *ngIf="product">
-  <h3>{{ product.name }}</h3>
-  <h4>{{ product.price | currency }}</h4>
-  <p>{{ product.description }}</p>
-  <owl-carousel-o [options]="customOptions">
-    <ng-container *ngFor="image of product.productImage, let i = index">
-      <ng-template carouselSlide>
-        <img src="http://localhost:3000/images/{{product.productImage[i]}}">
-      </ng-template>
-    </ng-container>
-  </owl-carousel-o>
-  <button (click)="addToCart()" class="btn btn-primary">Add to cart</button>
-  <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+            <owl-carousel-o [options]="customOptions">
+              <ng-container *ngFor="image of product.productImage, let i = index">
+                <ng-template carouselSlide>
+                  <img src="http://localhost:3000/images/{{product.productImage[i]}}">
+                  <div class="carousel-caption">
+                    <h3 style="color: black;">{{ product.name }}</h3>
+                    <p style="color: black;" [innerText]="product.name"></p>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </owl-carousel-o>     
+      </div>
+
+      <div class="col-4">
+          <h3>{{ product.name }}</h3>
+          <h4>{{ product.price | currency }}</h4>
+          <p>{{ product.description }}</p>
+          <div>
+            <button (click)="addToCart()" class="btn btn-primary">Add to cart</button>
+            <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
+          </div>
+      </div>
+
+    </div>
+  </div>
 </div>

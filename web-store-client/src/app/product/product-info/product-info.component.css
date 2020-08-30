@@ -1,17 +1,1 @@
-.owl-carousel {
-    width: 50% !important;
-    margin: 10% auto;
-  }
 
-  .owl-carousel .nav-btn {
-    height: 47px;
-    position: absolute;
-    width: 26px;
-    cursor: pointer;
-    top: 30% !important;
-  }
-
-  .owl-carousel .owl-nav {
-    overflow: hidden;
-    height: 0px;
-  }
