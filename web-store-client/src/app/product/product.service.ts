@@ -47,6 +47,26 @@ export class ProductService extends HttpErrorHandler {
   }
 
   public addAProduct(data) {
+    const uploadData = this.makeFormData(data);
+    return this.http
+      .post<ExportableProduct>(this.productsUrl, uploadData)
+      .pipe(catchError(super.handleError()));
+  }
+  public patchProduct(id: string,data):Observable<ExportableProduct>{
+    
+    return this.http
+      .patch<any>(this.productsUrl + id,{'size':data})
+      .pipe(catchError(super.handleError()));
+  }
+
+  public removeProductById(id: string): Observable<ExportableProduct[]> {
+    return this.http.delete(this.productsUrl + id).pipe(
+      catchError(super.handleError()),
+      switchMap(() => this.refreshProducts())
+    );
+  }
+
+  public makeFormData(data):FormData{
     const uploadData = new FormData();
     for (const key in data) {
       if (key == 'productImage') {
@@ -62,16 +82,7 @@ export class ProductService extends HttpErrorHandler {
         uploadData.append(key, data[key]);
       }
     }
-    return this.http
-      .post<ExportableProduct>(this.productsUrl, uploadData)
-      .pipe(catchError(super.handleError()));
+    console.log(uploadData);
+    return uploadData;
   }
-
-  public removeProductById(id: string): Observable<ExportableProduct[]> {
-    return this.http.delete(this.productsUrl + id).pipe(
-      catchError(super.handleError()),
-      switchMap(() => this.refreshProducts())
-    );
-  }
-
 }

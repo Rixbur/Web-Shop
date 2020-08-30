@@ -22,17 +22,17 @@ export class FilterService {
     .pipe(
       map((_prodList: ExportableProduct[]) =>
         _prodList
-        .map(_prod => this.volimte(_prod))
+        .map(_prod => this.mapParsing(_prod))
         .filter(_prod => this.applyFilter(_prod)))
     );
   }
-  public volimte(_prod:ExportableProduct){
+  mapParsing(_prod:ExportableProduct){
       for(const key in _prod){
         if(key=='mapQuantOfSizes'){
           _prod.mapa = new Map(JSON.parse(_prod[key]));
         }
       }
-      console.log(_prod.mapa);
+      //console.log(_prod.mapa);
       return _prod;
   }
   applyFilter(_prod:ExportableProduct){

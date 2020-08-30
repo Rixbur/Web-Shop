@@ -108,14 +108,21 @@ router.get("/:productId", getByProductId);
 
 updateByProductId = async function (req, res, next) {
   const productId = req.params.productId;
-
   const updateOptions = {};
-  for (let i = 0; i < req.body.length; ++i) {
-    let option = req.body[i];
-    updateOptions[option.nazivPolja] = option.novaVrednost;
-  }
-
+  
   try {
+    const product = await Product.findById(productId).exec();
+    const mapQuantOfSizes = new Map(JSON.parse(product['mapQuantOfSizes']));
+    const currentCount = mapQuantOfSizes.get(req.body.size);
+    if(currentCount == 1){
+      mapQuantOfSizes.delete(36);
+    }
+    else{
+      mapQuantOfSizes.set(36, currentCount - 1);
+    }
+    const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
+    updateOptions['mapQuantOfSizes'] = mapa;
+
     await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
     res.status(200).json({ message: 'The product is successfully updated' });
   } catch (err) {

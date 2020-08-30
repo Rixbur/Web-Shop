@@ -6,7 +6,8 @@ import { ExportableProduct } from '../../product/model/exportable.product.model'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
 import { ConnectionService } from '../../services/connection.service';
-
+import { ProductService } from '../../product/product.service';
+import { FilterService } from 'src/app/product/filter.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -20,7 +21,9 @@ export class CartComponent implements OnInit, OnDestroy {
   constructor(
     private cartService: CartService,
     public http: ConnectionService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private productService: ProductService,
+    private filterServise: FilterService
   ) {
     this.activeSubscriptions = [];
     this.items = this.cartService.getItems();
@@ -31,6 +34,7 @@ export class CartComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern('[0-9]+ [ a-zA-Z0-9]+')],
       ],
       email: ['', [Validators.required, Validators.email]],
+      size:['']
     });
   }
 
@@ -47,8 +51,16 @@ export class CartComponent implements OnInit, OnDestroy {
       window.alert('Not valid!');
       return;
     }
-    this.register(data);
-
+    //this.register(data);
+    
+    console.log(data['size']);
+    const patchProduct = this.productService
+      .patchProduct(this.items[0]._id,data['size'])
+      .subscribe((response)=>{
+        window.alert('Poslato');
+      });
+    this.activeSubscriptions.push(patchProduct);
+      
     const createSub = this.cartService
       .createAnOrder(data)
       .subscribe((order: Order) => {
