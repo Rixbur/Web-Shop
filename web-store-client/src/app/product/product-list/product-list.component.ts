@@ -1,9 +1,8 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { FilterService } from '../filter.service';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../product.service';
-import { Product } from '../model/product.model';
-import { FilterService } from '../filter.service'
-
+import { ExportableProduct } from '../model/exportable.product.model'
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
@@ -11,13 +10,39 @@ import { FilterService } from '../filter.service'
 })
 export class ProductListComponent implements OnInit {
 
-  public m_products: Observable<Product[]>;
+  @Input('filterObject') public filterObject;
+  public m_productList: Observable<ExportableProduct[]>;
 
-  constructor(private m_filterService: FilterService) {
-    this.m_products = m_filterService.filteredProducts();
+  constructor(public m_productService: FilterService) {
+    this.m_productList = m_productService.filteredProducts();
+   }
+
+  ngOnInit(): void {
+
   }
-
-  ngOnInit() {
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: true
   }
 
 }

@@ -4,10 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
 import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './home/product-list.component';
+import { ProductListComponent } from './product/product-list/product-list.component';
 import { NavigationComponent } from './routing/navigation/navigation.component';
 import { ProductInfoComponent } from './product/product-info/product-info.component';
 import { CartComponent } from './orders/cart/cart.component';
@@ -17,7 +17,7 @@ import { ErrorPageComponent } from './routing/error-page/error-page.component';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderInfoComponent } from './orders/order-info/order-info.component';
 import { OrderByPipe } from './product/order-by.pipe';
-
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,8 @@ import { OrderByPipe } from './product/order-by.pipe';
     ErrorPageComponent,
     OrderListComponent,
     OrderInfoComponent,
-    OrderByPipe
+    OrderByPipe,
+    
 
   ],
   imports: [
@@ -40,7 +41,9 @@ import { OrderByPipe } from './product/order-by.pipe';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule,
+    NgImageSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

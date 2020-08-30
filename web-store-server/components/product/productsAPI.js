@@ -33,9 +33,9 @@ const Product = require("../product/productModel");
 getProducts = async function (req, res, next) {
   try {
     const products = await Product.find({}).sort({ name: 1, price: -1 }).exec();
-    for(product of products){
-      product.mapa =  new Map(JSON.parse(product.mapQuantOfSizes));
-    }
+    // for(product of products){
+    //   product.mapa =  new Map(JSON.parse(product.mapQuantOfSizes));
+    // }
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -58,8 +58,6 @@ router.post("/", upload.array('productImage'), (req, res, next) => {
     price: req.body.price,
     articleType: req.body.articleType,
     category: req.body.category,
-    //size: req.body.size,
-    //quantity: req.body.quantity,
     mapQuantOfSizes: req.body.mapQuantOfSizes,
     productImage: fileNames
   });

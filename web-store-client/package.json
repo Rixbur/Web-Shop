@@ -25,6 +25,8 @@
     "jquery": "^3.5.1",
     "mongoose": "^5.10.0",
     "multer": "^1.4.2",
+    "ng-image-slider": "^2.6.4",
+    "ngx-owl-carousel-o": "^4.0.0",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
     "popper.js": "^1.16.1",

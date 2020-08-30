@@ -2,7 +2,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ProductService } from '../product.service';
 import { ExportableProduct } from '../model/exportable.product.model';
 import { CartService } from '../../orders/cart.service';
@@ -16,6 +16,8 @@ export class ProductInfoComponent implements OnDestroy {
   public product: ExportableProduct;
   private activeSubscriptions: Subscription[];
 
+  public imageObject: Array<object>;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -24,6 +26,7 @@ export class ProductInfoComponent implements OnDestroy {
   ) {
     this.activeSubscriptions = [];
     this.findProductById2();
+
   }
 
   //   private findProductById() {
@@ -67,5 +70,30 @@ export class ProductInfoComponent implements OnDestroy {
         this.router.navigate(['/']);
       });
     this.activeSubscriptions.push(deleteSub);
+  }
+
+  customOptions: OwlOptions = {
+    loop: true,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 4
+      }
+    },
+    nav: true
   }
 }

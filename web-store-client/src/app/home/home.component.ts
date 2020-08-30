@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../product/filter.service'
+import {ProductListComponent} from '../product/product-list/product-list.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

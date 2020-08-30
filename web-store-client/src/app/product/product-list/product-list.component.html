@@ -1,8 +1,24 @@
-<h2>Products</h2>
-<hr>
-
-<div *ngFor="let product of products | async | orderBy: false">
-  <h4>{{ product.name }}</h4>
-  <p>Price: {{ product.price }}</p>
-  <a [routerLink]="['/products', product._id]" class="btn btn-primary">See details</a>
+<div class="container" *ngFor= "let product of this.m_productList | async | orderBy: false" >
+    <div class="card bg-dark my-2 py-2 px-2" style="color: white;">
+      <div class="down-content">
+        <a><h4 class="card-title" style="color:blueviolet;">{{ product.name }}</h4></a>
+        <h6>{{ product.price }}$</h6>
+        <p>{{ product.desription }}</p>
+        
+        <div>Images</div>
+        <owl-carousel-o [options]="customOptions">
+          <ng-template carouselSlide>
+            <img src="http://localhost:3000/images/{{product.productImage[0]}}" >
+          </ng-template> 
+        </owl-carousel-o>
+          
+       
+        <button class = "btn btn-secondary"
+                style="background-color: blueviolet;"
+                [routerLink]="['/products/',product._id]"
+                >See details</button>
+      </div>
+    </div>
 </div>
+
+<hr>

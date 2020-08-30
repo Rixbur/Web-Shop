@@ -1,7 +1,7 @@
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProductListComponent } from '../home/product-list.component';
+import { ProductListComponent } from '../product/product-list/product-list.component';
 import { ProductInfoComponent } from '../product/product-info/product-info.component';
 import { CartComponent } from '../orders/cart/cart.component';
 import { AddAProductComponent } from '../product/add-a-product/add-a-product.component';
