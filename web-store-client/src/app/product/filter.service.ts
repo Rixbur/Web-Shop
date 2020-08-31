@@ -35,11 +35,14 @@ export class FilterService {
       //console.log(_prod.mapa);
       return _prod;
   }
+  
   applyFilter(_prod:ExportableProduct){
     // if(this.m_filterObject['isShoe'] == undefined){
     //   return true;
     // }
     
+    console.log(_prod);
+    console.log
     if(this.m_filterObject['isShoe'] && _prod['articleType']){
       if(this.m_filterObject['selectedSeason'] == _prod['season']
         || this.m_filterObject['selectedSeason'] == ""){

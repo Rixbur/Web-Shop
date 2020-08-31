@@ -10,8 +10,8 @@
                 <ng-template carouselSlide *ngFor="let image of product.productImage, let i = index">
                   <img src="http://localhost:3000/images/{{product.productImage[i]}}">
                   <div class="carousel-caption">
-                    <h3 style="color: black;">{{ product.name }}</h3>
-                    <p style="color: black;" [innerText]="product.name"></p>
+                    <h3 style="color: black;">{{ product['name'] }}</h3>
+                    <p style="color: black;" [innerText]="product['name']"></p>
                   </div>
                 </ng-template>
               </ng-container>
@@ -19,11 +19,28 @@
       </div>
 
       <div class="col-4">
-          <h3>{{ product.name }}</h3>
-          <h4>{{ product.price | currency }}</h4>
-          <p>{{ product.description }}</p>
+          <h3>{{ product['name'] }}</h3>
+          <h4>{{ product['price'] | currency }}</h4>
+          <p>{{ product['description'] }}</p>
           <div>
-            <button (click)="addToCart()" class="btn btn-primary">Add to cart</button>
+            <div>
+              <form [formGroup]="addToCartForm"  (ngSubmit)="addToCart(selectedSize)">
+                <select class="form-control" formControlName="selectedSize" #selectedSize>
+                    <option *ngFor="let item of product['mapa'].entries()">
+                      {{  item[0] }}
+                    </option>
+                  </select>
+            
+                <button
+                  class="btn btn-primary btn-block"
+                  type="submit"
+                  
+                >
+                  Add a product
+                </button>
+              </form>
+            </div>
+          <hr/>
             <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
           </div>
       </div>

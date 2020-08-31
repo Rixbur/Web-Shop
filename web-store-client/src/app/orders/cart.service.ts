@@ -21,6 +21,7 @@ export class CartService extends HttpErrorHandler {
   }
 
   public addToCart(product: ExportableProduct): void {
+    console.log(product);
     this.items.push(product);
   }
 

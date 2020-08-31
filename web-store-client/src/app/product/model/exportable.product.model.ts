@@ -10,6 +10,7 @@ export interface ExportableProduct {
     m_quantity: number;
     mapQuantOfSizes: string,
     mapa: Map<number,number>,
-    m_productImage;
+    m_productImage,
+    m_selectedSize: string;
 
 };
