@@ -51,13 +51,45 @@ export class CartComponent implements OnInit, OnDestroy {
       return;
     }
     this.items.forEach( (item) => {
-      const patchProductSingleSub = this.productService
-      .patchProduct(item._id,item['selectedSize'])
-      .subscribe((response)=>{
-        window.alert('Poslato');
+        let exist = false;
+        let quantityOfSelected = 0;
+        const mapLen = item['mapa'].size;
+
+        for (const element of item['mapa']) {
+          //selectedSize exists in sizes
+          if(element[0].toString() == item['selectedSize']){
+            if(element[1] > 0){
+              exist = true;
+              quantityOfSelected = element[1];
+            }
+            break;
+          }
+          
+        }
+        if(!exist){
+          window.alert('Product ${item.nekoIme} size ${item.selectedSize} is no longer available. Try some other size please.');
+        } else {
+
+          const patchProductSingleSub = this.productService
+          .patchProduct(item._id,item['selectedSize'])
+          .subscribe((response)=>{
+            window.alert('Poslato');
+          });
+          this.activeSubscriptions.push(patchProductSingleSub);
+          
+          //If this was the last pair of shoes, after ordering it, product should be deleted
+          if(mapLen == 1 && quantityOfSelected == 1){
+
+            const deleteSub = this.productService
+              .removeProductById(item._id)
+              .subscribe(() => {
+                this.cartService.removeProductFromCartById(item._id);
+              });
+            this.activeSubscriptions.push(deleteSub);
+          }
+        }
+
       });
-      this.activeSubscriptions.push(patchProductSingleSub);
-    });
     
     this.register(data);
   
