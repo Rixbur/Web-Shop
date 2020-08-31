@@ -54,13 +54,13 @@ export class CartComponent implements OnInit, OnDestroy {
       const patchProductSingleSub = this.productService
       .patchProduct(item._id,item['selectedSize'])
       .subscribe((response)=>{
-        window.alert('Poslato')
+        window.alert('Poslato');
       });
       this.activeSubscriptions.push(patchProductSingleSub);
     });
     
+    this.register(data);
   
-
     const createSub = this.cartService
       .createAnOrder(data)
       .subscribe((order: Order) => {
@@ -74,16 +74,14 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   register(data) {
-
-    this.http.sendEmail("http://localhost:3000/sendmail", data).subscribe(
-      data => {
-        let res:any = data;
-        console.log("${data.name}, mail has been sent. Id:  ${res.messageId}");
-      },
-      err => {
-        console.log(err);
-      },() => {}
-    );
+    const connSub =  this.http.sendEmail("http://localhost:3000/sendmail", data)
+      .subscribe(
+        data => {
+          let res:any = data;
+          console.log("${data.name}, mail has been sent. Id:  ${res.messageId}");
+        }
+      );
+      this.activeSubscriptions.push(connSub);
   }
 
   public get name() {
