@@ -75,7 +75,6 @@ export class ProductInfoComponent implements OnDestroy {
   }
 
   public addToCart(selectedSize: HTMLOptionElement) {
-    console.log(selectedSize.value);
     this.product['selectedSize'] = selectedSize.value;
     this.cartService.addToCart(this.product);
     window.alert('Your product has been added to the cart!');

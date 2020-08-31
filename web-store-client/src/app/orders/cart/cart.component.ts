@@ -34,7 +34,6 @@ export class CartComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern('[0-9]+ [ a-zA-Z0-9]+')],
       ],
       email: ['', [Validators.required, Validators.email]],
-      size:['']
     });
   }
 
@@ -51,16 +50,17 @@ export class CartComponent implements OnInit, OnDestroy {
       window.alert('Not valid!');
       return;
     }
-    //this.register(data);
-    
-    console.log(data['size']);
-    const patchProduct = this.productService
-      .patchProduct(this.items[0]._id,data['size'])
+    this.items.forEach( (item) => {
+      const patchProductSingleSub = this.productService
+      .patchProduct(item._id,item['selectedSize'])
       .subscribe((response)=>{
-        window.alert('Poslato');
+        window.alert('Poslato')
       });
-    this.activeSubscriptions.push(patchProduct);
-      
+      this.activeSubscriptions.push(patchProductSingleSub);
+    });
+    
+  
+
     const createSub = this.cartService
       .createAnOrder(data)
       .subscribe((order: Order) => {

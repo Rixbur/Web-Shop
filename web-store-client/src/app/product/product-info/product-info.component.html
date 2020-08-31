@@ -26,22 +26,22 @@
             <div>
               <form [formGroup]="addToCartForm"  (ngSubmit)="addToCart(selectedSize)">
                 <select class="form-control" formControlName="selectedSize" #selectedSize>
-                    <option *ngFor="let item of product['mapa'].entries()">
-                      {{  item[0] }}
+                    <option *ngFor="let item of product['mapa'] | keyvalue">
+                      {{  item.key }}
                     </option>
                   </select>
             
                 <button
                   class="btn btn-primary btn-block"
-                  type="submit"
-                  
+                  type="submit" 
                 >
                   Add a product
                 </button>
+                <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
               </form>
             </div>
           <hr/>
-            <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
+            
           </div>
       </div>
 

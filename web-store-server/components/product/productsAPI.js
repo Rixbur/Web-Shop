@@ -113,12 +113,14 @@ updateByProductId = async function (req, res, next) {
   try {
     const product = await Product.findById(productId).exec();
     const mapQuantOfSizes = new Map(JSON.parse(product['mapQuantOfSizes']));
-    const currentCount = mapQuantOfSizes.get(req.body.size);
+    const currentCount = mapQuantOfSizes.get(parseInt(req.body.size));
+    console.log(req.body.size);
+    console.log(currentCount);
     if(currentCount == 1){
-      mapQuantOfSizes.delete(36);
+      mapQuantOfSizes.delete(parseInt(req.body.size));
     }
     else{
-      mapQuantOfSizes.set(36, currentCount - 1);
+      mapQuantOfSizes.set(parseInt(req.body.size), currentCount - 1);
     }
     const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
     updateOptions['mapQuantOfSizes'] = mapa;
