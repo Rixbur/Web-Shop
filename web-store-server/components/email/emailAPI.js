@@ -34,11 +34,13 @@ async function sendMail(user, callback) {
 
     let mailOptions = {
         from: mail.email,
-        to: user.email,
+        to: user.data.email,
         subject: "Order confirmed",
-        html: `<h1>Hello, ${user.name}!</h1>
-          Thank you for thrusting us. Yor address: ${user.address}.
-           Your order will be sent soon.
+        html: `<h1>Hello, ${user.data.name}!</h1>
+           Thank you for thrusting us. 
+           Yor address: ${user.data.address}.
+           Your order will be sent soon. 
+           Ordered products: ${user.products}
           Best wishes, your team! `
     };
 

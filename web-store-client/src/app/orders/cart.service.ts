@@ -21,9 +21,16 @@ export class CartService extends HttpErrorHandler {
     super(router);
   }
 
-  public addToCart(product: ExportableProduct): void {
+  public addToCart(product: ExportableProduct): boolean {
+
+    for (const cartProduct of this.getItems()) {
+      if(cartProduct['m_selectedSize'] == product['m_selectedSize']){
+        return false;
+      }
+    }
     console.log(product);
     this.items.push(product);
+    return true;
   }
 
   public getItems(): ExportableProduct[] {

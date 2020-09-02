@@ -50,6 +50,8 @@ export class CartComponent implements OnInit, OnDestroy {
       window.alert('Not valid!');
       return;
     }
+    let allItemsList = [];
+    let suma:number = 0;
     this.items.forEach( (item) => {
         let exist = false;
         let quantityOfSelected = 0;
@@ -67,8 +69,21 @@ export class CartComponent implements OnInit, OnDestroy {
           
         }
         if(!exist){
-          window.alert('Product ${item.nekoIme} size ${item.selectedSize} is no longer available. Try some other size please.');
+          this.cartService.removeProductFromCartById(item['_id']);
+          window.alert('Product ${item.nekoIme} size ${item.selectedSize} is no longer available. Try ordering some other size please.');
         } else {
+          
+          const str = [];
+          str.push('Product: ');
+          str.push(item['name']);
+          str.push(', size: ');
+          str.push(item['selectedSize']);
+          str.push(', price: ');
+          str.push(item['price']);
+          str.push(`.   `);
+          
+          suma += item['price'];
+          allItemsList.push(str);
 
           const patchProductSingleSub = this.productService
           .patchProduct(item._id,item['selectedSize'])
@@ -90,8 +105,16 @@ export class CartComponent implements OnInit, OnDestroy {
         }
 
       });
+    //umesto ovoga pravi string
+    //const body = { data: data, products: this.items };
+    allItemsList.push(' In total: ');
+    allItemsList.push(suma);
+    let allItems = allItemsList.join("");
+    console.log('........................');
+    console.log(allItems);
     
-    this.register(data);
+    const body = { data: data, products: allItems };
+    this.register(body);
   
     const createSub = this.cartService
       .createAnOrder(data)
@@ -110,7 +133,7 @@ export class CartComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           let res:any = data;
-          console.log("${data.name}, mail has been sent. Id:  ${res.messageId}");
+          console.log("Mail has been sent.");
         }
       );
       this.activeSubscriptions.push(connSub);
