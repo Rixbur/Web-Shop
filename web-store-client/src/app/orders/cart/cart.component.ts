@@ -53,65 +53,31 @@ export class CartComponent implements OnInit, OnDestroy {
     let allItemsList = [];
     let suma:number = 0;
     this.items.forEach( (item) => {
-        let exist = false;
-        let quantityOfSelected = 0;
-        const mapLen = item['mapa'].size;
-
-        for (const element of item['mapa']) {
-          //selectedSize exists in sizes
-          if(element[0].toString() == item['selectedSize']){
-            if(element[1] > 0){
-              exist = true;
-              quantityOfSelected = element[1];
-            }
-            break;
-          }
           
-        }
-        if(!exist){
-          this.cartService.removeProductFromCartById(item['_id']);
-          window.alert('Product ${item.nekoIme} size ${item.selectedSize} is no longer available. Try ordering some other size please.');
-        } else {
-          
-          const str = [];
-          str.push('Product: ');
-          str.push(item['name']);
-          str.push(', size: ');
-          str.push(item['selectedSize']);
-          str.push(', price: ');
-          str.push(item['price']);
-          str.push(`.   `);
-          
-          suma += item['price'];
-          allItemsList.push(str);
+      const str = [];
+      str.push('Product: ');
+      str.push(item['name']);
+      str.push(', size: ');
+      str.push(item['selectedSize']);
+      str.push(', price: ');
+      str.push(item['price']);
+      str.push(`.  <br/> `);
+      
+      suma += item['price'];
+      allItemsList.push(str.join(""));
 
-          const patchProductSingleSub = this.productService
-          .patchProduct(item._id,item['selectedSize'])
-          .subscribe((response)=>{
-            window.alert('Poslato');
-          });
-          this.activeSubscriptions.push(patchProductSingleSub);
-          
-          //If this was the last pair of shoes, after ordering it, product should be deleted
-          if(mapLen == 1 && quantityOfSelected == 1){
-
-            const deleteSub = this.productService
-              .removeProductById(item._id)
-              .subscribe(() => {
-                this.cartService.removeProductFromCartById(item._id);
-              });
-            this.activeSubscriptions.push(deleteSub);
-          }
-        }
-
+      const patchProductSingleSub = this.productService
+      .patchProduct(item._id,item['selectedSize'])
+      .subscribe((response)=>{
+        window.alert('Poslato');
       });
-    //umesto ovoga pravi string
-    //const body = { data: data, products: this.items };
+      this.activeSubscriptions.push(patchProductSingleSub);
+
+    });
+
     allItemsList.push(' In total: ');
     allItemsList.push(suma);
     let allItems = allItemsList.join("");
-    console.log('........................');
-    console.log(allItems);
     
     const body = { data: data, products: allItems };
     this.register(body);

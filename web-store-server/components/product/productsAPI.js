@@ -114,18 +114,35 @@ updateByProductId = async function (req, res, next) {
     const product = await Product.findById(productId).exec();
     const mapQuantOfSizes = new Map(JSON.parse(product['mapQuantOfSizes']));
     const currentCount = mapQuantOfSizes.get(parseInt(req.body.size));
-    console.log(req.body.size);
-    console.log(currentCount);
-    if(currentCount == 1){
+    if( typeof currentCount === 'undefined' ){
+      res.status(200).json({ message: 'The product is not modified.' });
+
+    } else if(currentCount == 1){
       mapQuantOfSizes.delete(parseInt(req.body.size));
+      if(mapQuantOfSizes.size == 0){
+        
+        const deletedProducts = await Product.deleteOne({ _id: productId }).exec();
+        if(deletedProducts['deletedCount']){
+          res.status(200).json({ message: 'The product is successfully deleted' });
+        }
+        else{
+          res.status(200).json({ message: 'The product is already bought' });
+        }
+
+      }else {
+        const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
+        updateOptions['mapQuantOfSizes'] = mapa;
+        await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
+      }
+    
     }
     else{
       mapQuantOfSizes.set(parseInt(req.body.size), currentCount - 1);
+      const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
+      updateOptions['mapQuantOfSizes'] = mapa;
+      await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
+    
     }
-    const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
-    updateOptions['mapQuantOfSizes'] = mapa;
-
-    await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
     res.status(200).json({ message: 'The product is successfully updated' });
   } catch (err) {
     next(err);

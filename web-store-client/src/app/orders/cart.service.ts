@@ -24,7 +24,9 @@ export class CartService extends HttpErrorHandler {
   public addToCart(product: ExportableProduct): boolean {
 
     for (const cartProduct of this.getItems()) {
-      if(cartProduct['m_selectedSize'] == product['m_selectedSize']){
+      if(cartProduct['_id'] == product['_id'] ){  
+        console.log(cartProduct);
+        console.log(product);
         return false;
       }
     }
