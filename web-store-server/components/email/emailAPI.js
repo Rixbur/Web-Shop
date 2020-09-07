@@ -8,15 +8,45 @@ const router = express.Router();
 router.use(cors({ origin: "*" }));
 
 router.post("/", (req, res) => {
-    console.log("Request has come.");
     let user = req.body;
-    sendMail(user, info => {
+
+    let mailOptions = {
+        from: mail.email,
+        to: user.data.email,
+        subject: "Order confirmed",
+        html: `<h1>Hello, ${user.data.name}!</h1>
+           Thank you for thrusting us. 
+           Yor address: ${user.data.address}.<br/>
+           Your order will be sent soon. <br/>
+           Ordered products:<br/>${user.products}<br/>
+          Best wishes, your team! `
+    };
+
+    sendMail(mailOptions, info => {
         console.log(`Email is sent. Id: ${info.messageId}`);
         res.send(info);
     });
 });
 
-async function sendMail(user, callback) {
+router.post('/fromuser', (req, res) => {
+    let user = req.body;
+
+    let mailOptions = {
+        from: mail.email,
+        to: mail.email,
+        subject: "[user contact]",
+        html: `<h3> Sender: ${user.name}!</h3>
+               <h3> Mail: ${user.mail}</h3>
+               <p>${user.text}</p>`
+    };
+    sendMail(mailOptions, info => {
+        console.log(`User mail is sent. Id: ${info.messageId}`);
+        res.send(info);
+    });
+
+});
+
+async function sendMail(mailOptions, callback) {
   
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -31,18 +61,6 @@ async function sendMail(user, callback) {
         },
         enable_starttls_auto: true
     });
-
-    let mailOptions = {
-        from: mail.email,
-        to: user.data.email,
-        subject: "Order confirmed",
-        html: `<h1>Hello, ${user.data.name}!</h1>
-           Thank you for thrusting us. 
-           Yor address: ${user.data.address}.<br/>
-           Your order will be sent soon. <br/>
-           Ordered products:<br/>${user.products}<br/>
-          Best wishes, your team! `
-    };
 
     let info = await transporter.sendMail(mailOptions);
 
