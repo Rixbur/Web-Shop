@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FilterService } from '../filter.service';
+import { FilterService } from '../../services/filter.service';
 import { Observable } from 'rxjs';
 import { ExportableProduct } from '../model/exportable.product.model'
 import { OwlOptions } from 'ngx-owl-carousel-o';

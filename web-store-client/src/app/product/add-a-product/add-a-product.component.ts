@@ -1,5 +1,5 @@
 import { ExportableProduct } from '../../product/model/exportable.product.model';
-import { ProductService } from '../product.service';
+import { ProductService } from '../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';

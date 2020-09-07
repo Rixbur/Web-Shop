@@ -1,13 +1,13 @@
 import { Subscription } from 'rxjs';
 import { Order } from '../order.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CartService } from '../cart.service';
+import { CartService } from '../../services/cart.service';
 import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
 import { ConnectionService } from '../../services/connection.service';
-import { ProductService } from '../../product/product.service';
-import { FilterService } from 'src/app/product/filter.service';
+import { ProductService } from '../../services/product.service';
+import { FilterService } from '../../services/filter.service';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',

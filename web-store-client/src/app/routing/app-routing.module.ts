@@ -7,7 +7,8 @@ import { CartComponent } from '../orders/cart/cart.component';
 import { AddAProductComponent } from '../product/add-a-product/add-a-product.component';
 import { OrderListComponent } from '../orders/order-list/order-list.component';
 import { OrderInfoComponent } from '../orders/order-info/order-info.component';
-
+import { LoginComponent } from '../user/login/login.component';
+import { RegisterComponent } from '../user/register/register.component';
 import { HomeComponent } from '../home/home.component';
 
 
@@ -18,7 +19,9 @@ const routes: Routes = [
   { path: 'add-a-product', component: AddAProductComponent },
   { path: 'view-orders', component: OrderListComponent },
   { path: 'view-orders/:orderId', component: OrderInfoComponent },
-  { path: 'error', component: ErrorPageComponent }
+  { path: 'error', component: ErrorPageComponent },
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({

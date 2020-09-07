@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ExportableProduct } from './model/exportable.product.model';
+import { ExportableProduct } from '../product/model/exportable.product.model';
 import { Observable } from 'rxjs';
-import { ProductService } from '../product/product.service';
+import { ProductService } from './product.service';
 import { filter, map } from 'rxjs/operators';
 
 

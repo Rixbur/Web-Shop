@@ -3,10 +3,10 @@ import { Subscription } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { ProductService } from '../product.service';
+import { ProductService } from '../../services/product.service';
 import { ExportableProduct } from '../model/exportable.product.model';
-import { CartService } from '../../orders/cart.service';
-import { FilterService } from '../filter.service';
+import { CartService } from '../../services/cart.service';
+import { FilterService } from '../../services/filter.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({

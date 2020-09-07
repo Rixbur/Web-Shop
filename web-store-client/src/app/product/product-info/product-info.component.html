@@ -9,7 +9,7 @@
               <ng-container>
                 <ng-template carouselSlide *ngFor="let image of product.productImage, let i = index">
                   <img src="http://localhost:3000/images/{{product.productImage[i]}}">
-                  <div class="carousel-caption">
+                  <div class="carousel-caption">S
                     <h3 style="color: black;">{{ product['name'] }}</h3>
                     <p style="color: black;" [innerText]="product['name']"></p>
                   </div>
@@ -37,8 +37,8 @@
                 >
                   Add a product
                 </button>
-                <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
               </form>
+              <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
             </div>
           <hr/>
             

@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
-import { Order } from './order.model';
+import { Order } from '../orders/order.model';
 import { ExportableProduct } from '../product/model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
-import { ProductService } from '../product/product.service';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root',
