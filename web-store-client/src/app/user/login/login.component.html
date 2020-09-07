@@ -1,41 +1,35 @@
-<div class = "container">
-    <form class="my-2">
-        <div class = "row pt-5">
-
-            <form >
-                <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    class="form-control"
-                    formControlName="email"
-                />
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    class="form-control"
-                    formControlName="password"
-                    />
-                </div>
-            
-                <button
-                class="btn btn-primary btn-block"
-                type="submit"
-                >
-                Login
-                </button>
-            </form>
+<div class="container">
+  <form class="my-2">
+    <div class="row pt-5">
+      <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            class="form-control"
+            [(ngModel)]="email"
+          />
         </div>
-    </form>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="text"
+            name="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="password"
+          />
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">Login</button>
+      </form>
+    </div>
+  </form>
 </div>
 
-  <!-- <div class="alert alert-danger" *ngIf="name.errors?.required">
+<!-- <div class="alert alert-danger" *ngIf="name.errors?.required">
     Name is required      [disabled]="!checkoutForm.valid"
 
   </div>

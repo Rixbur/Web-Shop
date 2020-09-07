@@ -1,1 +1,53 @@
-<p>register works!</p>
+<div class="container">
+  <form class="my-2">
+    <div class="row pt-5">
+      <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            class="form-control"
+            [(ngModel)]="email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="text"
+            name="password"
+            id="password"
+            class="form-control"
+            [(ngModel)]="password"
+          />
+        </div>
+
+        <button class="btn btn-primary btn-block" type="submit">
+          Register
+        </button>
+      </form>
+    </div>
+  </form>
+</div>
+
+<!-- <div class="alert alert-danger" *ngIf="name.errors?.required">
+    Name is required      [disabled]="!checkoutForm.valid"
+
+  </div>
+  <div class="alert alert-danger" *ngIf="name.errors?.incorrectName">
+    Name is not correct
+  </div>
+  <div class="alert alert-danger" *ngIf="address.errors?.required">
+    Address is required
+  </div>
+  <div class="alert alert-danger" *ngIf="address.errors?.pattern">
+    Address doesn't match the pattern
+  </div>
+  <div class="alert alert-danger" *ngIf="email.errors?.required">
+    Email is required
+  </div>
+  <div class="alert alert-danger" *ngIf="email.errors?.email">
+    Email is not valid
+  </div>
+</div> -->
