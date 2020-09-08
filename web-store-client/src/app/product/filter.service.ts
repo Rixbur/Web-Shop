@@ -11,20 +11,24 @@ import { filter, map } from 'rxjs/operators';
 export class FilterService {
 
   public m_filterObject = {};
-
+  public m_filteredProducts: Observable<ExportableProduct[]>;
   constructor(private m_productService: ProductService) {
     // this.m_products.push(new Product(1,"Timberland verdana","Crvene cipele","prolece",15,true,"cokule",39));
     // this.m_products.push(new Product(2, "Nike ignis","Plave patike","leto",30,true,"patike",41));
     // this.m_products.push(new Product(3, "H&M splash","Zute cizme","jesen",10,false,"cizme",22));
+    this.m_filteredProducts = this.filteredProducts();
   }
   filteredProducts(): Observable<ExportableProduct[]>{
-    return this.m_productService.getProducts()
+    let result = this.m_productService.getProducts()
     .pipe(
       map((_prodList: ExportableProduct[]) =>
         _prodList
         .map(_prod => this.mapParsing(_prod))
         .filter(_prod => this.applyFilter(_prod)))
     );
+    console.log("stiglo");
+
+    return result
   }
   mapParsing(_prod:ExportableProduct){
       for(const key in _prod){
@@ -46,22 +50,29 @@ export class FilterService {
     let selectedType: string = this.m_filterObject['type']
     console.log(_prod);
     console.log(this.m_filterObject);
-    //
-    //
-    console.log('true');
+
     if(selectedType == "" || selectedType == _prod['category']){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
         // If object's category is not specified, show the current object
         if(this.m_filterObject['isShoe'] == undefined){
-          return true;
+
+          if(this.m_filterObject['minPrice'] < _prod['price']
+            &&this.m_filterObject['maxPrice'] > _prod['price']){
+
+              return true;
+            }
+            else{
+              return false;
+            }
         }
         // Else, check if the current shoe matches the given pattern
         if(this.m_filterObject['isShoe'] && _prod['articleType']){
 
           if(this.m_filterObject['selectedSeason'] == _prod['season']
             || this.m_filterObject['selectedSeason'] == ""){
+
               if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
               {
                 console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
@@ -84,19 +95,6 @@ export class FilterService {
       }
     }
 
-    if(selectedType == "" || selectedType == _prod['category'] &&
-      this.m_filterObject['isShoe'] && _prod['articleType']){
-
-      if(keyword == "" || prodName.indexOf(keyword) != -1){
-
-        if(this.m_filterObject['minPrice'] < _prod['price']
-          &&this.m_filterObject['maxPrice'] > _prod['price']
-          &&_prod.m_articleType == this.m_filterObject['isShoe']){
-            console.log('true');
-        return true;
-        }
-      }
-    }
 
     console.log('false');
 
@@ -104,6 +102,6 @@ export class FilterService {
   }
   updateFilters(_filterObject){
     this.m_filterObject = _filterObject;
-
+    this.m_filteredProducts = this.filteredProducts();
   }
 }

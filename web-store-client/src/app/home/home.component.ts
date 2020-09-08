@@ -91,6 +91,5 @@ export class HomeComponent implements OnInit {
       name: this.m_selectedName,
       type: this.m_type
       });
-
   }
 }

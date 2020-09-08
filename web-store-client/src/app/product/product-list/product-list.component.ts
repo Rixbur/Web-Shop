@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit {
   public m_productList: Observable<ExportableProduct[]>;
 
   constructor(public m_productService: FilterService) {
-    this.m_productList = m_productService.filteredProducts();
+    this.m_productList = m_productService.m_filteredProducts
    }
 
   ngOnInit(): void {
