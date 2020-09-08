@@ -11,24 +11,20 @@ import { filter, map } from 'rxjs/operators';
 export class FilterService {
 
   public m_filterObject = {};
-  public m_filteredProducts: Observable<ExportableProduct[]>;
+  public m_filterProducts = [];
+  public m_filterProductsPromise;
   constructor(private m_productService: ProductService) {
-    // this.m_products.push(new Product(1,"Timberland verdana","Crvene cipele","prolece",15,true,"cokule",39));
-    // this.m_products.push(new Product(2, "Nike ignis","Plave patike","leto",30,true,"patike",41));
-    // this.m_products.push(new Product(3, "H&M splash","Zute cizme","jesen",10,false,"cizme",22));
-    this.m_filteredProducts = this.filteredProducts();
   }
-  filteredProducts(): Observable<ExportableProduct[]>{
-    let result = this.m_productService.getProducts()
-    .pipe(
-      map((_prodList: ExportableProduct[]) =>
-        _prodList
-        .map(_prod => this.mapParsing(_prod))
-        .filter(_prod => this.applyFilter(_prod)))
-    );
-    console.log("stiglo");
 
-    return result
+  filteredProducts(): Observable<ExportableProduct[]>{
+
+    return this.m_productService.getProducts()
+            .pipe(
+              map((_prodList: ExportableProduct[]) =>
+                _prodList
+                .map(_prod => this.mapParsing(_prod))
+                .filter(_prod => this.applyFilter(_prod)))
+            );
   }
   mapParsing(_prod:ExportableProduct){
       for(const key in _prod){
@@ -60,10 +56,11 @@ export class FilterService {
 
           if(this.m_filterObject['minPrice'] < _prod['price']
             &&this.m_filterObject['maxPrice'] > _prod['price']){
-
+              console.log("true");
               return true;
             }
             else{
+              console.log("false");
               return false;
             }
         }
@@ -90,6 +87,7 @@ export class FilterService {
                 &&this.m_filterObject['maxPrice'] > _prod['price']
                 &&_prod.m_articleType == this.m_filterObject['isShoe']){
 
+          console.log("true");
           return true;
         }
       }
@@ -101,7 +99,13 @@ export class FilterService {
     return false;
   }
   updateFilters(_filterObject){
+    console.log(_filterObject);
+
     this.m_filterObject = _filterObject;
-    this.m_filteredProducts = this.filteredProducts();
+    this.m_filterProductsPromise = this.filteredProducts().toPromise()
+                                                          .then(prods =>{
+                                                            this.m_filterProducts = prods;
+                                                            console.log(prods)})
+                                                          .catch(err => console.log(err))
   }
 }
