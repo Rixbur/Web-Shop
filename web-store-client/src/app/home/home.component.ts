@@ -9,6 +9,7 @@ import {ProductListComponent} from '../product/product-list/product-list.compone
 export class HomeComponent implements OnInit {
 
   public m_isShoe: boolean = undefined;
+  public m_selectedName: string = "";
   public m_selectedSeason: string = "";
   public m_maxPrice: number = 100;
   public m_minPrice: number = 0;
@@ -43,6 +44,10 @@ export class HomeComponent implements OnInit {
     this.m_isShoe=true;
   }
 
+  onChangeName(_event: Event): void{
+    this.m_selectedName=(<HTMLInputElement>_event.target).value;
+
+  }
   onChangeSeason(_event: Event): void{
     this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
     this.updateFilters();
@@ -75,7 +80,8 @@ export class HomeComponent implements OnInit {
       selectedSeason : this.m_selectedSeason,
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,
-      shoeSize : this.m_shoeSize
+      shoeSize : this.m_shoeSize,
+      name: this.m_selectedName
       });
 
   }

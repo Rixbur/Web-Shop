@@ -35,35 +35,48 @@ export class FilterService {
       //console.log(_prod.mapa);
       return _prod;
   }
-  
+
   applyFilter(_prod:ExportableProduct){
     // if(this.m_filterObject['isShoe'] == undefined){
     //   return true;
     // }
-    
-    console.log(_prod);
-    console.log
-    if(this.m_filterObject['isShoe'] && _prod['articleType']){
-      if(this.m_filterObject['selectedSeason'] == _prod['season']
-        || this.m_filterObject['selectedSeason'] == ""){
-        if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
-          {
-            console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
-          if(this.m_filterObject['minPrice'] < _prod['price']
-            &&this.m_filterObject['maxPrice'] > _prod['price']){
-              return true
+    let keyword = this.m_filterObject['name']
+    let prodName: string = _prod['name']
+    // console.log(_prod);
+    // console.log(this.m_filterObject);
+    // console.log(prodName);
+    // console.log(prodName.indexOf(keyword));
+
+    if(keyword == "" || prodName.indexOf(keyword) != -1){
+      if(this.m_filterObject['isShoe'] && _prod['articleType']){
+        if(this.m_filterObject['selectedSeason'] == _prod['season']
+          || this.m_filterObject['selectedSeason'] == ""){
+          if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
+            {
+              console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
+            if(this.m_filterObject['minPrice'] < _prod['price']
+              &&this.m_filterObject['maxPrice'] > _prod['price']){
+                console.log('true');
+                return true
+            }
           }
         }
-      }
-    //Misc
-    }else{
-      if(this.m_filterObject['minPrice'] < _prod['price']
-        &&this.m_filterObject['maxPrice'] > _prod['price']
-        &&_prod.m_articleType == this.m_filterObject['isShoe']){
-
-        return true;
+      //Misc
       }
     }
+    else{
+      if(keyword == "" || prodName.indexOf(keyword) != -1){
+        if(this.m_filterObject['minPrice'] < _prod['price']
+          &&this.m_filterObject['maxPrice'] > _prod['price']
+          &&_prod.m_articleType == this.m_filterObject['isShoe']){
+            console.log('true');
+
+          return true;
+        }
+      }
+    }
+    console.log('false');
+
     return false;
   }
   updateFilters(_filterObject){
