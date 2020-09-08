@@ -1,2 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
+.main{
+  background-image: url('./assets/background.png');
+}
+.accented{
+  background-color: rgb(176, 95, 251);
+}

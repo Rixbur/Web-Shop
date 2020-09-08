@@ -43,49 +43,67 @@ export class FilterService {
     let keyword = this.m_filterObject['name']
     let prodName: string = _prod['name']
 
-    let selectedType: string = this.m_filterObject['category']
-    // console.log(_prod);
-    // console.log(this.m_filterObject);
-    // console.log(prodName);
-    // console.log(prodName.indexOf(keyword));
-
+    let selectedType: string = this.m_filterObject['type']
+    console.log(_prod);
+    console.log(this.m_filterObject);
+    //
+    //
+    console.log('true');
     if(selectedType == "" || selectedType == _prod['category']){
+
       if(keyword == "" || prodName.indexOf(keyword) != -1){
+
+        // If object's category is not specified, show the current object
+        if(this.m_filterObject['isShoe'] == undefined){
+          return true;
+        }
+        // Else, check if the current shoe matches the given pattern
         if(this.m_filterObject['isShoe'] && _prod['articleType']){
+
           if(this.m_filterObject['selectedSeason'] == _prod['season']
             || this.m_filterObject['selectedSeason'] == ""){
-            if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
+              if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
               {
                 console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
-              if(this.m_filterObject['minPrice'] < _prod['price']
+
+                if(this.m_filterObject['minPrice'] < _prod['price']
                 &&this.m_filterObject['maxPrice'] > _prod['price']){
                   console.log('true');
                   return true
-              }
+                }
             }
           }
-        //Misc
         }
-      }
-    }
-    else{
-      if(selectedType == "" || selectedType == _prod['category']){
-      if(keyword == "" || prodName.indexOf(keyword) != -1){
-        if(this.m_filterObject['minPrice'] < _prod['price']
-          &&this.m_filterObject['maxPrice'] > _prod['price']
-          &&_prod.m_articleType == this.m_filterObject['isShoe']){
-            console.log('true');
+        // If it's not a shoe, then check if the misc object matches the same pattern
+        else if(this.m_filterObject['minPrice'] < _prod['price']
+                &&this.m_filterObject['maxPrice'] > _prod['price']
+                &&_prod.m_articleType == this.m_filterObject['isShoe']){
 
           return true;
         }
       }
     }
-  }
+
+    if(selectedType == "" || selectedType == _prod['category'] &&
+      this.m_filterObject['isShoe'] && _prod['articleType']){
+
+      if(keyword == "" || prodName.indexOf(keyword) != -1){
+
+        if(this.m_filterObject['minPrice'] < _prod['price']
+          &&this.m_filterObject['maxPrice'] > _prod['price']
+          &&_prod.m_articleType == this.m_filterObject['isShoe']){
+            console.log('true');
+        return true;
+        }
+      }
+    }
+
     console.log('false');
 
     return false;
   }
   updateFilters(_filterObject){
     this.m_filterObject = _filterObject;
+
   }
 }

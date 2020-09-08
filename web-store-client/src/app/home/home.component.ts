@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
 
   onChangeName(_event: Event): void{
     this.m_selectedName=(<HTMLInputElement>_event.target).value;
+    this.updateFilters();
 
   }
   onChangeSeason(_event: Event): void{
