@@ -42,29 +42,34 @@ export class FilterService {
     // }
     let keyword = this.m_filterObject['name']
     let prodName: string = _prod['name']
+
+    let selectedType: string = this.m_filterObject['category']
     // console.log(_prod);
     // console.log(this.m_filterObject);
     // console.log(prodName);
     // console.log(prodName.indexOf(keyword));
 
-    if(keyword == "" || prodName.indexOf(keyword) != -1){
-      if(this.m_filterObject['isShoe'] && _prod['articleType']){
-        if(this.m_filterObject['selectedSeason'] == _prod['season']
-          || this.m_filterObject['selectedSeason'] == ""){
-          if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
-            {
-              console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
-            if(this.m_filterObject['minPrice'] < _prod['price']
-              &&this.m_filterObject['maxPrice'] > _prod['price']){
-                console.log('true');
-                return true
+    if(selectedType == "" || selectedType == _prod['category']){
+      if(keyword == "" || prodName.indexOf(keyword) != -1){
+        if(this.m_filterObject['isShoe'] && _prod['articleType']){
+          if(this.m_filterObject['selectedSeason'] == _prod['season']
+            || this.m_filterObject['selectedSeason'] == ""){
+            if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
+              {
+                console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
+              if(this.m_filterObject['minPrice'] < _prod['price']
+                &&this.m_filterObject['maxPrice'] > _prod['price']){
+                  console.log('true');
+                  return true
+              }
             }
           }
+        //Misc
         }
-      //Misc
       }
     }
     else{
+      if(selectedType == "" || selectedType == _prod['category']){
       if(keyword == "" || prodName.indexOf(keyword) != -1){
         if(this.m_filterObject['minPrice'] < _prod['price']
           &&this.m_filterObject['maxPrice'] > _prod['price']
@@ -75,6 +80,7 @@ export class FilterService {
         }
       }
     }
+  }
     console.log('false');
 
     return false;

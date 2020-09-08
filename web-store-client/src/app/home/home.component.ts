@@ -9,6 +9,7 @@ import {ProductListComponent} from '../product/product-list/product-list.compone
 export class HomeComponent implements OnInit {
 
   public m_isShoe: boolean = undefined;
+  public m_type: string = "";
   public m_selectedName: string = "";
   public m_selectedSeason: string = "";
   public m_maxPrice: number = 100;
@@ -22,6 +23,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChangeType(_event: Event): void {
+    let l_selectedType = (<HTMLOptionElement>(_event.target)).value;
+    this.m_type = l_selectedType;
+    this.updateFilters();
+  }
   onChangeProductCategory(_event: Event): void {
     let l_selectedCategory = (<HTMLOptionElement>(_event.target)).value;
     console.log("onChangeProductCategory function:");
@@ -81,7 +87,8 @@ export class HomeComponent implements OnInit {
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,
       shoeSize : this.m_shoeSize,
-      name: this.m_selectedName
+      name: this.m_selectedName,
+      type: this.m_type
       });
 
   }
