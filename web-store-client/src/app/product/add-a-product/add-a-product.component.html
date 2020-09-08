@@ -108,11 +108,23 @@
     Name is required
   </div>
 
-  <div class="alert alert-danger" *ngIf="getPriceErrors()?.required">
-    Price is required
+  <div class="alert alert-danger" *ngIf="getArticleTypeErrors()?.required">
+    Type of artcle is required
+  </div>
+  
+  <div class="alert alert-danger" *ngIf="getCategoryErrors()?.required">
+    Category is required
+  </div>
+
+  <div class="alert alert-danger" *ngIf="getSeasonErrors()?.required">
+    Season is required
   </div>
   <div class="alert alert-danger" *ngIf="getPriceErrors()?.min">
     Price must be at least {{ 1 | currency }}
   </div>
+  <div class="alert alert-danger" *ngIf="getProductImageErrors()?.required">
+    ProductImage is required
+  </div>
+  
 </div>
 </div>
