@@ -20,6 +20,7 @@ import { ErrorPageComponent } from './routing/error-page/error-page.component';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderInfoComponent } from './orders/order-info/order-info.component';
 import { OrderByPipe } from './product/order-by.pipe';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { OrderByPipe } from './product/order-by.pipe';
     OrderListComponent,
     OrderInfoComponent,
     OrderByPipe,
+    AboutComponent,
     
 
   ],
