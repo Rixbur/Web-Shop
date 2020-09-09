@@ -56,12 +56,19 @@ export class CartService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
     }
 
-  getOrders(): Observable<Order[]> {
-    return this.http
-      .get<Order[]>(this.ordersUrl)
-      .pipe(catchError(super.handleError()));
-  }
+    getOrders(): Observable<Order[]> {
+      return this.http
+        .get<Order[]>(this.ordersUrl)
+        .pipe(catchError(super.handleError()));
+    }
 
+    getOrdersByEmail(email: string): Observable<Order[]> {
+      console.log(this.ordersUrl+"searchbyemail/"+email);
+      return this.http
+        .get<Order[]>(this.ordersUrl+"searchbyemail/" + email)
+        .pipe(catchError(super.handleError()));
+    }
+    
   getOrderById(id: string): Observable<Order> {
     return this.http
       .get<Order>(this.ordersUrl + id)

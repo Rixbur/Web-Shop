@@ -20,7 +20,7 @@ userRouter.post("/login", async (req, res) => {
     }
   
   })
-  // const userInMongo = (await userModel.findOne({ email: user.email })).get
+  // const userInMongo =  userModel.findOne({ email: user.email })
   // console.log(user.email);
   // console.log(userInMongo);
   // if (
@@ -35,7 +35,19 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.post("/register", async (req, res) => {
   const user = req.body;
-  // TODO check if user email exists
+  // check if user email exists
+  var query  = userModel.where({ email: user.email });
+  query.findOne(function (err, userInMongo) {
+    console.log(user.email);
+    console.log(userInMongo);
+    if (
+      user.email === userInMongo.email
+    ) {
+      return res.status(202).json({ message: "Already registered!"});
+    } 
+  
+  })
+  //if not, register new user
   const userInMongo = new userModel(user);
   console.log(userInMongo.db.name);
   console.log(userInMongo);

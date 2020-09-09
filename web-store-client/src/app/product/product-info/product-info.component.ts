@@ -8,6 +8,7 @@ import { ExportableProduct } from '../model/exportable.product.model';
 import { CartService } from '../../services/cart.service';
 import { FilterService } from '../../services/filter.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-product-info',
@@ -28,7 +29,8 @@ export class ProductInfoComponent implements OnDestroy {
     private productService: ProductService,
     private cartService: CartService,
     public filterService: FilterService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public userService: UserService
   ) {
     this.prodIsUpdated = false;
     this.activeSubscriptions = [];
@@ -49,6 +51,9 @@ export class ProductInfoComponent implements OnDestroy {
   //       this.activeSubscriptions.push(getProductSub);
   //     });
   //   }
+  hasUser(){return this.userService.hasUser();}
+  userEmail(){return this.userService.getUserEmail();}
+  isAdmin(){ return this.userService.isAdmin();}
 
   private findProductById2() {
     const getProductSub = this.route.paramMap

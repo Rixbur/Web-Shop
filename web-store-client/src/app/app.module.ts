@@ -22,6 +22,7 @@ import { OrderInfoComponent } from './orders/order-info/order-info.component';
 import { OrderByPipe } from './product/order-by.pipe';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
+import { LogoutComponent } from './user/logout/logout.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { RegisterComponent } from './user/register/register.component';
     OrderByPipe,
     LoginComponent,
     RegisterComponent,
+    LogoutComponent,
 
   ],
   imports: [
