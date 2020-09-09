@@ -41,3 +41,16 @@
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+select, input[type="number"],input[type="range"]{
+  width:100%;
+  box-sizing:border-box;
+}
+input[type="number"]{
+  border-radius: 6px; border:2px;
+}
+input[type="number"]:focus{
+  border-color: cornflowerblue;
+}
+input[type="number"]:hover{
+  border-color: cornflowerblue;
+}
