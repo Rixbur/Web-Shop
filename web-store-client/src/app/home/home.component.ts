@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FilterService } from '../product/filter.service'
-import { ProductListComponent } from '../product/product-list/product-list.component';
-import { Options, LabelType } from 'ng5-slider'
+import { FilterService } from '../services/filter.service';
+import {ProductListComponent} from '../product/product-list/product-list.component';
+import { Options, LabelType } from 'ng5-slider';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

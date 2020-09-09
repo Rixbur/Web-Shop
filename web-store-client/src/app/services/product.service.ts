@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
-import { ExportableProduct } from './model/exportable.product.model';
+import { ExportableProduct } from '../product/model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
 import { map } from 'rxjs/operators';
 

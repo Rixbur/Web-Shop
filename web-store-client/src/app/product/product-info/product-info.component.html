@@ -38,8 +38,10 @@
                 >
                   Add a product
                 </button>
-                <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
               </form>
+              <div *ngIf="isAdmin()">
+                <button (click)="removeFromStore()" class="btn btn-danger">Remove from store</button>
+              </div>
             </div>
           <hr/>
 

@@ -11,6 +11,24 @@ module.exports.getOrders = async function (req, res, next) {
   }
 };
 
+module.exports.getOrdersByEmail = async function (req, res, next) {
+  const userEmail = req.params.userEmail;
+  console.log(req.params);
+  try {
+    const order = await Order.find({email: userEmail}).exec();
+    if (!order) {
+      return res
+        .status(404)
+        .json({ message: 'The order from given email does not exist' });
+    }
+    res.status(200).json(order);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+};
+
+
 module.exports.createAnOrder = async function (req, res, next) {
   const order = new Order({
     _id: new mongoose.Types.ObjectId(),

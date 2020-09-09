@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
-import { Order } from './order.model';
+import { Order } from '../orders/order.model';
 import { ExportableProduct } from '../product/model/exportable.product.model';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
-import { ProductService } from '../product/product.service';
+import { ProductService } from './product.service';
 
 @Injectable({
   providedIn: 'root',
@@ -56,12 +56,19 @@ export class CartService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
     }
 
-  getOrders(): Observable<Order[]> {
-    return this.http
-      .get<Order[]>(this.ordersUrl)
-      .pipe(catchError(super.handleError()));
-  }
+    getOrders(): Observable<Order[]> {
+      return this.http
+        .get<Order[]>(this.ordersUrl)
+        .pipe(catchError(super.handleError()));
+    }
 
+    getOrdersByEmail(email: string): Observable<Order[]> {
+      console.log(this.ordersUrl+"searchbyemail/"+email);
+      return this.http
+        .get<Order[]>(this.ordersUrl+"searchbyemail/" + email)
+        .pipe(catchError(super.handleError()));
+    }
+    
   getOrderById(id: string): Observable<Order> {
     return this.http
       .get<Order>(this.ordersUrl + id)
