@@ -8,6 +8,8 @@ import { nameValidator } from './name-validator';
 import { ConnectionService } from '../../services/connection.service';
 import { ProductService } from '../../services/product.service';
 import { FilterService } from '../../services/filter.service';
+import { SumPipe } from '../../product/sum.pipe';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -23,7 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
     public http: ConnectionService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private filterServise: FilterService
+    private filterServise: FilterService,
   ) {
     this.activeSubscriptions = [];
     this.items = this.cartService.getItems();
@@ -100,6 +102,11 @@ export class CartComponent implements OnInit, OnDestroy {
         data => {
           let res:any = data;
           console.log("Mail has been sent.");
+          },
+        err => {
+          console.log(err);
+        },() => {
+          console.log("Here");
         }
       );
       this.activeSubscriptions.push(connSub);

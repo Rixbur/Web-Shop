@@ -35,7 +35,6 @@ import { AboutComponent } from './about/about.component';
     CartComponent,
     NavigationComponent,
     ProductInfoComponent,
-    SumPipe,
     AddAProductComponent,
     ErrorPageComponent,
     OrderListComponent,
@@ -45,6 +44,7 @@ import { AboutComponent } from './about/about.component';
     RegisterComponent,
     LogoutComponent,
     AboutComponent,
+    SumPipe
 
 
   ],

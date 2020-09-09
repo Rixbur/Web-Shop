@@ -20,7 +20,7 @@ export class UserService extends HttpErrorHandler{
   }
   
   private userEmail: string ="";
-  //private admin: boolean=false;
+  
 
   login(user: User) {
     console.log('Sending request');
@@ -30,9 +30,6 @@ export class UserService extends HttpErrorHandler{
         if(e.status===200){
             this.userEmail=user.email;
             window.alert("Succesfully logged in!");
-            // if(user.email==="admin@admin"){
-            //   this.admin=true;
-            // }
         }
         else{
           window.alert("Couldn't log in, check username and password");

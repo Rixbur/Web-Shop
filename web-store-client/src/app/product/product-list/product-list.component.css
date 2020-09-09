@@ -1,0 +1,31 @@
+.btn{
+   background-color: blueviolet;
+   position: relative;
+   left: 25%;
+   margin-top: 20px;
+}
+#productListContent{
+    padding:1%;
+}
+#productInfoContent {
+    
+    padding: 5%;
+}
+#productInfoContent h4{
+    color:rgb(137, 43, 226);
+    max-height:30px;
+    max-width: 80%;
+    text-size-adjust: auto;
+    text-overflow: ellipsis; 
+    overflow: hidden; 
+    white-space: nowrap;
+}
+#productInfoContent h6{
+    color:white;
+    max-height:30px;
+    max-width: 80%;
+    text-size-adjust: auto;
+    text-overflow: ellipsis; 
+    overflow: hidden; 
+    white-space: nowrap;
+}
