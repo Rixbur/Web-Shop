@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng5SliderModule } from 'ng5-slider';
+import { NgxSliderModule } from '@m0t0r/ngx-slider';
 
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -56,7 +56,7 @@ import { AboutComponent } from './about/about.component';
     HttpClientModule,
     CarouselModule,
     BrowserAnimationsModule,
-    Ng5SliderModule
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
