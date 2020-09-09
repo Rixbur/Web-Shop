@@ -1,32 +1,9 @@
-<div class="container mx-10">
-  <div class="row" >
-    <div class="col-lg-9">
-      <hr/>
-      <p>Your current cart includes these items:</p>
-      <div class="row">
-        <div id="productListContent" class="col-lg-4" *ngFor= "let product of this.items | orderBy: false">
-          <div id="productInfoContent" class="bg-dark" >
-            <owl-carousel-o [options]="customOptions">
-              <ng-template carouselSlide>
-                <img src="http://localhost:3000/images/{{product.productImage[0]}}" >
-              </ng-template>
-            </owl-carousel-o>
-          </div>
-          <div class="col-lg-3">
-            <div class="container">
-                <h4>{{ product.name }}</h4>
-                <hr />
-                <h6>{{ product.price | currency }}</h6>
-            </div>
-          </div>
-          <hr/>
-        </div>
-      </div>
-    </div>
+
+<div class="container m-xl-5 m-xr-5">
+  <div class="row">
     <div class="col-lg-3">
+    <div class = "container">
       <form class="my-2">
-
-
         <ng-template #noItems>
           <h2>Checkout</h2>
           <hr />
@@ -101,8 +78,32 @@
       </form>
     </div>
   </div>
-</div>
+    <div class="col-lg-9" >
+      <div id="productListContent" class="container mx-10" >
+        <div class="row" >
+          <div id="productInfoContent" class="col-lg-4" *ngFor= "let product of this.items | orderBy: false ; let i=index">
+            <div class="h-100 bg-dark my-2 py-2 px-2" >
 
-<hr>
+              <a><h4 >{{ product.name }}</h4></a>
+              <h6>{{ product.price }}$</h6>
+              <p>{{ product.desription }}</p>
+              <owl-carousel-o [options]="customOptions">
+                  <ng-template carouselSlide>
+                    <img src="http://localhost:3000/images/{{product.productImage[0]}}" >
+                  </ng-template>
+              </owl-carousel-o>
+
+              <button id="crveni-button" class = "btn btn-danger" (click)="removeFromCart(i)"
+              >Remove from cart</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+    </div>
+  </div>
+</div>
 
 

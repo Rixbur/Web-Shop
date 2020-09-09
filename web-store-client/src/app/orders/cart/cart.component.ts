@@ -55,7 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
     let allItemsList = [];
     let suma:number = 0;
     this.items.forEach( (item) => {
-          
+
       const str = [];
       str.push('Product: ');
       str.push(item['name']);
@@ -64,7 +64,7 @@ export class CartComponent implements OnInit, OnDestroy {
       str.push(', price: ');
       str.push(item['price']);
       str.push(`.  <br/> `);
-      
+
       suma += item['price'];
       allItemsList.push(str.join(""));
 
@@ -80,10 +80,10 @@ export class CartComponent implements OnInit, OnDestroy {
     allItemsList.push(' In total: ');
     allItemsList.push(suma);
     let allItems = allItemsList.join("");
-    
+
     const body = { data: data, products: allItems };
     this.register(body);
-  
+
     const createSub = this.cartService
       .createAnOrder(data)
       .subscribe((order: Order) => {
@@ -112,6 +112,13 @@ export class CartComponent implements OnInit, OnDestroy {
       this.activeSubscriptions.push(connSub);
   }
 
+  removeFromCart(_index: number){
+    console.log(_index);
+
+    this.items.splice(_index,1);
+    console.log(this.items);
+
+  }
   public get name() {
     return this.checkoutForm.get('name');
   }
