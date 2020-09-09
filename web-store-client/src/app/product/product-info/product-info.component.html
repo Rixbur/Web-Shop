@@ -11,8 +11,6 @@
                 <ng-template carouselSlide *ngFor="let image of product.productImage, let i = index">
                   <img src="http://localhost:3000/images/{{product.productImage[i]}}" width="50%" height="50%">
                   <div class="carousel-caption">
-                    <h3 style="color: black;">{{ product['name'] }}</h3>
-                    <p style="color: black;" [innerText]="product['name']"></p>
                   </div>
                 </ng-template>
               </ng-container>

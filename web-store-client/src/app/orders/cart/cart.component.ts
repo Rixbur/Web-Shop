@@ -9,7 +9,7 @@ import { ConnectionService } from '../../services/connection.service';
 import { ProductService } from '../../services/product.service';
 import { FilterService } from '../../services/filter.service';
 import { SumPipe } from '../../product/sum.pipe';
-
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -120,5 +120,32 @@ export class CartComponent implements OnInit, OnDestroy {
   }
   public get email() {
     return this.checkoutForm.get('email');
+  }
+
+  customOptions: OwlOptions = {
+    margin: 10,
+    stagePadding:20, //da li da se vide susedi
+    loop: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
   }
 }

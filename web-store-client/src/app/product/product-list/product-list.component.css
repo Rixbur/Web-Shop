@@ -1,15 +1,12 @@
 .btn{
    background-color: blueviolet;
    position: relative;
-   left: 25%;
+   left: 27%;
    margin-top: 20px;
 }
-#productListContent{
-    padding:1%;
-}
+
 #productInfoContent {
-    margin: 5%;
-    padding: 5%;
+    padding: 1%;
 }
 #productInfoContent h4{
     color:rgb(137, 43, 226);

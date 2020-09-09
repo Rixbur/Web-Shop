@@ -106,7 +106,7 @@ export class ProductInfoComponent implements OnDestroy {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
-    dots: false,
+    dots: true,
     navSpeed: 700,
     navText: ['', ''],
     responsive: {
