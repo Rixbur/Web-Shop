@@ -1,5 +1,6 @@
+<div class="container">
 <h2>Add a product</h2>
-<hr />
+<hr/>
 
 <div>
   <form [formGroup]="addAProductForm"  (ngSubmit)="submitForm(image)">
@@ -60,7 +61,7 @@
     <div style="display: inline-block" *ngFor="let size of allSizes">
       <button class="btn btn-secondary" style="background-color: lightseagreen;" (click) = "addSize(size)">{{size}}</button>
     </div>
-  
+
     <h2>Selected sizes:</h2>
     <div *ngFor="let item of selectedSizes | keyvalue">
       <div class="panel panel-default" style="border-style: solid;">
@@ -70,7 +71,7 @@
 
     <div>Summary:</div>
     <div style="display: inline-block" *ngFor="let item of selectedSizes | keyvalue">
-      {{item.key}}:{{item.value}}, 
+      {{item.key}}:{{item.value}},
     </div>
 
 
@@ -107,10 +108,23 @@
     Name is required
   </div>
 
-  <div class="alert alert-danger" *ngIf="getPriceErrors()?.required">
-    Price is required
+  <div class="alert alert-danger" *ngIf="getArticleTypeErrors()?.required">
+    Type of artcle is required
+  </div>
+  
+  <div class="alert alert-danger" *ngIf="getCategoryErrors()?.required">
+    Category is required
+  </div>
+
+  <div class="alert alert-danger" *ngIf="getSeasonErrors()?.required">
+    Season is required
   </div>
   <div class="alert alert-danger" *ngIf="getPriceErrors()?.min">
     Price must be at least {{ 1 | currency }}
   </div>
+  <div class="alert alert-danger" *ngIf="getProductImageErrors()?.required">
+    ProductImage is required
+  </div>
+  
+</div>
 </div>

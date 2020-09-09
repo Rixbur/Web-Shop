@@ -10,6 +10,8 @@ import { OrderInfoComponent } from '../orders/order-info/order-info.component';
 import { LoginComponent } from '../user/login/login.component';
 import { LogoutComponent } from '../user/logout/logout.component';
 import { RegisterComponent } from '../user/register/register.component';
+import { AboutComponent } from '../about/about.component';
+
 import { HomeComponent } from '../home/home.component';
 
 
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path: 'error', component: ErrorPageComponent },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'logout', component: LogoutComponent}
+  { path: 'logout', component: LogoutComponent},
+  { path: 'about', component: AboutComponent }
 ];
 
 @NgModule({

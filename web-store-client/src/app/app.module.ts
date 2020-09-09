@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -23,6 +24,7 @@ import { OrderByPipe } from './product/order-by.pipe';
 import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { LogoutComponent } from './user/logout/logout.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import { LogoutComponent } from './user/logout/logout.component';
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
+    AboutComponent,
+
 
   ],
   imports: [
@@ -51,7 +55,8 @@ import { LogoutComponent } from './user/logout/logout.component';
     AppRoutingModule,
     HttpClientModule,
     CarouselModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

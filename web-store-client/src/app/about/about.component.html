@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="container">
+<h2>About Our store</h2>
+<hr>
+You can find us here:
+<div class = "inner">
+    <div>Address: {{item.address}}</div> <br/>
+    <div>Phone: {{item.address}}</div> <br/>
+    <div>Mail: {{item.address}}</div> <br/>
+    <div>Bank account: {{item.bankAccount}}</div> <br/>
+
+    <i class="fa fa-facebook-square" style="font-size:20px"></i>
+    <a href= "{{item.facebook}}" target="_blank">Facebook</a>
+    <br/> <br/>
+
+    <i class="fa fa-instagram" style="font-size:20px"></i>
+    <a href= "{{item.instagram}}" target="_blank">Instagram</a> <br/>
+</div>
+
+<br/><br/>
+<div>Contact us:</div> <br/>
+<div>
+    <form [formGroup]="contactUsForm"  (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control"
+              formControlName="name"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="mail">Mail</label>
+            <input
+              type="text"
+              name="mail"
+              id="mail"
+              class="form-control"
+              formControlName="mail"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="text">Text</label>
+            <textarea
+              type="text"
+              name="text"
+              id="text"
+              class="form-control"
+              formControlName="text"
+            ></textarea>
+        </div>
+
+        <button
+            class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!contactUsForm.valid"
+        >
+            {{buttonText}}
+        </button>
+
+    </form>
+
+</div>
+</div>>

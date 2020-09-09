@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../services/filter.service';
 import {ProductListComponent} from '../product/product-list/product-list.component';
+import { Options, LabelType } from 'ng5-slider';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -9,9 +11,11 @@ import {ProductListComponent} from '../product/product-list/product-list.compone
 export class HomeComponent implements OnInit {
 
   public m_isShoe: boolean = undefined;
+  public m_type: string = "";
+  public m_selectedName: string = "";
   public m_selectedSeason: string = "";
   public m_maxPrice: number = 100;
-  public m_minPrice: number = 0;
+  public m_minPrice: number = 50;
   public m_shoeSize: number = 39;
 
   constructor(private m_productService: FilterService) {
@@ -21,6 +25,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onChangeType(_event: Event): void {
+    let l_selectedType = (<HTMLOptionElement>(_event.target)).value;
+    this.m_type = l_selectedType;
+    this.updateFilters();
+  }
   onChangeProductCategory(_event: Event): void {
     let l_selectedCategory = (<HTMLOptionElement>(_event.target)).value;
     console.log("onChangeProductCategory function:");
@@ -43,6 +52,11 @@ export class HomeComponent implements OnInit {
     this.m_isShoe=true;
   }
 
+  onChangeName(_event: Event): void{
+    this.m_selectedName=(<HTMLInputElement>_event.target).value;
+    this.updateFilters();
+
+  }
   onChangeSeason(_event: Event): void{
     this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
     this.updateFilters();
@@ -55,12 +69,8 @@ export class HomeComponent implements OnInit {
     return this.m_selectedSeason=='prolece' || this.m_selectedSeason=="leto";
   }
 
-  onChangeMin(_event: Event): void {
-    this.m_minPrice = parseInt( (<HTMLInputElement>_event.target).value )
-    this.updateFilters();
-  }
-  onChangeMax(_event: Event): void {
-    this.m_maxPrice = parseInt( (<HTMLInputElement>_event.target).value )
+
+  onChangeRange(): void{
     this.updateFilters();
   }
 
@@ -75,8 +85,24 @@ export class HomeComponent implements OnInit {
       selectedSeason : this.m_selectedSeason,
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,
-      shoeSize : this.m_shoeSize
+      shoeSize : this.m_shoeSize,
+      name: this.m_selectedName,
+      type: this.m_type
       });
-
   }
+
+  options: Options = {
+    floor: 0,
+    ceil: 350,
+    translate: (value: number, label: LabelType): string => {
+      switch (label) {
+        case LabelType.Low:
+          return '<b>Min price:</b> $' + value;
+        case LabelType.High:
+          return '<b>Max price:</b> $' + value;
+        default:
+          return '$' + value;
+      }
+    }
+  };
 }
