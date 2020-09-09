@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Ng5SliderModule } from 'ng5-slider'
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -21,6 +21,9 @@ import { ErrorPageComponent } from './routing/error-page/error-page.component';
 import { OrderListComponent } from './orders/order-list/order-list.component';
 import { OrderInfoComponent } from './orders/order-info/order-info.component';
 import { OrderByPipe } from './product/order-by.pipe';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
+import { LogoutComponent } from './user/logout/logout.component';
 import { AboutComponent } from './about/about.component';
 
 
@@ -38,6 +41,9 @@ import { AboutComponent } from './about/about.component';
     OrderListComponent,
     OrderInfoComponent,
     OrderByPipe,
+    LoginComponent,
+    RegisterComponent,
+    LogoutComponent,
     AboutComponent,
 
 

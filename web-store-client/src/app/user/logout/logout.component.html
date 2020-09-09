@@ -1,0 +1,17 @@
+<div class="container">
+    <form class="my-2">
+      <div class="column pt-5">
+          <div *ngIf="this.hasUser(); else loggedOut">
+            <h4>Logged in as {{ this.userEmail() }}</h4>
+                <hr/>
+            <h6>Proceed to log out?</h6>
+            <hr/>
+            <button (click)="logout()" class="btn btn-danger">Log out</button>
+        </div>
+        <ng-template #loggedOut>
+            <h2>Logged out</h2>
+        </ng-template>
+        </div>
+    </form>
+  </div>
+  

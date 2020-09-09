@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ExportableProduct } from './model/exportable.product.model';
 
+
 @Pipe({
   name: 'sum'
 })
