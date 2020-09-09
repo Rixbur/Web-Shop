@@ -3,7 +3,7 @@
 <h2>About Our store</h2>
 <hr>
 You can find us here:
-<div class = "inner">
+<div class = "inner" *ngIf="item">
     <div>Address: {{item.address}}</div> <br/>
     <div>Phone: {{item.phone}}</div> <br/>
     <div>Mail: {{item.mail}}</div> <br/>

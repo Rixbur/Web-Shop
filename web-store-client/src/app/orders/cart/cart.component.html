@@ -79,7 +79,7 @@
     </div>
   </div>
     <div class="col-lg-9" >
-      <div id="productListContent" class="container mx-10" >
+      <div id="productListContent" class="container mx-10" *ngIf="this.items" >
         <div class="row" >
           <div id="productInfoContent" class="col-lg-4" *ngFor= "let product of this.items | orderBy: false ; let i=index">
             <div class="h-100 bg-dark my-2 py-2 px-2" >

@@ -2,27 +2,27 @@
 <hr>
 
 <div  *ngIf="order">
-<table class="table">
-  <tbody>
-    <tr>
-      <td>Name</td>
-      <td>{{ order.name }}</td>
-    </tr>
-    <tr>
-      <td>Address</td>
-      <td>{{ order.address }}</td>
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td>{{ order.email }}</td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td>{{ order.name }}</td>
+      </tr>
+      <tr>
+        <td>Address</td>
+        <td>{{ order.address }}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{ order.email }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="alert alert-info" *ngFor="let product of order.products">
-  <h4>{{ product.name }}</h4>
-  <hr />
-  <h6>{{ product.price | currency }}</h6>
-</div>
+  <div class="alert alert-info" *ngFor="let product of order.products">
+    <h4>{{ product.name }}</h4>
+    <hr />
+    <h6>{{ product.price | currency }}</h6>
+  </div>
 
 </div>

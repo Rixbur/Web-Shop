@@ -27,7 +27,7 @@ export class UserService extends HttpErrorHandler{
     return this.http
       .post(`${usersUrl}/login`, user, {observe: "response"})
       .subscribe(e => {
-        if(e.status===200){
+        if(e.status==201){
             this.userEmail=user.email;
             window.alert("Succesfully logged in!");
         }
