@@ -36,23 +36,17 @@ userRouter.post("/login", async (req, res) => {
 userRouter.post("/register", async (req, res) => {
   const user = req.body;
   // check if user email exists
-  var query  = userModel.where({ email: user.email });
-  query.findOne(function (err, userInMongo) {
-    console.log(user.email);
-    console.log(userInMongo);
-    if (
-      user.email === userInMongo.email
-    ) {
-      return res.status(202).json({ message: "Already registered!"});
-    } 
+  const query  = await userModel.findOne({ email: user.email }).exec();
+  console.log(query);
   
-  })
-  //if not, register new user
-  const userInMongo = new userModel(user);
-  console.log(userInMongo.db.name);
-  console.log(userInMongo);
-  await userInMongo.save();
-  return res.status(201).send();
+  if(query==null){
+    const userInMongo = new userModel(user);
+    console.log(userInMongo);
+    await userInMongo.save();
+
+    return res.status(202).send();
+  }
+  return res.status(201).json({ message: "Already registered!"});
 });
 
 module.exports = userRouter;

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorHandler } from '../utils/http-error-handler.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 type User = {
   email: string;
@@ -12,8 +14,10 @@ const usersUrl = 'http://localhost:3000/users';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  constructor(private http: HttpClient) {}
+export class UserService extends HttpErrorHandler{
+  constructor(private http: HttpClient,router: Router) {
+    super(router);
+  }
   
   private userEmail: string ="";
   //private admin: boolean=false;
@@ -44,10 +48,9 @@ export class UserService {
       .subscribe(e => {
         if(e.status===201){
             this.userEmail=user.email;
-            console.log("Already registered");
-            // if(user.email==="admin@admin"){
-            //   this.admin=true;
-            // }
+            
+            window.alert("Already registered");
+            
         }
         else if(e.status===202){
           window.alert("Successfully registered");
