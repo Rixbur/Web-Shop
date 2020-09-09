@@ -5,7 +5,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Ng5SliderModule } from 'ng5-slider'
 
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -38,7 +39,7 @@ import { AboutComponent } from './about/about.component';
     OrderInfoComponent,
     OrderByPipe,
     AboutComponent,
-    
+
 
   ],
   imports: [
@@ -48,7 +49,8 @@ import { AboutComponent } from './about/about.component';
     AppRoutingModule,
     HttpClientModule,
     CarouselModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

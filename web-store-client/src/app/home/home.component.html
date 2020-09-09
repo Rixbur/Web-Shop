@@ -46,15 +46,7 @@
       </form>
   </div>
   <div class="container">
-    <label>Price range: {{m_minPrice}}$ - {{m_maxPrice}}$</label>
-    <br/>
-    <div>
-      <label for="price-min">Min:</label>
-      <input  type="range" name="price-min" id="price-min" [value]="m_minPrice" min="0" [max]="m_maxPrice" (input)="onChangeMin($event)" >
-      <br/>
-      <label for="price-max">Max:</label>
-      <input type="range" name="price-max" id="price-max" [value]="m_maxPrice" [min]="m_minPrice" max="100" (input)="onChangeMax($event)">
-    </div>
+    <ng5-slider [(value)]="m_minPrice" [(highValue)]="m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ng5-slider>
   </div>
 </div>
 <div class="col-lg-9" >
