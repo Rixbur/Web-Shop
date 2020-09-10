@@ -9,7 +9,7 @@ export class SumPipe implements PipeTransform {
 
   transform(products: ExportableProduct[]): number {
     return products
-      .map(product => product.m_price)
+      .map(product => product['price'])
       .reduceRight((acc, next) => acc + next);
   }
 

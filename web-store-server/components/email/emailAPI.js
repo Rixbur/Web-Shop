@@ -21,10 +21,15 @@ router.post("/", (req, res) => {
           Best wishes, your team! `
     };
 
-    sendMail(mailOptions, info => {
+    try{
+        sendMail(mailOptions, info => {
         console.log(`Email is sent. Id: ${info.messageId}`);
         res.send(info);
-    });
+        });
+    }
+    catch{
+        res.status(200).json({ message: "Can't currently log into mail because GMAIL doesn't allow it"});
+    }
 });
 
 router.post('/fromuser', (req, res) => {
@@ -38,10 +43,15 @@ router.post('/fromuser', (req, res) => {
                <h3> Mail: ${user.mail}</h3>
                <p>${user.text}</p>`
     };
-    sendMail(mailOptions, info => {
+    try{
+        sendMail(mailOptions, info => {
         console.log(`User mail is sent. Id: ${info.messageId}`);
         res.send(info);
-    });
+        });
+    }
+    catch{
+        res.status(200).json({ message: "Can't currently log into mail because GMAIL doesn't allow it"});
+    }
 
 });
 

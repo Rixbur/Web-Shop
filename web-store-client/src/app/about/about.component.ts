@@ -60,6 +60,7 @@ export class AboutComponent implements OnInit, OnDestroy {
       }
     );
     this.activeSubscriptions.push(connSub);
+    window.location.href='http://localhost:4200/';
 
   }
 

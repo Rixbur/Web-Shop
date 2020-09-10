@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorHandler } from '../utils/http-error-handler.model';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 type User = {
   email: string;
@@ -12,27 +14,27 @@ const usersUrl = 'http://localhost:3000/users';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  constructor(private http: HttpClient) {}
+export class UserService extends HttpErrorHandler{
+  constructor(private http: HttpClient,router: Router) {
+    super(router);
+  }
   
   private userEmail: string ="";
-  //private admin: boolean=false;
+  
 
   login(user: User) {
     console.log('Sending request');
     return this.http
       .post(`${usersUrl}/login`, user, {observe: "response"})
       .subscribe(e => {
-        if(e.status===200){
+        if(e.status==201){
             this.userEmail=user.email;
             window.alert("Succesfully logged in!");
-            // if(user.email==="admin@admin"){
-            //   this.admin=true;
-            // }
         }
         else{
           window.alert("Couldn't log in, check username and password");
         }
+        window.location.href='http://localhost:4200/';
       
       });
   }
@@ -44,10 +46,9 @@ export class UserService {
       .subscribe(e => {
         if(e.status===201){
             this.userEmail=user.email;
-            console.log("Already registered");
-            // if(user.email==="admin@admin"){
-            //   this.admin=true;
-            // }
+            
+            window.alert("Already registered");
+            
         }
         else if(e.status===202){
           window.alert("Successfully registered");
@@ -56,6 +57,7 @@ export class UserService {
         else{
           window.alert("Couldn't register, please try again");
         }
+        window.location.href='http://localhost:4200/';
       
       });
   }

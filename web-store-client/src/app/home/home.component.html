@@ -1,56 +1,56 @@
 
 <div class="container m-xl-5 m-xr-5">
-<div class="row">
-  <div class="col-lg-3">
-  <div class = "container">
-      <form class="my-2">
-        <div class = "row pt-5">
-          <input class="form-control mr-sm-6 " type="text" placeholder="Ime proizvoda" aria-label="Search" (change)="onChangeName($event)">
-        </div>
-        <div class="row">
-          <select class="custom-select" (change)="onChangeProductCategory($event)" >
-            <option selected value="">Proizvodi</option>
-            <option value="obuca">Obuca</option>
-            <option value="ostalo">Torbe i rancevi</option>
-          </select>
-          <select *ngIf="m_isShoe" class="custom-select" (change)="onChangeSeason($event)">
-            <option selected value="">Sezona</option>
-            <option value="prolece">Prolece</option>
-            <option value="leto">Leto</option>
-            <option value="jesen">Jesen</option>
-            <option value="zima">Zima</option>
-          </select>
-          <select *ngIf="m_isShoe && isSummerSpring()" class="custom-select" (change)="onChangeType($event)" >
-            <option selected value="">Kategorija</option>
-            <option value="papuce">Papuce</option>
-            <option value="sandale">Sandale</option>
-            <option value="cipele">Cipele</option>
-            <option value="espadrile">Espadrile</option>
-            <option value="patike">Patike</option>
-          </select>
-          <select *ngIf="m_isShoe && isWinterAutumn()" class="custom-select" (change)="onChangeType($event)">
-            <option selected value="">Kategorija</option>
-            <option value="cizme">Cizme</option>
-            <option value="patike">Patike</option>
-            <option value="polucizme">Polucizme</option>
-            <option value="cipele">Cipele</option>
-            <option value="gumene-cizme">Gumene cizme</option>
-            <option value="snegarice">Snegarice</option>
-          </select>
-        </div>
-
+  <div class="row">
+    <div class="col-lg-3">
+    <div class = "container">
+        <form class="my-2">
+          <div class = "row pt-5">
+            <input class="form-control mr-sm-6 " type="text" placeholder="Ime proizvoda" aria-label="Search" (change)="onChangeName($event)">
+          </div>
           <div class="row">
-          <input type="number" placeholder="Shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
+            <select class="custom-select" (change)="onChangeProductCategory($event)" >
+              <option selected value="">Proizvodi</option>
+              <option value="obuca">Obuca</option>
+              <option value="ostalo">Torbe i rancevi</option>
+            </select>
+            <select *ngIf="m_isShoe" class="custom-select" (change)="onChangeSeason($event)">
+              <option selected value="">Sezona</option>
+              <option value="prolece">Prolece</option>
+              <option value="leto">Leto</option>
+              <option value="jesen">Jesen</option>
+              <option value="zima">Zima</option>
+            </select>
+            <select *ngIf="m_isShoe && isSummerSpring()" class="custom-select" (change)="onChangeType($event)" >
+              <option selected value="">Kategorija</option>
+              <option value="papuce">Papuce</option>
+              <option value="sandale">Sandale</option>
+              <option value="cipele">Cipele</option>
+              <option value="espadrile">Espadrile</option>
+              <option value="patike">Patike</option>
+            </select>
+            <select *ngIf="m_isShoe && isWinterAutumn()" class="custom-select" (change)="onChangeType($event)">
+              <option selected value="">Kategorija</option>
+              <option value="cizme">Cizme</option>
+              <option value="patike">Patike</option>
+              <option value="polucizme">Polucizme</option>
+              <option value="cipele">Cipele</option>
+              <option value="gumene-cizme">Gumene cizme</option>
+              <option value="snegarice">Snegarice</option>
+            </select>
           </div>
 
-      </form>
+            <div class="row">
+              <input type="number" placeholder="Shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
+            </div>
+
+        </form>
+    </div>
+    <div class="container">
+      <ngx-slider [(value)]="this.m_minPrice" [(highValue)]="this.m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ngx-slider>
+    </div>
   </div>
-  <div class="container">
-    <ng5-slider [(value)]="m_minPrice" [(highValue)]="m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ng5-slider>
+    <div class="col-lg-9" >
+      <app-product-list></app-product-list>
+    </div>
   </div>
-</div>
-<div class="col-lg-9" >
-  <app-product-list></app-product-list>
-</div>
-</div>
 </div>

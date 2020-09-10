@@ -8,6 +8,8 @@ import { nameValidator } from './name-validator';
 import { ConnectionService } from '../../services/connection.service';
 import { ProductService } from '../../services/product.service';
 import { FilterService } from '../../services/filter.service';
+import { SumPipe } from '../../product/sum.pipe';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -23,7 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
     public http: ConnectionService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
-    private filterServise: FilterService
+    private filterServise: FilterService,
   ) {
     this.activeSubscriptions = [];
     this.items = this.cartService.getItems();
@@ -53,7 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
     let allItemsList = [];
     let suma:number = 0;
     this.items.forEach( (item) => {
-          
+
       const str = [];
       str.push('Product: ');
       str.push(item['name']);
@@ -62,7 +64,7 @@ export class CartComponent implements OnInit, OnDestroy {
       str.push(', price: ');
       str.push(item['price']);
       str.push(`.  <br/> `);
-      
+
       suma += item['price'];
       allItemsList.push(str.join(""));
 
@@ -78,10 +80,10 @@ export class CartComponent implements OnInit, OnDestroy {
     allItemsList.push(' In total: ');
     allItemsList.push(suma);
     let allItems = allItemsList.join("");
-    
+
     const body = { data: data, products: allItems };
     this.register(body);
-  
+
     const createSub = this.cartService
       .createAnOrder(data)
       .subscribe((order: Order) => {
@@ -92,6 +94,7 @@ export class CartComponent implements OnInit, OnDestroy {
         this.checkoutForm.reset();
       });
     this.activeSubscriptions.push(createSub);
+    window.location.href='http://localhost:4200/';
   }
 
   register(data) {
@@ -100,11 +103,23 @@ export class CartComponent implements OnInit, OnDestroy {
         data => {
           let res:any = data;
           console.log("Mail has been sent.");
+          },
+        err => {
+          console.log(err);
+        },() => {
+          console.log("Here");
         }
       );
       this.activeSubscriptions.push(connSub);
   }
 
+  removeFromCart(_index: number){
+    console.log(_index);
+
+    this.items.splice(_index,1);
+    console.log(this.items);
+
+  }
   public get name() {
     return this.checkoutForm.get('name');
   }
@@ -113,5 +128,32 @@ export class CartComponent implements OnInit, OnDestroy {
   }
   public get email() {
     return this.checkoutForm.get('email');
+  }
+
+  customOptions: OwlOptions = {
+    margin: 10,
+    stagePadding:20, //da li da se vide susedi
+    loop: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 700,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      }
+    },
+    nav: true
   }
 }

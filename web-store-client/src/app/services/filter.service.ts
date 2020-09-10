@@ -43,11 +43,12 @@ export class FilterService {
     let keyword = this.m_filterObject['name']
     let prodName: string = _prod['name']
 
+    let selectedSeason = this.m_filterObject['selectedSeason'];
     let selectedType: string = this.m_filterObject['type']
     console.log(_prod);
     console.log(this.m_filterObject);
 
-    if(selectedType == "" || selectedType == _prod['category']){
+    if(selectedType == "" || selectedType == _prod['category'].toLowerCase()){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
@@ -67,8 +68,8 @@ export class FilterService {
         // Else, check if the current shoe matches the given pattern
         if(this.m_filterObject['isShoe'] && _prod['articleType']){
 
-          if(this.m_filterObject['selectedSeason'] == _prod['season']
-            || this.m_filterObject['selectedSeason'] == ""){
+          if(selectedSeason == _prod['season'].toLowerCase()
+            || selectedSeason == ""){
 
               if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
               {

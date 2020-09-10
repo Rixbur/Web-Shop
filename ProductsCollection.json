@@ -1,0 +1,145 @@
+[{
+  "_id": {
+    "$oid": "5f59238ca2f9a02234f131b8"
+  },
+  "productImage": [
+    "IMG_5281.JPG",
+    "IMG_5282.JPG"
+  ],
+  "name": "Zute sandale",
+  "description": "Super ponuda!",
+  "season": "leto",
+  "price": 55,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[36,2],[37,5],[38,4],[39,6],[40,4],[41,4],[42,5]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5923bca2f9a02234f131b9"
+  },
+  "productImage": [
+    "IMG_5294.JPG",
+    "IMG_5747.JPG"
+  ],
+  "name": "Papuce sa crvenom masnom",
+  "description": "Crvene papuce",
+  "season": "leto",
+  "price": 33,
+  "articleType": "obuca",
+  "category": "papuce",
+  "mapQuantOfSizes": "[[42,3],[43,3],[40,2],[38,5],[45,4],[37,5]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592405a2f9a02234f131ba"
+  },
+  "productImage": [
+    "IMG_5301.JPG",
+    "IMG_5305.JPG"
+  ],
+  "name": "Sive sandale",
+  "description": "Ni belo ni crno",
+  "season": "leto",
+  "price": 11,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[36,3],[37,4],[38,3],[40,5],[43,5]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f592437a2f9a02234f131bb"
+  },
+  "productImage": [
+    "IMG_5311.JPG",
+    "IMG_5317.JPG"
+  ],
+  "name": "Plave sandale",
+  "description": "Kao nebo plave",
+  "season": "leto",
+  "price": 44,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[44,4],[42,3],[46,4]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59607761e1f41d20596c50"
+  },
+  "productImage": [
+    "IMG_5582(1).JPG",
+    "IMG_5583(1).JPG"
+  ],
+  "name": "Crvene sandale",
+  "description": "<3",
+  "season": "leto",
+  "price": 56,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[42,2],[38,1],[46,2],[41,2]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59627d61e1f41d20596c53"
+  },
+  "productImage": [
+    "IMG_5313(1).JPG",
+    "IMG_5313.JPG"
+  ],
+  "name": "Sive sandale",
+  "description": "Lepo u patos!",
+  "season": "leto",
+  "price": 33,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[40,2],[42,3]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5962fb61e1f41d20596c54"
+  },
+  "productImage": [
+    "IMG_5525.JPG",
+    "IMG_5526.JPG"
+  ],
+  "name": "Crne stikle",
+  "description": "Za nocni provod i druzenje",
+  "season": "zima",
+  "price": 11,
+  "articleType": "obuca",
+  "category": "stikle",
+  "mapQuantOfSizes": "[[37,3],[42,3],[43,2],[39,2]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f59636561e1f41d20596c55"
+  },
+  "productImage": [
+    "IMG_5527.JPG",
+    "IMG_5528.JPG"
+  ],
+  "name": "Sarene sandale",
+  "description": "fancy",
+  "season": "leto",
+  "price": 44,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[44,2],[39,3],[40,4],[42,4]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f5963aa61e1f41d20596c56"
+  },
+  "productImage": [
+    "IMG_6298.JPG",
+    "IMG_6299.JPG"
+  ],
+  "name": "Papuce sa masnom",
+  "description": "Masnicaa",
+  "season": "leto",
+  "price": 44,
+  "articleType": "obuca",
+  "category": "sandale",
+  "mapQuantOfSizes": "[[36,5],[39,3],[38,4],[45,4]]",
+  "__v": 0
+}]

@@ -1,27 +1,22 @@
-<div class="container mx-10">
+<div id="productListContent" class="container mx-10" *ngIf="this.m_productList">
   <div class="row" >
+    <div id="productInfoContent" class="col-lg-4" *ngFor= "let product of this.m_productList | orderBy: false">
+      <div class="h-100 bg-dark my-2 py-2 px-2" >
 
-    <div class="col-lg-4" *ngFor= "let product of this.m_productList | orderBy: false">
-      <div class="h-100 bg-dark my-2 py-2 px-2" style="color: white;">
-
-        <a><h4 style="color:rgb(137, 43, 226);">{{ product.name }}</h4></a>
+        <a><h4 >{{ product.name }}</h4></a>
         <h6>{{ product.price }}$</h6>
         <p>{{ product.desription }}</p>
         <owl-carousel-o [options]="customOptions">
             <ng-template carouselSlide>
-              <img src="http://localhost:3000/images/{{product.productImage[0]}}" >
+              <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
             </ng-template>
         </owl-carousel-o>  
 
-        <button class = "btn btn-secondary"
-                style="background-color: blueviolet;"
-                [routerLink]="['/products/',product._id]"
+        <button class = "btn btn-secondary" [routerLink]="['/products/',product._id]"
         >See details</button>
 
       </div>
-
     </div>
-
   </div>
 </div>
 
