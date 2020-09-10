@@ -1,6 +1,12 @@
 # Project 23-Fashion Unlimited
 
-Projekat obuhvata izradu Web Shopa koji treba da zadovoljava sve potrebe pretrage, filterovanja i odabira odgovaracuje robe, kao i komunikaciju sa virtuelnom bankom kojom ce se vrsiti i naplata odabranih jedinica.
+Projekat obuhvata izradu Web Shopa koji treba da zadovoljava sve potrebe pretrage, filterovanja i odabira odgovaracuje robe, kao i komunikaciju sa serverskim katalogom koji automatski redukuje i dodaje proizvode na osnovu zahteva sa klijenta.
+
+Demonstracija:
+https://www.youtube.com/watch?v=08whfhRcbEk&ab_channel=AdminOE
+
+Prezentacija:
+
 
 ## Developers
 
