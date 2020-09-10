@@ -41,16 +41,6 @@ export class ProductInfoComponent implements OnDestroy {
     
 
   }
-
-  //   private findProductById() {
-  //     this.route.paramMap.subscribe((params) => {
-  //       const pId = params.get('productId');
-  //       const getProductSub = this.productService
-  //         .getProductById(pId)
-  //         .subscribe((product) => (this.product = product));
-  //       this.activeSubscriptions.push(getProductSub);
-  //     });
-  //   }
   hasUser(){return this.userService.hasUser();}
   userEmail(){return this.userService.getUserEmail();}
   isAdmin(){ return this.userService.isAdmin();}
@@ -76,7 +66,6 @@ export class ProductInfoComponent implements OnDestroy {
 
   public onChangeSize(){
 
-      // this.product['selectedSize']=(<HTMLOptionElement>_event.target).value;
   }
 
   public addToCart(selectedSize: HTMLOptionElement) {
@@ -87,6 +76,7 @@ export class ProductInfoComponent implements OnDestroy {
     } else {
       window.alert('Your product has been added to the cart!');
     }
+    window.location.href='http://localhost:4200/';
   }
 
   public removeFromStore() {
@@ -99,6 +89,28 @@ export class ProductInfoComponent implements OnDestroy {
     this.activeSubscriptions.push(deleteSub);
   }
 
+  public getMap(_product: ExportableProduct){
+    
+    for(const key in _product){
+      if(key=='mapQuantOfSizes'){
+        _product['mapa'] = new Map(JSON.parse(_product[key]));
+      }
+    }
+
+    return _product['mapa'];
+    
+
+  }
+  mapParsing(_prod:ExportableProduct){
+    for(const key in _prod){
+      if(key=='mapQuantOfSizes'){
+        _prod.mapa = new Map(JSON.parse(_prod[key]));
+      }
+    }
+    this.prodIsUpdated=true;
+    //console.log(_prod.mapa);
+    return _prod;
+  }
   customOptions: OwlOptions = {
     margin: 10,
     stagePadding:20, //da li da se vide susedi
@@ -125,27 +137,4 @@ export class ProductInfoComponent implements OnDestroy {
     },
     nav: true
   }
-
-  public getMap(_product: ExportableProduct){
-    
-    for(const key in _product){
-      if(key=='mapQuantOfSizes'){
-        _product['mapa'] = new Map(JSON.parse(_product[key]));
-      }
-    }
-
-    return _product['mapa'];
-    
-
-  }
-  mapParsing(_prod:ExportableProduct){
-    for(const key in _prod){
-      if(key=='mapQuantOfSizes'){
-        _prod.mapa = new Map(JSON.parse(_prod[key]));
-      }
-    }
-    this.prodIsUpdated=true;
-    //console.log(_prod.mapa);
-    return _prod;
-}
 }

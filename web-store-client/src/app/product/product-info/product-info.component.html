@@ -8,8 +8,8 @@
       <div class="col-8">
             <owl-carousel-o [options]="customOptions">
               <ng-container>
-                <ng-template carouselSlide *ngFor="let image of product.productImage, let i = index">
-                  <img src="http://localhost:3000/images/{{product.productImage[i]}}" width="50%" height="50%">
+                <ng-template carouselSlide *ngFor="let image of product['productImage'], let i = index">
+                  <img src="http://localhost:3000/images/{{product['productImage'][i]}}" width="50%" height="50%">
                   <div class="carousel-caption">
                   </div>
                 </ng-template>
@@ -31,6 +31,7 @@
                   </select>
 
                 <button
+                  id="myButton"
                   class="btn btn-primary btn-block"
                   type="submit"
                 >

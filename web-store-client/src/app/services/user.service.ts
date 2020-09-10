@@ -34,6 +34,7 @@ export class UserService extends HttpErrorHandler{
         else{
           window.alert("Couldn't log in, check username and password");
         }
+        window.location.href='http://localhost:4200/';
       
       });
   }
@@ -56,6 +57,7 @@ export class UserService extends HttpErrorHandler{
         else{
           window.alert("Couldn't register, please try again");
         }
+        window.location.href='http://localhost:4200/';
       
       });
   }
