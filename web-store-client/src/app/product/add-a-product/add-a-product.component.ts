@@ -2,6 +2,7 @@ import { ExportableProduct } from '../../product/model/exportable.product.model'
 import { ProductService } from '../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Component({
@@ -16,7 +17,8 @@ export class AddAProductComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productService: ProductService
+    private productService: ProductService,
+    private router: Router
   ) {
     this.addAProductForm = this.formBuilder.group({
       name: ['', [Validators.required]],
@@ -50,7 +52,10 @@ export class AddAProductComponent implements OnInit {
           console.log(product);
           this.addAProductForm.reset();
           this.selectedSizes.clear();
-        });
+        },
+        undefined,
+        ()=>{this.router.navigate(['/']);
+      });
     
   }
 

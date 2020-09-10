@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 // import { nameValidator } from './name-validator';
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
   public submitForm(): void {
-    const status = this.userService.login({
+    const subscribe = this.userService.login({
       email: this.email,
       password: this.password,
     });

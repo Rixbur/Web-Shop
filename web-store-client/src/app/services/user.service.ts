@@ -34,7 +34,11 @@ export class UserService extends HttpErrorHandler{
         else{
           window.alert("Couldn't log in, check username and password");
         }
-      });
+      
+      },
+      undefined,
+      ()=>{this.getRouter.navigate(['/']);
+    });
   }
 
   register(user: User) {
@@ -56,7 +60,10 @@ export class UserService extends HttpErrorHandler{
           window.alert("Couldn't register, please try again");
         }
       
-      });
+      },
+      undefined,
+      ()=>{this.getRouter.navigate(['/login']);
+    });
   }
 
   getUserEmail(){
