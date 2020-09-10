@@ -2,10 +2,9 @@
 
 Projekat obuhvata izradu Web Shopa koji treba da zadovoljava sve potrebe pretrage, filterovanja i odabira odgovaracuje robe, kao i komunikaciju sa serverskim katalogom koji automatski redukuje i dodaje proizvode na osnovu zahteva sa klijenta.
 
-Demonstracija:
-https://www.youtube.com/watch?v=08whfhRcbEk&ab_channel=AdminOE
+[Video koji demonstrira rad aplikacije.](https://www.youtube.com/watch?v=08whfhRcbEk&ab_channel=AdminOE)
 
-Prezentacija:
+[Prezentacija funkcionalnosti aplikacije.](https://drive.google.com/file/d/1L9mRboxsFiLC-ayvVSkpSat9bg74Wwaz/view?usp=sharing)
 
 
 ## Developers
