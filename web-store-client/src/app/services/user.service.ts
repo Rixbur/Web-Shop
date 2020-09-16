@@ -7,8 +7,13 @@ import { Router } from '@angular/router';
 type User = {
   email: string;
   password: string;
+  address: string;
+  name: string;
 };
-
+type LoginInfo = {
+  email: string;
+  password: string;
+};
 const usersUrl = 'http://localhost:3000/users';
 
 @Injectable({
@@ -22,13 +27,13 @@ export class UserService extends HttpErrorHandler{
   private userEmail: string ="";
   
 
-  login(user: User) {
+  login(loginInfo: LoginInfo) {
     console.log('Sending request');
     return this.http
-      .post(`${usersUrl}/login`, user, {observe: "response"})
+      .post(`${usersUrl}/login`, loginInfo, {observe: "response"})
       .subscribe(e => {
         if(e.status==201){
-            this.userEmail=user.email;
+            this.userEmail=loginInfo.email;
             window.alert("Succesfully logged in!");
         }
         else{
