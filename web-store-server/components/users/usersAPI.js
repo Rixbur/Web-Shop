@@ -9,7 +9,7 @@ userRouter.post("/login", async (req, res) => {
   if(query==null){
     return res.status(202).send();
   }
-  return res.status(201).json({ message: "Already registered!"});
+  return res.status(201).json({ message: "Logged in!"});
 });
 
 userRouter.post("/register", async (req, res) => {
@@ -26,5 +26,18 @@ userRouter.post("/register", async (req, res) => {
   }
   return res.status(201).json({ message: "Already registered!"});
 });
+
+
+userRouter.get("/user/:email", async (req, res) => {
+  const userEmail = req.params.userEmail;
+  console.log(req.params);
+  const userInfo = await userModel.find({email: userEmail}).exec();
+  if(userInfo==null){
+    return res.status(202).send();
+  }
+  return res.status(201).json(userInfo);
+});
+
+
 
 module.exports = userRouter;

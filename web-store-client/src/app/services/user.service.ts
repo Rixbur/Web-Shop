@@ -46,6 +46,24 @@ export class UserService extends HttpErrorHandler{
     });
   }
 
+  userInfo(email: string) {
+    console.log('Getting info ');
+    return this.http
+      .get(`${usersUrl}/info/${email}`, {observe: "response"})
+      .subscribe(e => {
+        if(e.status==201){
+            console.log(e.body);
+        }
+        else{
+          window.alert("Couldn't log in, check username and password");
+        }
+      
+      },
+      undefined,
+      ()=>{this.getRouter.navigate(['/']);
+    });
+  }
+
   register(user: User) {
     console.log('Sending register request');
     return this.http
