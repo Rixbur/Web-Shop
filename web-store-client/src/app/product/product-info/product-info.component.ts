@@ -76,7 +76,7 @@ export class ProductInfoComponent implements OnDestroy {
     } else {
       window.alert('Your product has been added to the cart!');
     }
-    window.location.href='http://localhost:4200/';
+    
   }
 
   public removeFromStore() {
