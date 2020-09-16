@@ -71,7 +71,7 @@ export class CartComponent implements OnInit, OnDestroy {
       const patchProductSingleSub = this.productService
       .patchProduct(item._id,item['selectedSize'])
       .subscribe((response)=>{
-        window.alert('Poslato');
+        window.alert('Poslat zahtev za azuriranje baze');
       });
       this.activeSubscriptions.push(patchProductSingleSub);
 

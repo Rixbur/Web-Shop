@@ -22,4 +22,7 @@ export abstract class HttpErrorHandler {
       return throwError('Something bad happened; please try again later.');
     };
   }
+  get getRouter(){
+    return this.router;
+  }
 }

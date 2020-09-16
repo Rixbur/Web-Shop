@@ -3,4 +3,13 @@ img {
     height: auto;
   }
 
-  
+#productListContent{
+    padding:1%;
+}
+#productInfoContent {
+    width:70%;
+    height: auto;
+    background: rgba(255, 255, 255, .2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    padding: 1%;
+}
