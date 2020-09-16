@@ -25,6 +25,7 @@ import { LoginComponent } from './user/login/login.component';
 import { RegisterComponent } from './user/register/register.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { AboutComponent } from './about/about.component';
+import { RecommendedComponent } from './recommended/recommended.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AboutComponent } from './about/about.component';
     RegisterComponent,
     LogoutComponent,
     AboutComponent,
-    SumPipe
+    SumPipe,
+    RecommendedComponent
 
 
   ],
