@@ -10,6 +10,7 @@ const orderRoutes = require("./components/orders/ordersAPI");
 const emailRoutes = require("./components/email/emailAPI");
 const userRoutes = require("./components/users/usersAPI");
 const aboutRoutes = require("./components/about/aboutApi");
+const wishRoutes = require("./components/wishlist/wishlistAPI");
 
 mongoose.connect("mongodb://127.0.0.1:27017/PRODAVNICABP", {
   useNewUrlParser: true,
@@ -40,6 +41,7 @@ app.use("/orders", orderRoutes);
 app.use("/sendmail", emailRoutes);
 app.use("/users", userRoutes);
 app.use("/about", aboutRoutes);
+app.use("/wishlist", wishRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
