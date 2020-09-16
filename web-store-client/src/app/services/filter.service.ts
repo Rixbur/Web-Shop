@@ -28,11 +28,11 @@ export class FilterService {
   }
   mapParsing(_prod:ExportableProduct){
       for(const key in _prod){
-        if(key=='mapQuantOfSizes'){
-          _prod.mapa = new Map(JSON.parse(_prod[key]));
+        if(key=='mapSizeQuantities'){
+          _prod.map = new Map(JSON.parse(_prod[key]));
         }
       }
-      //console.log(_prod.mapa);
+      //console.log(_prod.map);
       return _prod;
   }
 
@@ -71,9 +71,9 @@ export class FilterService {
           if(selectedSeason == _prod['season'].toLowerCase()
             || selectedSeason == ""){
 
-              if(_prod['mapa'].get(this.m_filterObject['shoeSize']))
+              if(_prod['map'].get(this.m_filterObject['shoeSize']))
               {
-                console.log(_prod['mapa'].get(this.m_filterObject['shoeSize']));
+                console.log(_prod['map'].get(this.m_filterObject['shoeSize']));
 
                 if(this.m_filterObject['minPrice'] < _prod['price']
                 &&this.m_filterObject['maxPrice'] > _prod['price']){

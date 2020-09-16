@@ -35,11 +35,11 @@ export class HomeComponent implements OnInit {
     console.log("onChangeProductCategory function:");
     console.log("html value:" + l_selectedCategory);
 
-    if(l_selectedCategory == 'obuca'){
+    if(l_selectedCategory == 'shoes'){
 
       this.m_isShoe=true;
 
-    }else if(l_selectedCategory == 'ostalo'){
+    }else if(l_selectedCategory == 'misc'){
 
       this.m_isShoe=false;
 
@@ -63,10 +63,10 @@ export class HomeComponent implements OnInit {
   }
 
   isWinterAutumn(): boolean {
-    return this.m_selectedSeason=='zima' || this.m_selectedSeason=='jesen';
+    return this.m_selectedSeason=='winter' || this.m_selectedSeason=='autumn';
   }
   isSummerSpring(): boolean {
-    return this.m_selectedSeason=='prolece' || this.m_selectedSeason=="leto";
+    return this.m_selectedSeason=='spring' || this.m_selectedSeason=="summer";
   }
 
 

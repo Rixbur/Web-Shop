@@ -31,7 +31,7 @@ const productSchema = mongoose.Schema({
   //     type: Number,
   //     required: true
   // },
-  mapQuantOfSizes: {
+  mapSizeQuantities: {
     type: String,
   },
   productImage: {

@@ -38,7 +38,7 @@ export class ProductInfoComponent implements OnDestroy {
     this.addToCartForm = this.formBuilder.group({
       selectedSize:['']
     });
-    
+
 
   }
   hasUser(){return this.userService.hasUser();}
@@ -76,7 +76,7 @@ export class ProductInfoComponent implements OnDestroy {
     } else {
       window.alert('Your product has been added to the cart!');
     }
-    window.location.href='http://localhost:4200/';
+    // window.location.href='http://localhost:4200/';
   }
 
   public removeFromStore() {
@@ -90,25 +90,25 @@ export class ProductInfoComponent implements OnDestroy {
   }
 
   public getMap(_product: ExportableProduct){
-    
+
     for(const key in _product){
-      if(key=='mapQuantOfSizes'){
-        _product['mapa'] = new Map(JSON.parse(_product[key]));
+      if(key=='mapSizeQuantities'){
+        _product['map'] = new Map(JSON.parse(_product[key]));
       }
     }
 
-    return _product['mapa'];
-    
+    return _product['map'];
+
 
   }
   mapParsing(_prod:ExportableProduct){
     for(const key in _prod){
-      if(key=='mapQuantOfSizes'){
-        _prod.mapa = new Map(JSON.parse(_prod[key]));
+      if(key=='mapSizeQuantities'){
+        _prod.map = new Map(JSON.parse(_prod[key]));
       }
     }
     this.prodIsUpdated=true;
-    //console.log(_prod.mapa);
+    //console.log(_prod.map);
     return _prod;
   }
   customOptions: OwlOptions = {

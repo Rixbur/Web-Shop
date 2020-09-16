@@ -34,7 +34,7 @@ getProducts = async function (req, res, next) {
   try {
     const products = await Product.find({}).sort({ name: 1, price: -1 }).exec();
     // for(product of products){
-    //   product.mapa =  new Map(JSON.parse(product.mapQuantOfSizes));
+    //   product.map =  new Map(JSON.parse(product.mapSizeQuantities));
     // }
     res.status(200).json(products);
   } catch (err) {
@@ -45,7 +45,7 @@ router.get('/', getProducts);
 
 router.post("/", upload.array('productImage'), (req, res, next) => {
   
-  console.log(req.body.mapQuantOfSizes);
+  console.log(req.body.mapSizeQuantities);
   const fileNames =[]
   for(oneFile of req.files){
     fileNames.push(oneFile.originalname);
@@ -58,7 +58,7 @@ router.post("/", upload.array('productImage'), (req, res, next) => {
     price: req.body.price,
     articleType: req.body.articleType,
     category: req.body.category,
-    mapQuantOfSizes: req.body.mapQuantOfSizes,
+    mapSizeQuantities: req.body.mapSizeQuantities,
     productImage: fileNames
   });
   product
@@ -112,14 +112,14 @@ updateByProductId = async function (req, res, next) {
   
   try {
     const product = await Product.findById(productId).exec();
-    const mapQuantOfSizes = new Map(JSON.parse(product['mapQuantOfSizes']));
-    const currentCount = mapQuantOfSizes.get(parseInt(req.body.size));
+    const mapSizeQuantities = new Map(JSON.parse(product['mapSizeQuantities']));
+    const currentCount = mapSizeQuantities.get(parseInt(req.body.size));
     if( typeof currentCount === 'undefined' ){
       res.status(200).json({ message: 'The product is not modified.' });
 
     } else if(currentCount == 1){
-      mapQuantOfSizes.delete(parseInt(req.body.size));
-      if(mapQuantOfSizes.size == 0){
+      mapSizeQuantities.delete(parseInt(req.body.size));
+      if(mapSizeQuantities.size == 0){
         
         const deletedProducts = await Product.deleteOne({ _id: productId }).exec();
         if(deletedProducts['deletedCount']){
@@ -130,16 +130,16 @@ updateByProductId = async function (req, res, next) {
         }
 
       }else {
-        const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
-        updateOptions['mapQuantOfSizes'] = mapa;
+        const map = JSON.stringify(Array.from(mapSizeQuantities.entries()));
+        updateOptions['mapSizeQuantities'] = map;
         await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
       }
     
     }
     else{
-      mapQuantOfSizes.set(parseInt(req.body.size), currentCount - 1);
-      const mapa = JSON.stringify(Array.from(mapQuantOfSizes.entries()));
-      updateOptions['mapQuantOfSizes'] = mapa;
+      mapSizeQuantities.set(parseInt(req.body.size), currentCount - 1);
+      const map = JSON.stringify(Array.from(mapSizeQuantities.entries()));
+      updateOptions['mapSizeQuantities'] = map;
       await Product.updateOne({ _id: productId }, { $set: updateOptions }).exec();
     
     }

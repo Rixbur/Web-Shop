@@ -35,15 +35,15 @@ export class AddAProductComponent implements OnInit {
     if (!this.addAProductForm.valid) {
       return;
     }
-    
+
     const data = this.addAProductForm.value;
     data.productImage = image.files;
     console.log(data.productImage);
-    data.mapQuantOfSizes = new Map<number,number>();
+    data.mapSizeQuantities = new Map<number,number>();
 
     for (const [size, quantity] of this.selectedSizes) {
-      
-      data.mapQuantOfSizes.set(size,quantity);
+
+      data.mapSizeQuantities.set(size,quantity);
     }
       this.productService
         .addAProduct(data)
@@ -56,7 +56,7 @@ export class AddAProductComponent implements OnInit {
         undefined,
         ()=>{this.router.navigate(['/']);
       });
-    
+
   }
 
   public getNameErrors() {
@@ -81,7 +81,7 @@ export class AddAProductComponent implements OnInit {
     return this.addAProductForm.get('productImage').errors;
   }
 
-  
+
   public addSize(size:number){
     if(this.selectedSizes.has(size)){
       this.selectedSizes.delete(size);
@@ -93,11 +93,11 @@ export class AddAProductComponent implements OnInit {
   public minus(size:number){
     const quantity = this.selectedSizes.get(size);
     if(quantity > 0){
-      
-      this.selectedSizes.set(size, quantity - 1); 
+
+      this.selectedSizes.set(size, quantity - 1);
     }
     if((quantity - 1) == 0){
-      
+
       this.selectedSizes.delete(size);
     }
   }
