@@ -34,16 +34,16 @@ export class RegisterComponent implements OnInit,OnDestroy {
     this.activeSubscriptions.forEach(sub=>sub.unsubscribe);
   }
   public get name() {
-    return this.registerForm.get('name').value;
+    return this.registerForm.get('name');
   }
   public get address() {
-    return this.registerForm.get('address').value;
+    return this.registerForm.get('address');
   }
   public get email() {
-    return this.registerForm.get('email').value;
+    return this.registerForm.get('email');
   }
   public get password() {
-    return this.registerForm.get('password').value;
+    return this.registerForm.get('password');
   }
 
   public submitForm(data): void {
@@ -53,10 +53,10 @@ export class RegisterComponent implements OnInit,OnDestroy {
     }
 
     const subscription = this.userService.register({
-      email: this.email,
-      password: this.password,
-      name: this.name,
-      address: this.address
+      email: this.email.value,
+      password: this.password.value,
+      name: this.name.value,
+      address: this.address.value
     });
     this.activeSubscriptions.push(subscription);
   }
