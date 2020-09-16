@@ -4,8 +4,8 @@ const userModel = require("./usersModel");
 const userRouter = express.Router();
 
 userRouter.post("/login", async (req, res) => {
-  const user = req.body;
-  const query  = await userModel.findOne({ email: user.email, password:user.password }).exec();
+  const loginInfo = req.body;
+  const query  = await userModel.findOne({ email: loginInfo.email, password: loginInfo.password }).exec();
   if(query==null){
     return res.status(202).send();
   }
