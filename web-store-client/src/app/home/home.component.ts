@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   public m_selectedName: string = "";
   public m_selectedSeasons: string[] = [];
   public m_maxPrice: number = 100;
-  public m_minPrice: number = 50;
+  public m_minPrice: number = 0;
   public m_selectedShoeSize: number = 39;
 
   constructor(private m_productService: FilterService) {
@@ -120,16 +120,10 @@ export class HomeComponent implements OnInit {
 
   options: Options = {
     floor: 0,
-    ceil: 350,
+    ceil: 100,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Min price:</b> $' + value;
-        case LabelType.High:
-          return '<b>Max price:</b> $' + value;
-        default:
-          return '$' + value;
-      }
+
+      return '';
     }
   };
 }

@@ -10,7 +10,7 @@
             <div class="row">
 
               <!-- PRODUCT CATEGORY FILTER -->
-              <div class="filter-entry">
+              <div class="filter-entry col-12 p-0">
 
                 <div class="shadow p-2 bg-light rounded bg-dark accented">Product category</div>
 
@@ -28,8 +28,8 @@
 
               <!-- PRODUCT SEASON FILTER -->
 
-              <div class="filter-entry">
-                <div class="shadow p-2 bg-light rounded bg-dark accented">Season</div>
+              <div class="filter-entry col-12 p-0">
+                <div class="shadow p-2 bg-light rounded bg-dark accented ">Season</div>
 
                 <div class="form-check col-12">
                   <input (change)="onChangeSeason($event)" class="form-check-input" value="spring" type="checkbox" name="checkseason" id="radioseason1">
@@ -89,7 +89,7 @@
 
             <!-- WINTER PRODUCT TYPE FILTER -->
             <div class="filter-entry">
-              <div class="shadow p-2 bg-light rounded bg-dark accented">Winter footwear subcategories</div>
+              <div class="shadow p-2 bg-light rounded bg-dark accented col-12">Winter footwear subcategories</div>
 
               <div class="form-check col-12">
                 <input (change)="onChangeType($event)" class="form-check-input" value="boots" type="checkbox" name="checkseason" id="radiocategory">
@@ -126,17 +126,18 @@
 
           <!-- SHOE SIZE FILTER -->
             <div class="row">
-              <div class="shadow p-2 my-1 bg-light rounded bg-dark accented">Shoe size</div>
+              <div class="shadow p-2 my-1 bg-light rounded bg-dark accented col-12">Shoe size</div>
               <input type="number" placeholder="Input shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
             </div>
 
           </form>
       </div>
       <!-- PRICE FILTER -->
-      <div class="container">
-        <ngx-slider [(value)]="this.m_minPrice" [(highValue)]="this.m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ngx-slider>
-      </div>
+      <div class="shadow p-2 my-1 bg-light rounded bg-dark accented">Price range: ${{m_minPrice}} - ${{m_maxPrice}}</div>
+      <ngx-slider [(value)]="this.m_minPrice" [(highValue)]="this.m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ngx-slider>
+
     </div>
+
     <div class="col-lg-9" >
       <app-product-list></app-product-list>
     </div>
