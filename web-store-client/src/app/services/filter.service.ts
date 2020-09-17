@@ -54,15 +54,19 @@ export class FilterService {
     // console.log(_prod);
     // console.log(this.m_filterObject);
 
+    // Check it the article is in the same category as the selection
     if(selectedType == undefined || selectedType == _prod['articleType']){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
-        // If object's type is not specified, show the current object
+        // If object's type is not specified, do a general pattern check
         if(selectedType == undefined ){
 
           if(this.m_filterObject['minPrice'] < _prod['price']
-            &&this.m_filterObject['maxPrice'] > _prod['price']){
+            &&this.m_filterObject['maxPrice'] > _prod['price']
+            &&this.m_filterObject['selectedCategories'].indexOf(_prod['category']) != -1
+            &&(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
+              || selectedSeasons.length == 0)){
               // console.log("true");
               return true;
             }
@@ -94,7 +98,8 @@ export class FilterService {
         // If it's not a shoe, then check if the misc object matches the same pattern
         else if(this.m_filterObject['minPrice'] < _prod['price']
               &&this.m_filterObject['maxPrice'] > _prod['price']
-              &&selectedType == _prod['articleType'] ){
+              &&selectedType == _prod['articleType']
+              &&this.m_filterObject['selectedCategories'].indexOf(_prod['category']) != -1){
 
           console.log("true");
           return true;

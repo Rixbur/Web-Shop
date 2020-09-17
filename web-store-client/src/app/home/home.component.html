@@ -70,7 +70,7 @@
             </div>
 
             <!-- SHOE SIZE FILTER -->
-            <div class="row" *ngIf="m_selectedCategory || m_selectedCategory == undefined">
+            <div class="row" *ngIf="m_selectedCategory">
               <div class="shadow p-2 my-1 bg-light rounded bg-dark accented col-12">Shoe size</div>
               <input type="number" placeholder="Input shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
             </div>
