@@ -8,43 +8,131 @@
               <input class="form-control mr-sm-6 " type="text" placeholder="Product name" aria-label="Search" (change)="onChangeName($event)">
             </div>
             <div class="row">
-              <select class="custom-select" (change)="onChangeProductCategory($event)" >
-                <option selected value="">Product type</option>
-                <option value="shoes">Shoes</option>
-                <option value="misc">Bags and Backpacks</option>
-              </select>
-              <select *ngIf="m_isShoe" class="custom-select" (change)="onChangeSeason($event)">
-                <option selected value="">Season</option>
-                <option value="spring">Spring</option>
-                <option value="summer">Summer</option>
-                <option value="autumn">Autumn</option>
-                <option value="winter">Winter</option>
-              </select>
-              <select *ngIf="m_isShoe && isSummerSpring()" class="custom-select" (change)="onChangeType($event)" >
-                <option selected value="">Category</option>
-                <option value="slippers">Slippers</option>
-                <option value="sandals">Sandals</option>
-                <option value="wingtips">Wingtips</option>
-                <option value="espadrilles">Espadrilles</option>
-                <option value="sneakers">Snakers</option>
-              </select>
-              <select *ngIf="m_isShoe && isWinterAutumn()" class="custom-select" (change)="onChangeType($event)">
-                <option selected value="">Category</option>
-                <option value="boots">Boots</option>
-                <option value="patike">Patike</option>
-                <option value="polucizme">Polucizme</option>
-                <option value="cipele">Cipele</option>
-                <option value="rainboots">Rain boots</option>
-                <option value="snowboots">Snow boots</option>
-              </select>
-            </div>
 
+              <!-- PRODUCT CATEGORY FILTER -->
+              <div class="filter-entry">
+
+                <div class="shadow p-2 bg-light rounded bg-dark accented">Product category</div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="shoes" type="checkbox" name="checkcategory" id="radioshoes">
+                  <label class="form-check-label"  for="checkshoes">Shoes</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="misc" type="checkbox" name="checkcategory" id="radiomisc">
+                  <label class="form-check-label" for="checkshoes">Bags and Backpacks</label>
+                </div>
+
+              </div>
+
+              <!-- PRODUCT SEASON FILTER -->
+
+              <div class="filter-entry">
+                <div class="shadow p-2 bg-light rounded bg-dark accented">Season</div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeSeason($event)" class="form-check-input" value="spring" type="checkbox" name="checkseason" id="radioseason1">
+                  <label class="form-check-label"  for="radioseason1">Spring</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeSeason($event)" class="form-check-input" value="summer" type="checkbox" name="checkseason" id="radioseason1">
+                  <label class="form-check-label" for="radioseason1">Summer</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeSeason($event)" class="form-check-input" value="autumn" type="checkbox" name="checkseason" id="radioseason1">
+                  <label class="form-check-label" for="radioseason1">Autumn</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeSeason($event)" class="form-check-input" value="winter" type="checkbox" name="checkseason" id="radioseason1">
+                  <label class="form-check-label" for="radioseason1">Winter</label>
+                </div>
+
+              </div>
+
+
+              <!-- SUMMER PRODUCT TYPE FILTER -->
+              <div class="filter-entry">
+                <div class="shadow p-2 bg-light rounded bg-dark accented">Summer footwear subcategories</div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" value="slippers" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label"  for="radioseason1">Slippers</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" value="sandals" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label" for="radioseason1">Sandals</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" value="wingtips" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label" for="radioseason1">Wingtips</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" value="espadrilles" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label" for="radioseason1">Espadrilles</label>
+                </div>
+
+                <div class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" value="sneakers" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label" for="radioseason1">Sneakers</label>
+                </div>
+
+              </div>
+
+
+
+            <!-- WINTER PRODUCT TYPE FILTER -->
+            <div class="filter-entry">
+              <div class="shadow p-2 bg-light rounded bg-dark accented">Winter footwear subcategories</div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="boots" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label"  for="radioseason1">Boots</label>
+              </div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="patike" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label" for="radioseason1">Sneakers</label>
+              </div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="polucizme" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label" for="radioseason1">Dust boots</label>
+              </div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="wingtips" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label" for="radioseason1">Wingtips</label>
+              </div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="rainboots" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label" for="radioseason1">Rain boots</label>
+              </div>
+
+              <div class="form-check col-12">
+                <input (change)="onChangeType($event)" class="form-check-input" value="snowboots" type="checkbox" name="checkseason" id="radiocategory">
+                <label class="form-check-label" for="radioseason1">Snow boots</label>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SHOE SIZE FILTER -->
             <div class="row">
-              <input type="number" placeholder="Shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
+              <div class="shadow p-2 my-1 bg-light rounded bg-dark accented">Shoe size</div>
+              <input type="number" placeholder="Input shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
             </div>
 
           </form>
       </div>
+      <!-- PRICE FILTER -->
       <div class="container">
         <ngx-slider [(value)]="this.m_minPrice" [(highValue)]="this.m_maxPrice" [options]="options" (valueChange)="onChangeRange()"></ngx-slider>
       </div>

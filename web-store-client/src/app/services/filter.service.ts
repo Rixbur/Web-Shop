@@ -27,12 +27,13 @@ export class FilterService {
             );
   }
   mapParsing(_prod:ExportableProduct){
+    // console.dir(_prod);
       for(const key in _prod){
         if(key=='mapSizeQuantities'){
           _prod.map = new Map(JSON.parse(_prod[key]));
         }
       }
-      //console.log(_prod.map);
+      // console.log(_prod.map);
       return _prod;
   }
 
@@ -40,53 +41,56 @@ export class FilterService {
     // if(this.m_filterObject['isShoe'] == undefined){
     //   return true;
     // }
-    let keyword = this.m_filterObject['name']
+    let keyword = this.m_filterObject['selectedName']
     let prodName: string = _prod['name']
 
-    let selectedSeason = this.m_filterObject['selectedSeason'];
-    let selectedType: string = this.m_filterObject['type']
-    console.log(_prod);
-    console.log(this.m_filterObject);
+    let selectedSeasons = this.m_filterObject['selectedSeasons'];
+    let selectedCategories: string[] = this.m_filterObject['selectedTypes']
 
-    if(selectedType == "" || selectedType == _prod['category'].toLowerCase()){
+    // console.log(_prod);
+    // console.log(this.m_filterObject);
+
+    if(selectedCategories == [] || selectedCategories.indexOf(_prod['category'].toLowerCase()) != -1 ){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
-        // If object's category is not specified, show the current object
-        if(this.m_filterObject['isShoe'] == undefined){
+        // If object's type is not specified, show the current object
+
+        if(this.m_filterObject['selectedTypes']== [] ){
 
           if(this.m_filterObject['minPrice'] < _prod['price']
             &&this.m_filterObject['maxPrice'] > _prod['price']){
-              console.log("true");
+              // console.log("true");
               return true;
             }
             else{
-              console.log("false");
+              // console.log("false");
               return false;
             }
         }
         // Else, check if the current shoe matches the given pattern
-        if(this.m_filterObject['isShoe'] && _prod['articleType']){
+        if( this.m_filterObject['selectedTypes'].indexOf(_prod['articleType']) != -1 ){
 
-          if(selectedSeason == _prod['season'].toLowerCase()
-            || selectedSeason == ""){
+          if(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
+            || selectedSeasons == []){
 
-              if(_prod['map'].get(this.m_filterObject['shoeSize']))
+              // Check if a shoe of the specified size exists in the store
+              if(_prod['map'].get(this.m_filterObject['shoeSize']) )
               {
-                console.log(_prod['map'].get(this.m_filterObject['shoeSize']));
+                // console.log(_prod['map'].get(this.m_filterObject['shoeSize']));
 
                 if(this.m_filterObject['minPrice'] < _prod['price']
                 &&this.m_filterObject['maxPrice'] > _prod['price']){
                   console.log('true');
                   return true
                 }
-            }
+              }
           }
         }
         // If it's not a shoe, then check if the misc object matches the same pattern
         else if(this.m_filterObject['minPrice'] < _prod['price']
-                &&this.m_filterObject['maxPrice'] > _prod['price']
-                &&_prod.m_articleType == this.m_filterObject['isShoe']){
+              &&this.m_filterObject['maxPrice'] > _prod['price']
+              &&this.m_filterObject['selectedTypes'].indexOf(_prod['articleType']) ){
 
           console.log("true");
           return true;
@@ -100,13 +104,12 @@ export class FilterService {
     return false;
   }
   updateFilters(_filterObject){
-    console.log(_filterObject);
+
 
     this.m_filterObject = _filterObject;
     this.m_filterProductsPromise = this.filteredProducts().toPromise()
-                                                          .then(prods =>{
-                                                            this.m_filterProducts = prods;
-                                                            console.log(prods)})
-                                                          .catch(err => console.log(err))
+                                                          .then(prods =>
+                                                                this.m_filterProducts = prods)
+                                                          .catch(err => console.log(err));
   }
 }
