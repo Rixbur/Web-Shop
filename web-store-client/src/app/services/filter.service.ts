@@ -50,13 +50,13 @@ export class FilterService {
     // console.log(_prod);
     // console.log(this.m_filterObject);
 
-    if(selectedCategories == [] || selectedCategories.indexOf(_prod['category'].toLowerCase()) != -1 ){
+    if(selectedCategories.length == 0 || selectedCategories.indexOf(_prod['category'].toLowerCase()) != -1 ){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
         // If object's type is not specified, show the current object
 
-        if(this.m_filterObject['selectedTypes']== [] ){
+        if(this.m_filterObject['selectedTypes'].length == 0 ){
 
           if(this.m_filterObject['minPrice'] < _prod['price']
             &&this.m_filterObject['maxPrice'] > _prod['price']){
@@ -72,7 +72,7 @@ export class FilterService {
         if( this.m_filterObject['selectedTypes'].indexOf(_prod['articleType']) != -1 ){
 
           if(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
-            || selectedSeasons == []){
+            || selectedSeasons.lenght == 0){
 
               // Check if a shoe of the specified size exists in the store
               if(_prod['map'].get(this.m_filterObject['shoeSize']) )

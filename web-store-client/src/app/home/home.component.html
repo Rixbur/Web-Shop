@@ -15,12 +15,12 @@
                 <div class="shadow p-2 bg-light rounded bg-dark accented">Product category</div>
 
                 <div class="form-check col-12">
-                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="shoes" type="checkbox" name="checkcategory" id="radioshoes">
+                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="shoes" type="radio" name="checkcategory" id="radioshoes">
                   <label class="form-check-label"  for="checkshoes">Shoes</label>
                 </div>
 
                 <div class="form-check col-12">
-                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="misc" type="checkbox" name="checkcategory" id="radiomisc">
+                  <input (change)="onChangeProductCategory($event)" class="form-check-input" value="misc" type="radio" name="checkcategory" id="radiomisc">
                   <label class="form-check-label" for="checkshoes">Bags and Backpacks</label>
                 </div>
 
@@ -53,75 +53,17 @@
 
               </div>
 
+              <!-- GENERATE ALL POSSIBLE TYPES TO CHOSE FROM -->
+              <div class="filter-entry col-12 p-0">
+                <div class="shadow p-2 bg-light rounded bg-dark accented">Product type</div>
 
-              <!-- SUMMER PRODUCT TYPE FILTER -->
-              <div class="filter-entry">
-                <div class="shadow p-2 bg-light rounded bg-dark accented">Summer footwear subcategories</div>
-
-                <div class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" value="slippers" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label"  for="radioseason1">Slippers</label>
-                </div>
-
-                <div class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" value="sandals" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label" for="radioseason1">Sandals</label>
-                </div>
-
-                <div class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" value="wingtips" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label" for="radioseason1">Wingtips</label>
-                </div>
-
-                <div class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" value="espadrilles" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label" for="radioseason1">Espadrilles</label>
-                </div>
-
-                <div class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" value="sneakers" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label" for="radioseason1">Sneakers</label>
+                <div *ngFor="let i_type of m_possibleTypes" class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" [value]="i_type" type="checkbox" name="checkseason" id="radiocategory">
+                  <label class="form-check-label"  for="radioseason1">{{i_type}}</label>
                 </div>
 
               </div>
 
-
-
-            <!-- WINTER PRODUCT TYPE FILTER -->
-            <div class="filter-entry">
-              <div class="shadow p-2 bg-light rounded bg-dark accented col-12">Winter footwear subcategories</div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="boots" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label"  for="radioseason1">Boots</label>
-              </div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="patike" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label" for="radioseason1">Sneakers</label>
-              </div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="polucizme" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label" for="radioseason1">Dust boots</label>
-              </div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="wingtips" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label" for="radioseason1">Wingtips</label>
-              </div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="rainboots" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label" for="radioseason1">Rain boots</label>
-              </div>
-
-              <div class="form-check col-12">
-                <input (change)="onChangeType($event)" class="form-check-input" value="snowboots" type="checkbox" name="checkseason" id="radiocategory">
-                <label class="form-check-label" for="radioseason1">Snow boots</label>
-              </div>
-
-            </div>
           </div>
 
           <!-- SHOE SIZE FILTER -->
