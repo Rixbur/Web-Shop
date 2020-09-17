@@ -63,7 +63,7 @@ export class HomeComponent implements OnInit {
     else if(l_inputValue == true){
       this.wipeSelection();
       this.m_possibleTypes=[];
-      this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes);
+      this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes,this.m_winterShoeTypes,this.m_summerShoeTypes);
 
     }
 

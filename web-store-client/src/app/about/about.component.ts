@@ -5,6 +5,7 @@ import { ConnectionService } from '../services/connection.service';
 import { AboutService } from '../services/about.service';
 import { About } from '../services/about.model';
 
+
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -15,6 +16,8 @@ export class AboutComponent implements OnInit, OnDestroy {
   private activeSubscriptions: Subscription[];
   public item : About;
 
+  public lat = 44.819812;
+  public lng = 20.458708;
   loading = false;
   buttonText = "Submit";
 
@@ -24,7 +27,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     private aboutService : AboutService
   ) {
     this.activeSubscriptions = [];
-    
+
     this.aboutService.getAboutInfo()
       .subscribe(item => {
         this.item = item;

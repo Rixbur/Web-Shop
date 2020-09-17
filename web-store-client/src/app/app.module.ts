@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSliderModule } from '@m0t0r/ngx-slider';
+import { AgmCoreModule } from '@agm/core';
 
 
 import { AppRoutingModule } from './routing/app-routing.module';
@@ -58,7 +59,10 @@ import { RecommendedComponent } from './recommended/recommended.component';
     HttpClientModule,
     CarouselModule,
     BrowserAnimationsModule,
-    NgxSliderModule
+    NgxSliderModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyD7l8kq8ay6ZkD9qYKIWA1G2-jIQnskT1o'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
