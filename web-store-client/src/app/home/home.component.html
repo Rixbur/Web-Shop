@@ -26,50 +26,68 @@
 
               </div>
 
-              <!-- PRODUCT SEASON FILTER -->
+              <div *ngIf="m_selectedCategory || m_selectedCategory == undefined" class ="col-12 p-0">
+                <!-- PRODUCT SEASON FILTER -->
 
-              <div class="filter-entry col-12 p-0">
-                <div class="shadow p-2 bg-light rounded bg-dark accented ">Season</div>
+                <div class="filter-entry col-12 p-0">
+                  <div class="shadow p-2 bg-light rounded bg-dark accented">Season</div>
 
-                <div class="form-check col-12">
-                  <input (change)="onChangeSeason($event)" class="form-check-input" value="spring" type="checkbox" name="checkseason" id="radioseason1">
-                  <label class="form-check-label"  for="radioseason1">Spring</label>
+                  <div class="form-check col-12">
+                    <input (change)="onChangeSeason($event)" class="form-check-input" value="spring" type="checkbox" name="checkseason" id="radioseason1">
+                    <label class="form-check-label"  for="radioseason1">Spring</label>
+                  </div>
+
+                  <div class="form-check col-12">
+                    <input (change)="onChangeSeason($event)" class="form-check-input" value="summer" type="checkbox" name="checkseason" id="radioseason1">
+                    <label class="form-check-label" for="radioseason1">Summer</label>
+                  </div>
+
+                  <div class="form-check col-12">
+                    <input (change)="onChangeSeason($event)" class="form-check-input" value="autumn" type="checkbox" name="checkseason" id="radioseason1">
+                    <label class="form-check-label" for="radioseason1">Autumn</label>
+                  </div>
+
+                  <div class="form-check col-12">
+                    <input (change)="onChangeSeason($event)" class="form-check-input" value="winter" type="checkbox" name="checkseason" id="radioseason1">
+                    <label class="form-check-label" for="radioseason1">Winter</label>
+                  </div>
+
                 </div>
 
-                <div class="form-check col-12">
-                  <input (change)="onChangeSeason($event)" class="form-check-input" value="summer" type="checkbox" name="checkseason" id="radioseason1">
-                  <label class="form-check-label" for="radioseason1">Summer</label>
-                </div>
+                <!-- GENERATE ALL POSSIBLE TYPES TO CHOSE FROM -->
+                <div class="filter-entry col-12 p-0">
+                  <div class="shadow p-2 bg-light rounded bg-dark accented">Shoe type</div>
 
-                <div class="form-check col-12">
-                  <input (change)="onChangeSeason($event)" class="form-check-input" value="autumn" type="checkbox" name="checkseason" id="radioseason1">
-                  <label class="form-check-label" for="radioseason1">Autumn</label>
-                </div>
+                  <div *ngFor="let i_type of m_possibleTypes" class="form-check col-12">
+                    <input (change)="onChangeType($event)" class="form-check-input" [value]="i_type" type="checkbox" name="checkseason" id="radiocategory">
+                    <label class="form-check-label"  for="radioseason1">{{i_type}}</label>
+                  </div>
 
-                <div class="form-check col-12">
-                  <input (change)="onChangeSeason($event)" class="form-check-input" value="winter" type="checkbox" name="checkseason" id="radioseason1">
-                  <label class="form-check-label" for="radioseason1">Winter</label>
                 </div>
 
               </div>
 
-              <!-- GENERATE ALL POSSIBLE TYPES TO CHOSE FROM -->
-              <div class="filter-entry col-12 p-0">
-                <div class="shadow p-2 bg-light rounded bg-dark accented">Product type</div>
+            </div>
 
-                <div *ngFor="let i_type of m_possibleTypes" class="form-check col-12">
-                  <input (change)="onChangeType($event)" class="form-check-input" [value]="i_type" type="checkbox" name="checkseason" id="radiocategory">
-                  <label class="form-check-label"  for="radioseason1">{{i_type}}</label>
-                </div>
-
-              </div>
-
-          </div>
-
-          <!-- SHOE SIZE FILTER -->
-            <div class="row">
+            <!-- SHOE SIZE FILTER -->
+            <div class="row" *ngIf="m_selectedCategory || m_selectedCategory == undefined">
               <div class="shadow p-2 my-1 bg-light rounded bg-dark accented col-12">Shoe size</div>
               <input type="number" placeholder="Input shoe size" (input)="onShoeSizeChange($event)" style=" border-radius: 6px; border:2px;" >
+            </div>
+
+
+            <!-- BAG FILTER SECTION -->
+            <div *ngIf="!m_selectedCategory || m_selectedCategory == undefined" class="row">
+
+              <div class="filter-entry col-12 p-0">
+                <div class="shadow p-2 bg-light rounded bg-dark accented">Bag type</div>
+
+                <div *ngFor="let i_type of m_bagTypes" class="form-check col-12">
+                  <input (change)="onChangeType($event)" class="form-check-input" [value]="i_type" type="checkbox" name="checkbag" id="bagcheckbox">
+                  <label class="form-check-label"  for="radioseason1">{{i_type}}</label>
+                </div>
+              </div>
+
             </div>
 
           </form>

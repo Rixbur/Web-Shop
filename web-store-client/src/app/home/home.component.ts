@@ -10,7 +10,7 @@ import { Options, LabelType } from '@m0t0r/ngx-slider';
 })
 export class HomeComponent implements OnInit {
 
-  public m_selectedCategories: boolean[] = [];
+  public m_selectedCategory: boolean = undefined;
   public m_selectedTypes: string[] = [];
   public m_selectedName: string = "";
   public m_selectedSeasons: string[] = [];
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   private m_allSeasonShoeTypes: string[] = ['wingtips','sneakers'];
   private m_winterShoeTypes: string[] = ['boots','dustboots','rainboots','snowboots'];
   public m_possibleTypes: string[] = ['wingtips','sneakers'];
+  public m_bagTypes: string[] = ['daypack','belt bag','waist bag','rucksack','knapsack'];
 
   constructor(private m_productService: FilterService) {
     this.updateFilters();
@@ -56,21 +57,35 @@ export class HomeComponent implements OnInit {
     let l_inputValue = (<HTMLInputElement>(_event.target)).value == "shoes" ? true : false;
 
     if(l_inputValue == false){
+      this.wipeSelection();
       this.m_possibleTypes=[];
     }
+    else if(l_inputValue == true){
+      this.wipeSelection();
+      this.m_possibleTypes=[];
+      this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes);
 
-    // If the checked value isn't the m_selectedCategories array, add it
-    if(l_inputElement.checked && this.m_selectedCategories.indexOf(l_inputValue) == -1){
-      this.m_selectedCategories.push(l_inputValue);
     }
-    // if the value is unchecked, remove the element from the m_selectedCategories array
-    else if(!l_inputElement.checked && this.m_selectedCategories.indexOf(l_inputValue) != -1){
-      let l_indexOfElem = this.m_selectedCategories.indexOf(l_inputValue);
-      this.m_selectedCategories.splice(l_indexOfElem,1);
-    }
+
+    // // If the checked value isn't the m_selectedCategory array, add it
+    // if(l_inputElement.checked && this.m_selectedCategory.indexOf(l_inputValue) == -1){
+    //   this.m_selectedCategory.push(l_inputValue);
+    // }
+    // // if the value is unchecked, remove the element from the m_selectedCategory array
+    // else if(!l_inputElement.checked && this.m_selectedCategory.indexOf(l_inputValue) != -1){
+    //   let l_indexOfElem = this.m_selectedCategory.indexOf(l_inputValue);
+    //   this.m_selectedCategory.splice(l_indexOfElem,1);
+    // }
+
+    this.m_selectedCategory = l_inputValue;
     this.updateFilters();
   }
 
+  wipeSelection(): void{
+    this.m_selectedTypes = [];
+    this.m_selectedSeasons = [];
+    this.m_selectedShoeSize = 39;
+  }
 
   onChangeName(_event: Event): void{
     this.m_selectedName=(<HTMLInputElement>_event.target).value;
@@ -144,8 +159,17 @@ export class HomeComponent implements OnInit {
 
 
   updateFilters(){
+    console.dir({
+      selectedType : this.m_selectedCategory,
+      selectedSeasons : this.m_selectedSeasons,
+      maxPrice : this.m_maxPrice,
+      minPrice : this.m_minPrice,
+      shoeSize : this.m_selectedShoeSize,
+      name: this.m_selectedName,
+      selectedCategories: this.m_selectedTypes
+      });
     this.m_productService.updateFilters({
-      selectedTypes : this.m_selectedCategories,
+      selectedType : this.m_selectedCategory,
       selectedSeasons : this.m_selectedSeasons,
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,

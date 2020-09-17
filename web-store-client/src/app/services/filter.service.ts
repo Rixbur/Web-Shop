@@ -45,18 +45,21 @@ export class FilterService {
     let prodName: string = _prod['name']
 
     let selectedSeasons = this.m_filterObject['selectedSeasons'];
-    let selectedCategories: string[] = this.m_filterObject['selectedTypes']
+
+    //undefined - all types
+    //true - only shoes
+    //false - only bags
+    let selectedType: boolean = this.m_filterObject['selectedType']
 
     // console.log(_prod);
     // console.log(this.m_filterObject);
 
-    if(selectedCategories.length == 0 || selectedCategories.indexOf(_prod['category'].toLowerCase()) != -1 ){
+    if(selectedType == undefined || selectedType == _prod['articleType']){
 
       if(keyword == "" || prodName.indexOf(keyword) != -1){
 
         // If object's type is not specified, show the current object
-
-        if(this.m_filterObject['selectedTypes'].length == 0 ){
+        if(selectedType == undefined ){
 
           if(this.m_filterObject['minPrice'] < _prod['price']
             &&this.m_filterObject['maxPrice'] > _prod['price']){
@@ -68,11 +71,12 @@ export class FilterService {
               return false;
             }
         }
-        // Else, check if the current shoe matches the given pattern
-        if( this.m_filterObject['selectedTypes'].indexOf(_prod['articleType']) != -1 ){
+        // Else, check if the current item is a shoe, and wheather it matches the given pattern
+        if(selectedType == true && selectedType == _prod['articleType']
+           && this.m_filterObject['selectedCategories'].indexOf(_prod['category']) != -1){
 
           if(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
-            || selectedSeasons.lenght == 0){
+            || selectedSeasons.length == 0){
 
               // Check if a shoe of the specified size exists in the store
               if(_prod['map'].get(this.m_filterObject['shoeSize']) )
@@ -90,7 +94,7 @@ export class FilterService {
         // If it's not a shoe, then check if the misc object matches the same pattern
         else if(this.m_filterObject['minPrice'] < _prod['price']
               &&this.m_filterObject['maxPrice'] > _prod['price']
-              &&this.m_filterObject['selectedTypes'].indexOf(_prod['articleType']) ){
+              &&selectedType == _prod['articleType'] ){
 
           console.log("true");
           return true;
