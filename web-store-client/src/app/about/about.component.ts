@@ -16,8 +16,8 @@ export class AboutComponent implements OnInit, OnDestroy {
   private activeSubscriptions: Subscription[];
   public item : About;
 
-  public lat = 44.819812;
-  public lng = 20.458708;
+  public m_lat = 44.819812;
+  public m_lng = 20.458708;
   loading = false;
   buttonText = "Submit";
 

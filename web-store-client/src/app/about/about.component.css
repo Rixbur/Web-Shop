@@ -2,6 +2,22 @@
     margin-left: 50px;
 
 }
+
+.aboutInfo{
+  color: white;
+  font-weight: 500;
+}
+.logoText1{
+  color: white;
+}
+
+.logoText2{
+  color: rgb(176, 95, 251);
+}
+
 agm-map {
-  height: 300px;
+  height: 500px;
+}
+.accented{
+  color: rgb(176, 95, 251);
 }
