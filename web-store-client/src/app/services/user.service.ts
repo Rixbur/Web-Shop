@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorHandler } from '../utils/http-error-handler.model';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 
 type User = {
   email: string;
@@ -20,74 +22,35 @@ const usersUrl = 'http://localhost:3000/users';
   providedIn: 'root',
 })
 export class UserService extends HttpErrorHandler{
-  constructor(private http: HttpClient,router: Router) {
+  constructor(private http: HttpClient, router: Router) {
     super(router);
   }
   
   private userEmail: string ="";
+   
+  public setUserEmail(v : string) {
+    console.log(v);
+    this.userEmail = v;
+  }
   
 
-  login(loginInfo: LoginInfo) {
-    console.log('Sending request');
+  public userInfo(email: string): Observable<User> {
     return this.http
-      .post(`${usersUrl}/login`, loginInfo, {observe: "response"})
-      .subscribe(e => {
-        if(e.status==201){
-            this.userEmail=loginInfo.email;
-            window.alert("Succesfully logged in!");
-        }
-        else{
-          window.alert("Couldn't log in, check username and password");
-        }
-      
-      },
-      undefined,
-      ()=>{this.getRouter.navigate(['/']);
-    });
+      .get<User>(usersUrl + '/info/' + email)
+      .pipe(catchError(super.handleError()));
   }
 
-  userInfo(email: string) {
-    console.log('Getting info ');
+  public login(loginInfo: LoginInfo) {
     return this.http
-      .get(`${usersUrl}/info/${email}`, {observe: "response"})
-      .subscribe(e => {
-        if(e.status==201){
-            console.log(e.body);
-        }
-        else{
-          window.alert("Couldn't log in, check username and password");
-        }
-      
-      },
-      undefined,
-      ()=>{this.getRouter.navigate(['/']);
-    });
+      .post<User>(usersUrl + '/login', loginInfo, {observe: "response"})
+      .pipe(catchError(super.handleError()));
   }
-
-  register(user: User) {
-    console.log('Sending register request');
+  public register(user: User) {
     return this.http
-      .post(`${usersUrl}/register`, user, {observe: "response"})
-      .subscribe(e => {
-        if(e.status===201){
-            this.userEmail=user.email;
-            
-            window.alert("Already registered");
-            
-        }
-        else if(e.status===202){
-          window.alert("Successfully registered");
-
-        }
-        else{
-          window.alert("Couldn't register, please try again");
-        }
-      
-      },
-      undefined,
-      ()=>{this.getRouter.navigate(['/login']);
-    });
+      .post<User>(usersUrl + '/register', user, {observe: "response"})
+      .pipe(catchError(super.handleError()));
   }
+ 
 
   getUserEmail(){
     return this.userEmail;

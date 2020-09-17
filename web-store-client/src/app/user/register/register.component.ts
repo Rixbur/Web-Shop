@@ -12,6 +12,7 @@ import { nameValidator } from '../../orders/cart/name-validator';
 export class RegisterComponent implements OnInit,OnDestroy {
   // email: string = '';
   // password: string = '';
+  private registerSub: Subscription=null;
   private activeSubscriptions: Subscription[] = []
   public registerForm: FormGroup;
 
@@ -51,13 +52,32 @@ export class RegisterComponent implements OnInit,OnDestroy {
       window.alert('Not valid!');
       return;
     }
-
-    const subscription = this.userService.register({
+    this.registerSub = this.userService.register({
       email: this.email.value,
       password: this.password.value,
       name: this.name.value,
       address: this.address.value
+  }).subscribe(
+    data => {
+      if(data.status==201){
+        window.alert("Succesfully registered!");
+      }      
+      else if(data.status==202){
+        window.alert("Already registered");
+      }
+      else{
+        window.alert("Couldn't register, please try again later");
+      }
+      
+    },
+    err => {
+      console.log(err);
+    },
+    () => {
+      // this.getRouter.navigate(['/']);
     });
-    this.activeSubscriptions.push(subscription);
+    this.activeSubscriptions.push(this.registerSub);
   }
+
+
 }

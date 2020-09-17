@@ -13,8 +13,9 @@ import { Subscribable, Subscription } from 'rxjs';
 export class LoginComponent implements OnInit,OnDestroy {
   email: string = '';
   password: string = '';
-  activeSubscriptions: Subscription[] = []
-  constructor(private userService: UserService) {}
+  loginSub: Subscription = null;
+  activeSubscriptions: Subscription[] = [];
+  constructor(private userService: UserService, router: Router) {}
 
   ngOnInit(): void {}
 
@@ -23,10 +24,26 @@ export class LoginComponent implements OnInit,OnDestroy {
   }
 
   public submitForm(): void {
-    const subscribe = this.userService.login({
+    this.loginSub = this.userService.login({
       email: this.email,
       password: this.password,
+    }).subscribe(
+    data => {
+      if(data.status==201){
+          this.userService.setUserEmail(this.email);
+          window.alert("Succesfully logged in!");
+      }
+      else{
+        window.alert("Couldn't log in, check username and password");
+      }
+      
+    },
+    err => {
+      console.log(err);
+    },
+    () => {
+      // this.getRouter.navigate(['/']);
     });
-    this.activeSubscriptions.push(subscribe);
+    this.activeSubscriptions.push(this.loginSub);
   }
 }

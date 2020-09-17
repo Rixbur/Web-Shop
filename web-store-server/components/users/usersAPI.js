@@ -22,13 +22,13 @@ userRouter.post("/register", async (req, res) => {
     
     await userInMongo.save();
 
-    return res.status(202).send();
+    return res.status(201).send();
   }
-  return res.status(201).json({ message: "Already registered!"});
+  return res.status(202).json({ message: "Already registered!"});
 });
 
 
-userRouter.get("/user/:email", async (req, res) => {
+userRouter.get("/info/:email", async (req, res) => {
   const userEmail = req.params.userEmail;
   console.log(req.params);
   const userInfo = await userModel.find({email: userEmail}).exec();
