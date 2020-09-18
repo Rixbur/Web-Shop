@@ -1,20 +1,19 @@
 <div id="productListContent" class="container mx-10" *ngIf="this.m_productList">
   <div class="row" >
     <div class="col-lg-4" id="productListContent" *ngFor= "let product of this.m_productList | orderBy: false">
-      <div id="productInfoContent"  class="h-100 my-2 py-2 px-2">
+      <div id="jumpingDiv">
+        <div  class="h-100 my-2 py-2 px-2 text-center"  id="productInfoContent" [routerLink]="['/products/',product._id]">
+          
+          <h4 id="productName">{{ product.name }}</h4>
+          <p>{{ product.desription }}</p>
+          <owl-carousel-o [options]="customOptions">
+              <ng-template carouselSlide>
+                <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
+              </ng-template>
+          </owl-carousel-o>  
+          <h4 id="pruductPrice">Price:{{ product.price }}$</h4>
 
-        <a><h4 >{{ product.name }}</h4></a>
-        <h6>{{ product.price }}$</h6>
-        <p>{{ product.desription }}</p>
-        <owl-carousel-o [options]="customOptions">
-            <ng-template carouselSlide>
-              <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
-            </ng-template>
-        </owl-carousel-o>  
-
-        <button class = "btn btn-secondary" [routerLink]="['/products/',product._id]"
-        >See details</button>
-
+        </div>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@ export class FilterService {
           .reduce((subResults, result) => subResults.concat(result), []),
       [[]]
     )
-}
+  }
 
   constructor(private m_productService: ProductService) {
   }
@@ -57,13 +57,17 @@ export class FilterService {
   }
 
   doStaticChecks(_prod: ExportableProduct): boolean{
-    let conditionArray = [false,false];
+    let conditionArray = [false,false,false];
     let prodName: string = _prod['name'].toLowerCase();
     let keyword = (this.m_filterObject['selectedName']).toLowerCase();
 
     conditionArray[0] = prodName.indexOf(keyword) != -1;
     conditionArray[1] = this.m_filterObject['minPrice'] <= _prod['price']
                         &&this.m_filterObject['maxPrice'] >= _prod['price'];
+    conditionArray[2] = _prod['map'].has(this.m_filterObject['shoeSize']) 
+                        || this.m_filterObject['shoeSize'] == undefined
+                        || isNaN(this.m_filterObject['shoeSize']);
+    
     return conditionArray.reduce((acc,elem)=> acc && elem,true);
   }
 

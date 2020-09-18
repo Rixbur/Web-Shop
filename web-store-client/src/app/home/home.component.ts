@@ -10,18 +10,18 @@ import { Options, LabelType } from '@m0t0r/ngx-slider';
 })
 export class HomeComponent implements OnInit {
 
-  public m_selectedCategory: string = "";
+  public m_selectedCategory: string = "shoes";
   public m_selectedTypes: string[] = [];
   public m_selectedName: string = "";
   public m_selectedSeasons: string[] = [];
   public m_maxPrice: number = 100;
   public m_minPrice: number = 0;
-  public m_selectedShoeSize: number = 39;
+  public m_selectedShoeSize: number = undefined;
 
   private m_summerShoeTypes: string[] = ['slippers','sandals','espadrilles'];
   private m_allSeasonShoeTypes: string[] = ['wingtips','sneakers'];
   private m_winterShoeTypes: string[] = ['boots','dustboots','rainboots','snowboots'];
-  public m_possibleTypes: string[] = ['wingtips','sneakers'];
+  public m_possibleTypes: string[] = ['wingtips','sneakers','slippers','sandals','espadrilles','boots','dustboots','rainboots','snowboots'];
   public m_bagTypes: string[] = ['daypack','belt bag','waist bag','rucksack','knapsack'];
 
   constructor(private m_productService: FilterService) {
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
   wipeSelection(): void{
     this.m_selectedTypes = [];
     this.m_selectedSeasons = [];
-    this.m_selectedShoeSize = 39;
+    this.m_selectedShoeSize = undefined;
   }
 
   onChangeName(_event: Event): void{

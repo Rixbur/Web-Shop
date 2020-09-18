@@ -21,3 +21,7 @@ agm-map {
 .accented{
   color: rgb(176, 95, 251);
 }
+#parentContainer{
+  width: 30%;
+  height: 30%;
+}
