@@ -12,7 +12,7 @@ import { catchError } from 'rxjs/operators';
 })
 export class WishlistService extends HttpErrorHandler {
   private wishlist : Observable<Wishlist>;
-  private readonly aboutUrl = 'http://localhost:3000/wishlist/';
+  private readonly wishlistUrl = 'http://localhost:3000/wishlist/';
 
   constructor(
     private http: HttpClient,
@@ -21,34 +21,41 @@ export class WishlistService extends HttpErrorHandler {
     super(router);
    }
 
-   getWishlist(userId: string): Observable<Wishlist> {
+   getWishlist(user: string): Observable<Wishlist> {
     this.wishlist =  this.http
-      .get<Wishlist>(this.aboutUrl + userId)
+      .post<Wishlist>(this.wishlistUrl, {user})
       .pipe(catchError(super.handleError()));
     return this.wishlist;
   }
 
   createWishlist(user: string): Observable<Wishlist> {
+    console.log(user);
     this.wishlist = this.http
-      .post<Wishlist>(this.aboutUrl, user)
+      .post<Wishlist>(this.wishlistUrl + 'new', {user})
       .pipe(catchError(super.handleError()));
 
     return this.wishlist;
   }
 
-  addProductToWishlist(userId: string, porductId:string) {
-    this.wishlist = this.http
-    .post<Wishlist>(this.aboutUrl + "add", {userId: userId, porductId: porductId });
-    .pipe(catchError(super.handleError()));
-
+  addProductToWishlist(user: string, productId:string) {
+    let body = {userId: user, 
+                productId: productId
+    };
+    const sub = this.http
+    .post<Wishlist>(this.wishlistUrl + 'add', body)
+    .subscribe(data =>{
+      console.log("The product is added to the wishlist.");  
+    });
+    
   return this.wishlist;
   }
 
-  removeProductFromWislist (userId: string, porductId:string){
-    this.wishlist = this.http
-      .post<Wishlist>(this.aboutUrl + "remove", {userId: userId, porductId: porductId })
-      .pipe(catchError(super.handleError()));
+  removeProductFromWislist (user: string, productId:string){
+    this.http
+      .post<Wishlist>(this.wishlistUrl + "remove", {userId: user, productId: productId })
+      .subscribe(data =>{
+        console.log("The product is removed from the wishlist.");  
+      });
 
-    return this.wishlist;
   }
 }
