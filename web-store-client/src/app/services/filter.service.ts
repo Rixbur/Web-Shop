@@ -14,10 +14,24 @@ export class FilterService {
   public m_filterProducts = [];
   public ljubiBrat;
   public m_filterProductsPromise;
+  public m_carthesian: any;
+
+  cartesianProduct(...allEntries: any[][]): any[][] {
+    allEntries = allEntries.filter(entry=>entry.length!=0);
+    return allEntries.reduce<any[][]>(
+      (results, entries) =>
+        results
+          .map(result => entries.map(entry => result.concat([entry])))
+          .reduce((subResults, result) => subResults.concat(result), []),
+      [[]]
+    )
+}
+
   constructor(private m_productService: ProductService) {
   }
 
   filteredProducts(): Observable<ExportableProduct[]>{
+
 
     return this.m_productService.getProducts()
             .pipe(
@@ -55,197 +69,110 @@ export class FilterService {
     // ~Dusan i Vlada~
     // Ostavicemo alternativni applyfilter koji ovaj zamenjuje c:
     // #FP #Math #CHADusMaximus
-    let f = (a: any[], b: any[]): any[] => [].concat(...a.map(a2 => b.map(b2 => [].concat(a2, b2))));
+    // console.log(this.m_carthesian);
 
-    let cartesianProduct = (a: any[], b: any[], ...c: any[]) => {
-      if (!b || b.length === 0) {
-          return a;
-      }
-      const [b2, ...c2] = c;
-      const fab = f(a, b);
-      return cartesianProduct(fab, b2, ...c2);
-    };
+    let boolArray: boolean[] = [true,true,true];
 
-    let boolArray: boolean[] = [false,false,false];
-    let tmpDataFrame;
-    if(this.m_filterObject['selectedCategory'] != ""){
-      boolArray[0] = true;
-      tmpDataFrame.push([this.m_filterObject['selectedCategory']]);
+
+    if(this.m_filterObject['selectedTypes'].length == 0){
+      boolArray[2] = false;
     }
     if(this.m_filterObject['selectedSeasons'].length == 0){
-      boolArray[1] = true;
-      tmpDataFrame.push(this.m_filterObject['selectedSeasons']);
+      boolArray[1] = false;
     }
-    if(this.m_filterObject['selectedTypes'].length == 0){
-      boolArray[2] = true;
-      tmpDataFrame.push(this.m_filterObject['selectedTypes']);
+    if(this.m_filterObject['selectedCategory'] == ""){
+      boolArray[0] = false;
     }
 
-    let numElements = boolArray.filter(a=>a==true).length
-    if(numElements==0){
+    let targetArray = []
+
+    if(boolArray[0]){
+      targetArray.push(_prod['articleType']);
+    }
+    if(boolArray[1]){
+      targetArray.push(_prod['season'])
+    };
+    if(boolArray[2]){
+      targetArray.push(_prod['category']);
+    }
+
+    // console.dir(boolArray)
+
+
+    let numDimensions = boolArray.filter(a=>a==true).length;
+    // console.log(numDimensions);
+
+
+
+    if(numDimensions == 0){
+      //CASE 0 DIMESION
       return this.doStaticChecks(_prod);
     }
-    else if(numElements==3){
-      let carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
-                                        this.m_filterObject['selectedSeasons'],
-                                        this.m_filterObject['selectedTypes']);
-      let searchArray = [];
-      searchArray.push(_prod['season'],
-                     _prod['articleType'],
-                     _prod['category']);
-      let len = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length;
+    else if(numDimensions == 1){
+      //CASE 1 DIMESION
+      let oneDCarthArray = [];
+      if(boolArray[0]){
+
+        oneDCarthArray=[this.m_filterObject['selectedCategory']];
+      }
+      if(boolArray[1]){
+
+        oneDCarthArray=this.m_filterObject['selectedSeasons'];
+      }
+      if(boolArray[2]){
+
+        oneDCarthArray=this.m_filterObject['selectedTypes'];
+      }
+
+      let len = oneDCarthArray.map(elem => elem == targetArray).filter(elem=>elem==true).length;
+      return len!=0 && this.doStaticChecks(_prod);
+
+    }
+    else if (numDimensions == 2){
+      //CASE 2 DIMESION
+
+      let tmpCarthesian: any[];
+      let args = [undefined,undefined];
+      let i = 0;
+
+
+      if(boolArray[0]){
+        args[i]=[this.m_filterObject['selectedCategory']];
+        i+=1;
+      }
+      if(boolArray[1]){
+        args[i]=this.m_filterObject['selectedSeasons'];
+        i+=1;
+      }
+      if(boolArray[2]){
+        args[i]=this.m_filterObject['selectedTypes'];
+      }
+      tmpCarthesian = this.cartesianProduct(args[0],args[1]);
+
+      // console.dir(tmpCarthesian);
+
+      let len = tmpCarthesian.map(elem => JSON.stringify(elem) == JSON.stringify(targetArray)).filter(elem=>elem==true).length;
 
       return len!=0 && this.doStaticChecks(_prod);
-    }
-    else if(numElements==1){
 
-      let retVal=false;
-      if(boolArray[0]){
-        retVal = this.m_filterObject['selectedCategory'] == _prod['articleType'];
-      }
-      else if(boolArray[1]){
-        retVal = this.m_filterObject['selectedSeasons'].indexOf(_prod['season']) != -1;
-      }
-      else if(boolArray[2]){
-        retVal = this.m_filterObject['selectedTypes'].indexOf(_prod['category']) != -1;
-      }
+    }else if(numDimensions == 3){
+      //CASE 3 DIMESIONS
+      let tmpCarthesian: any[];
+      let args = [[this.m_filterObject['selectedCategory']],
+                  this.m_filterObject['selectedSeasons'],
+                  this.m_filterObject['selectedTypes']];
 
-      return retVal && this.doStaticChecks(_prod);
-    }
-    else if(numElements==2){
+      tmpCarthesian = this.cartesianProduct(args[0],args[1],args[2]);
 
-      let carthesian;
-      let searchArray = [];
-      let retVal=false;
+      // console.dir(tmpCarthesian);
 
-      if(boolArray[0] && boolArray[1]){
-        carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
-                                      this.m_filterObject['selectedSeasons']);
-        searchArray.push(_prod['season'],
-                         _prod['articleType']);
-        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
-      }
-      else if(boolArray[0] && boolArray[2]){
-        carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
-                                      this.m_filterObject['selectedTypes']);
-        searchArray.push(_prod['season'],
-                         _prod['category']);
-        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
-      }
-      else if(boolArray[1] && boolArray[2]){
-        carthesian = cartesianProduct(this.m_filterObject['selectedSeasons'],
-                                      this.m_filterObject['selectedTypes']);
-        searchArray.push(_prod['sarticleTypeeason'],
-                         _prod['category']);
-        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
-      }
-
-      return retVal && this.doStaticChecks(_prod);
+      let len = tmpCarthesian.map(elem => JSON.stringify(elem) == JSON.stringify(targetArray)).filter(elem=>elem==true).length;
+      return len!=0 && this.doStaticChecks(_prod);
     }
 
-    return false;
 
   }
-  applyFilter(_prod:ExportableProduct){
-    // if(this.m_filterObject['isShoe'] == undefined){
-    //   return true;
-    // }
 
-    let tmp = _prod['category'];
-    _prod['category'] = _prod['articleType'];
-    _prod['articleType'] = tmp;
-
-
-    let keyword = (this.m_filterObject['selectedName']).toLowerCase();
-    let prodName: string = _prod['name'].toLowerCase();
-
-    let selectedSeasons: string[] = this.m_filterObject['selectedSeasons'].map(season=>season.toLowerCase());
-
-    //undefined - all types
-    //true - only shoes
-    //false - only bags
-    let selectedTypes: string[] = this.m_filterObject['selectedTypes'].map(type=>type.toLowerCase());
-    let selectedCategory: string = this.m_filterObject['selectedCategory'];
-    if(_prod['price']==33){
-      // console.dir(_prod);
-      // console.dir(this.m_filterObject);
-      // console.dir(selectedCategory);
-      // console.dir(_prod['category']);
-    }
-
-
-    // Check it the article is in the same category as the selection
-    if(selectedCategory == '' || selectedCategory == _prod['category']){
-
-      if(keyword == "" || prodName.indexOf(keyword) != -1){
-
-        // If object's type is not specified, do a general pattern check
-        if(selectedTypes.length == 0){
-
-          if(this.m_filterObject['minPrice'] <= _prod['price']
-            &&this.m_filterObject['maxPrice'] >= _prod['price']
-            &&(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
-              || selectedSeasons.length == 0)){
-              // console.log("true");
-              let tmp = _prod['category'];
-              _prod['category'] = _prod['articleType'];
-              _prod['articleType'] = tmp;
-
-              return true;
-            }
-            else{
-              // console.log("false");
-              let tmp = _prod['category'];
-              _prod['category'] = _prod['articleType'];
-              _prod['articleType'] = tmp;
-
-              return false;
-            }
-        }
-        // Else, check if the current item is a shoe, and wheather it matches the given pattern
-
-        if(selectedCategory == 'shoes' && selectedCategory == _prod['category']
-           && selectedTypes.indexOf(_prod['articleType']) != -1){
-
-          if(selectedSeasons.indexOf(_prod['season'].toLowerCase())!=-1
-            || selectedSeasons.length == 0){
-
-              // Check if a shoe of the specified size exists in the store
-              if(_prod['map'].get(this.m_filterObject['shoeSize']) )
-              {
-                // console.log(_prod['map'].get(this.m_filterObject['shoeSize']));
-
-                if(this.m_filterObject['minPrice'] < _prod['price']
-                &&this.m_filterObject['maxPrice'] > _prod['price']){
-                  console.log('true');
-                  let tmp = _prod['category'];
-                  _prod['category'] = _prod['articleType'];
-                  _prod['articleType'] = tmp;
-
-                  return true
-                }
-              }
-          }
-        }
-        // If it's not a shoe, then check if the misc object matches the same pattern
-        else if(this.m_filterObject['minPrice'] < _prod['price']
-              &&this.m_filterObject['maxPrice'] > _prod['price']
-              &&selectedCategory == _prod['category']
-              &&selectedTypes.indexOf(_prod['articleType']) != -1){
-
-          console.log("true");
-          let tmp = _prod['category'];
-          _prod['category'] = _prod['articleType'];
-          _prod['articleType'] = tmp;
-          return true;
-        }
-      }
-    }
-    tmp = _prod['category'];
-    _prod['category'] = _prod['articleType'];
-    _prod['articleType'] = tmp;
-    return false;
-  }
   updateFilters(_filterObject){
 
 

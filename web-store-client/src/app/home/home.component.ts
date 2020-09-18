@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
       let l_indexOfElem = this.m_selectedTypes.indexOf(l_inputValue);
       this.m_selectedTypes.splice(l_indexOfElem,1);
     }
-    console.dir(this.m_selectedTypes);
+    // console.dir(this.m_selectedTypes);
 
     this.updateFilters();
   }
