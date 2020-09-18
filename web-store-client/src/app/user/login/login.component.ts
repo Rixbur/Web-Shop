@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { Subscribable, Subscription } from 'rxjs';
+import { Route } from '@angular/compiler/src/core';
 // import { nameValidator } from './name-validator';
 
 @Component({
