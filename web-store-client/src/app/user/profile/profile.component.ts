@@ -12,8 +12,10 @@ import { nameValidator } from '../../orders/cart/name-validator';
 })
  
 export class ProfileComponent implements OnInit, OnDestroy {
-  // email: string = '';
-  // password: string = '';
+  public showName: string='';
+  public showEmail: string='';
+  public showAddress: string='';
+  public showEdit: boolean=false;
   private profileSub: Subscription=null;
   private activeSubscriptions: Subscription[] = []
   public profileForm: FormGroup;
@@ -27,19 +29,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     address: ['', [Validators.required, Validators.pattern('[0-9]+ [ a-zA-Z0-9]+')],],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    newPassword: ['', [Validators.required, Validators.minLength(6)]]
+    newPassword: ['', ]
   });
   }
 
   ngOnInit(): void {
     console.log("popunjavamo!");
-    // console.log(this.getUserInfo());    
-    // console.log(this.user.name);
-  //   this.profileForm.setValue({name: this.name.value, 
-  //     address: this.address.value, 
-  //     email: this.email.value, 
-  //     password: this.password.value, 
-  //     newPassword: this.newPassword.value});
+    this.getUserInfo();    
+
  }
 
   ngOnDestroy(){
@@ -75,6 +72,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
            password: '',
            newPassword: ''
          });
+         this.showName=data.name;
+         this.showAddress=data.address;
+         this.showEmail=data.email;
          return this.user;
        }
        else{
@@ -100,11 +100,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
       password: this.password.value,
       name: this.name.value,
       address: this.address.value,
-      newPassword: this.newPassword.value
+      newPassword: this.newPassword.value==''? this.password.value:this.newPassword.value
     }).subscribe(
       data => {
         if(data.status==201){
           window.alert("Succesfully updated!");
+          this.showEdit=false;
         }      
         else{
           window.alert("Couldn't update, please try again later");

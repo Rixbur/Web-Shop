@@ -17,8 +17,9 @@ export class RegisterComponent implements OnInit,OnDestroy {
   private activeSubscriptions: Subscription[] = []
   public registerForm: FormGroup;
 
-  constructor(private userService: UserService, private router:Router,
+  constructor(private userService: UserService,
     private formBuilder: FormBuilder,
+    public router: Router
 ) {
   this.registerForm = this.formBuilder.group({
     name: ['', [Validators.required, nameValidator]],

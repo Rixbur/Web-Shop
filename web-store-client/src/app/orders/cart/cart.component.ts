@@ -20,9 +20,6 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: ExportableProduct[];
   public checkoutForm: FormGroup;
   private activeSubscriptions: Subscription[];
-  // email: string = '';
-  // address: string='';
-  // name: string='';
   private user: {name: string, email: string, address: string};
   constructor(
     private cartService: CartService,
@@ -45,14 +42,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log("popunjavamo!");
-    console.log(this.getUserInfo());    
-    // console.log(this.user.name);
-    // this.checkoutForm.setValue({
-    //   name: this.user.name, 
-    //   address: this.user.address, 
-    //   email: this.user.email
-    // });
+    this.getUserInfo();    
 
   }
 
@@ -86,7 +76,7 @@ export class CartComponent implements OnInit, OnDestroy {
       const patchProductSingleSub = this.productService
       .patchProduct(item._id,item['selectedSize'])
       .subscribe((response)=>{
-        window.alert('Poslat zahtev za azuriranje baze');
+        window.alert('Sent request for updating the database');
       });
       this.activeSubscriptions.push(patchProductSingleSub);
 
@@ -195,7 +185,6 @@ export class CartComponent implements OnInit, OnDestroy {
         console.log(err);
       },
       () => {
-        // this.getRouter.navigate(['/']);
       });
     }
   }
