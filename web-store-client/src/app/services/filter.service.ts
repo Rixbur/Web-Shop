@@ -32,6 +32,10 @@ export class FilterService {
 
   filteredProducts(): Observable<ExportableProduct[]>{
 
+    this.m_carthesian = this.cartesianProduct([this.m_filterObject['selectedCategory']],
+                                               this.m_filterObject['selectedSeasons'],
+                                               this.m_filterObject['selectedTypes']);
+    console.log(this.m_carthesian);
 
     return this.m_productService.getProducts()
             .pipe(
@@ -71,102 +75,31 @@ export class FilterService {
     // #FP #Math #CHADusMaximus
     // console.log(this.m_carthesian);
 
-    let boolArray: boolean[] = [true,true,true];
-
-
-    if(this.m_filterObject['selectedTypes'].length == 0){
-      boolArray[2] = false;
-    }
-    if(this.m_filterObject['selectedSeasons'].length == 0){
-      boolArray[1] = false;
-    }
-    if(this.m_filterObject['selectedCategory'] == ""){
-      boolArray[0] = false;
-    }
-
     let targetArray = []
+    let numDimensions =0;
 
-    if(boolArray[0]){
+    if(this.m_filterObject['selectedCategory'] != ""){
+      numDimensions+=1;
       targetArray.push(_prod['articleType']);
     }
-    if(boolArray[1]){
+    if(this.m_filterObject['selectedSeasons'].length != 0){
+      numDimensions+=1;
       targetArray.push(_prod['season'])
     };
-    if(boolArray[2]){
+    if(this.m_filterObject['selectedTypes'].length != 0){
+      numDimensions+=1;
       targetArray.push(_prod['category']);
     }
 
-    // console.dir(boolArray)
-
-
-    let numDimensions = boolArray.filter(a=>a==true).length;
-    // console.log(numDimensions);
-
-
-
     if(numDimensions == 0){
       //CASE 0 DIMESION
+
       return this.doStaticChecks(_prod);
     }
-    else if(numDimensions == 1){
-      //CASE 1 DIMESION
-      let oneDCarthArray = [];
-      if(boolArray[0]){
+    else {
+      //ALL OTHER CASES
+      let len = this.m_carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(targetArray)).filter(elem=>elem==true).length;
 
-        oneDCarthArray=[this.m_filterObject['selectedCategory']];
-      }
-      if(boolArray[1]){
-
-        oneDCarthArray=this.m_filterObject['selectedSeasons'];
-      }
-      if(boolArray[2]){
-
-        oneDCarthArray=this.m_filterObject['selectedTypes'];
-      }
-
-      let len = oneDCarthArray.map(elem => elem == targetArray).filter(elem=>elem==true).length;
-      return len!=0 && this.doStaticChecks(_prod);
-
-    }
-    else if (numDimensions == 2){
-      //CASE 2 DIMESION
-
-      let tmpCarthesian: any[];
-      let args = [undefined,undefined];
-      let i = 0;
-
-
-      if(boolArray[0]){
-        args[i]=[this.m_filterObject['selectedCategory']];
-        i+=1;
-      }
-      if(boolArray[1]){
-        args[i]=this.m_filterObject['selectedSeasons'];
-        i+=1;
-      }
-      if(boolArray[2]){
-        args[i]=this.m_filterObject['selectedTypes'];
-      }
-      tmpCarthesian = this.cartesianProduct(args[0],args[1]);
-
-      // console.dir(tmpCarthesian);
-
-      let len = tmpCarthesian.map(elem => JSON.stringify(elem) == JSON.stringify(targetArray)).filter(elem=>elem==true).length;
-
-      return len!=0 && this.doStaticChecks(_prod);
-
-    }else if(numDimensions == 3){
-      //CASE 3 DIMESIONS
-      let tmpCarthesian: any[];
-      let args = [[this.m_filterObject['selectedCategory']],
-                  this.m_filterObject['selectedSeasons'],
-                  this.m_filterObject['selectedTypes']];
-
-      tmpCarthesian = this.cartesianProduct(args[0],args[1],args[2]);
-
-      // console.dir(tmpCarthesian);
-
-      let len = tmpCarthesian.map(elem => JSON.stringify(elem) == JSON.stringify(targetArray)).filter(elem=>elem==true).length;
       return len!=0 && this.doStaticChecks(_prod);
     }
 
