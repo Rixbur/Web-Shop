@@ -27,6 +27,7 @@ import { RegisterComponent } from './user/register/register.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { AboutComponent } from './about/about.component';
 import { RecommendedComponent } from './recommended/recommended.component';
+import { ProfileComponent } from './user/profile/profile.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { RecommendedComponent } from './recommended/recommended.component';
     LogoutComponent,
     AboutComponent,
     SumPipe,
-    RecommendedComponent
+    RecommendedComponent,
+    ProfileComponent
 
 
   ],

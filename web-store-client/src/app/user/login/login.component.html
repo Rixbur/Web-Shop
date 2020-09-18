@@ -24,8 +24,16 @@
           />
         </div>
 
-        <button class="btn btn-primary btn-block" type="submit">Login</button>
+          <button class="btn btn-primary btn-block" type="submit">Login</button>
+          <hr/>
+        <div class="form-group">
+          <label for="register"> Don't have an account? </label>
+          
+          <button name ="register" class="btn btn-primary btn-block" [routerLink]="['/register']">Register here</button>
+        </div>
+
       </form>
+
     </div>
   </form>
 </div>

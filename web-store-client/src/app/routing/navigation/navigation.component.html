@@ -9,9 +9,15 @@
         </li>
         <div  *ngIf="hasUser()" >
           <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/profile']">Profile</a>
+          </li>
+        </div>
+        <div  *ngIf="hasUser()" >
+          <li class="nav-item">
             <a class="nav-link" [routerLink]="['/logout']">Log out</a>
           </li>
         </div>
+
         <div  *ngIf="!hasUser()" >
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/login']">Login</a>

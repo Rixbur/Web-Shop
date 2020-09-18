@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { Order } from '../order.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { UserService } from '../../services/user.service';
 import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
@@ -19,13 +20,17 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: ExportableProduct[];
   public checkoutForm: FormGroup;
   private activeSubscriptions: Subscription[];
-
+  // email: string = '';
+  // address: string='';
+  // name: string='';
+  private user: {name: string, email: string, address: string};
   constructor(
     private cartService: CartService,
     public http: ConnectionService,
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private filterServise: FilterService,
+    private userService: UserService,
   ) {
     this.activeSubscriptions = [];
     this.items = this.cartService.getItems();
@@ -39,7 +44,17 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("popunjavamo!");
+    console.log(this.getUserInfo());    
+    // console.log(this.user.name);
+    // this.checkoutForm.setValue({
+    //   name: this.user.name, 
+    //   address: this.user.address, 
+    //   email: this.user.email
+    // });
+
+  }
 
   ngOnDestroy() {
     this.activeSubscriptions.forEach((sub) => {
@@ -155,5 +170,33 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     },
     nav: true
+  }
+
+  getUserInfo(){
+     if(this.userService.hasUser()){
+      const userSub = this.userService.userInfo(this.userService.getUserEmail()).subscribe(
+      data => {
+        if(data!=null){
+          this.user={email: data.email, name: data.name, address: data.address};
+          console.log(this.user);
+          this.checkoutForm.setValue({
+            name: this.user.name, 
+            address: this.user.address, 
+            email: this.user.email
+          });
+          return this.user;
+        }
+        else{
+          return null;
+        }
+        
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        // this.getRouter.navigate(['/']);
+      });
+    }
   }
 }
