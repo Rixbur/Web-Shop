@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from '../../orders/cart/name-validator';
 import { Router } from '@angular/router';
+import { WishlistService } from '../../services/wishlist.service';
 
 @Component({
   selector: 'app-register',
@@ -17,8 +18,10 @@ export class RegisterComponent implements OnInit,OnDestroy {
   private activeSubscriptions: Subscription[] = []
   public registerForm: FormGroup;
 
-  constructor(private userService: UserService, private router:Router,
-    private formBuilder: FormBuilder,
+  constructor(private userService: UserService,
+    public router: Router,
+    private wishlistService: WishlistService,
+    private formBuilder: FormBuilder
 ) {
   this.registerForm = this.formBuilder.group({
     name: ['', [Validators.required, nameValidator]],
@@ -48,11 +51,12 @@ export class RegisterComponent implements OnInit,OnDestroy {
     return this.registerForm.get('password');
   }
 
-  public submitForm(data): void {
+  public submitForm(dat): void {
     if (!this.registerForm.valid) {
       window.alert('Not valid!');
       return;
     }
+    const m = this.email.value;
     this.registerSub = this.userService.register({
       email: this.email.value,
       password: this.password.value,
@@ -62,6 +66,9 @@ export class RegisterComponent implements OnInit,OnDestroy {
     data => {
       if(data.status==201){
         window.alert("Succesfully registered!");
+        this.wishlistService.createWishlist(m)
+          .subscribe(data => {
+          });
       }      
       else if(data.status==202){
         window.alert("Already registered");

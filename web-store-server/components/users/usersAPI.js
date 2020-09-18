@@ -33,6 +33,7 @@ userRouter.post("/update", async (req, res, next) => {
     const info = req.body;
     const query  = await userModel.findOne({ email: info.email, password: info.password }).exec();
     console.log("hello I found you");
+    console.log(query);
     if(query==null){
       console.log("update failed");
 
@@ -41,17 +42,18 @@ userRouter.post("/update", async (req, res, next) => {
     const updated={
       _id: query._id, 
       email: info.email, 
-      password: info.newPassword, 
+      password: info.newPassword,
+      name: info.name, 
       address: info.address, 
-      name: info.name
     };
     console.log(updated);
-    await userModel.updateOne({ _id: query._id }, {$set: updated}).exec();
-    console.log(update.success);
+   // await userModel.updateOne({ _id: query._id }, updated).exec();
+   const savedObject = await userModel.findOneAndUpdate({_id: query._id }, {$set: updated });
     return res.status(201).send();
 
   }
   catch(e){
+    console.log(e);
     next(e);
   }
 });

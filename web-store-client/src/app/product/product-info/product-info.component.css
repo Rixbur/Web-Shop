@@ -18,3 +18,27 @@ img {
     color: rgb(176, 95, 251);
     text-align: center;
 }
+
+
+.toRed {
+    border-color: blue;
+    color: blue;
+}
+
+.toRed:hover {
+    border-color: #f44336;
+    background: #f44336;
+    color: white;
+}
+
+.toBlue {
+    border-color: #f44336;
+    background: #f44336;
+    color: white;
+}
+
+.toBlue:hover {
+    border-color: rgb(90, 90, 252);
+    background: rgb(90, 90, 252);
+    color: white;
+}

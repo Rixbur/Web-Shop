@@ -10,6 +10,7 @@ import { FilterService } from '../../services/filter.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { RecommendedService } from 'src/app/services/recommended.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
   selector: 'app-product-info',
@@ -22,6 +23,7 @@ export class ProductInfoComponent implements OnDestroy {
   public addToCartForm: FormGroup;
 
   public prodIsUpdated: boolean = false;
+  private isInWishlist: boolean = false;
   public imageObject: Array<object>;
 
   constructor(
@@ -32,11 +34,15 @@ export class ProductInfoComponent implements OnDestroy {
     public filterService: FilterService,
     private formBuilder: FormBuilder,
     public userService: UserService,
-    private recommendedService: RecommendedService
+    private recommendedService: RecommendedService,
+    private wishlistService: WishlistService
   ) {
     this.prodIsUpdated = false;
     this.activeSubscriptions = [];
     this.findProductById2();
+    if(this.hasUser()){
+      this.findInWishlist();
+    }
     this.addToCartForm = this.formBuilder.group({
       selectedSize:['']
     });
@@ -46,6 +52,28 @@ export class ProductInfoComponent implements OnDestroy {
   hasUser(){return this.userService.hasUser();}
   userEmail(){return this.userService.getUserEmail();}
   isAdmin(){ return this.userService.isAdmin();}
+
+  findInWishlist(){ 
+    const sub = this.wishlistService.getWishlist(this.userService.getUserEmail())
+        .subscribe(data => {
+          if(data != null && data.products != null && data.products.indexOf(this.product._id) != -1){
+            this.isInWishlist = true;
+          }
+        });
+        this.activeSubscriptions.push(sub);
+}
+
+removeFromWishlist(){
+  this.isInWishlist = false;
+  this.wishlistService.removeProductFromWislist(this.userService.getUserEmail(), this.product._id);
+
+}
+
+addToWishlist(){
+  this.isInWishlist = true;
+  this.wishlistService.addProductToWishlist(this.userService.getUserEmail(), this.product._id);
+
+}
 
   private findProductById2() {
     const getProductSub = this.route.paramMap

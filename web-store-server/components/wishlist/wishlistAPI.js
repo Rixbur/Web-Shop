@@ -5,13 +5,13 @@ const Wishlist = require("./listModel");
 const router = express.Router();
 const controller = require('./wishlistController');
 
-router.get("/", controller.getList);
+router.post("/", controller.getList);
 
-router.post("/", controller.createList);
+router.post("/new", controller.createList);
 
-router.post('/add', controller.addProductToList);
+router.post("/add", controller.addProductToList);
 
-router.post('/remove', controller.removeProductFromList);
+router.post("/remove", controller.removeProductFromList);
 
 
 module.exports = router;
