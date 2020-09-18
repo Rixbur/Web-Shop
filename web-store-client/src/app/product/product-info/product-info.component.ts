@@ -9,6 +9,7 @@ import { CartService } from '../../services/cart.service';
 import { FilterService } from '../../services/filter.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { RecommendedService } from 'src/app/services/recommended.service';
 
 @Component({
   selector: 'app-product-info',
@@ -30,7 +31,8 @@ export class ProductInfoComponent implements OnDestroy {
     private cartService: CartService,
     public filterService: FilterService,
     private formBuilder: FormBuilder,
-    public userService: UserService
+    public userService: UserService,
+    private recommendedService: RecommendedService
   ) {
     this.prodIsUpdated = false;
     this.activeSubscriptions = [];
@@ -53,9 +55,16 @@ export class ProductInfoComponent implements OnDestroy {
           this.productService.getProductById(productIdParam)
         ),
         map(_prod => this.mapParsing(_prod))
-      )
-      .subscribe((product) => {this.product = product});
+      ).subscribe((product) => {this.product = product;this.addToRecommended({p_id:product['_id']})}
+     );
     this.activeSubscriptions.push(getProductSub);
+  }
+  addToRecommended(data){
+    if(this.userService.hasUser()){
+      const newSub = this.recommendedService
+        .patchProduct(this.userService.getUserEmail(),data).subscribe();
+      this.activeSubscriptions.push(newSub);
+    }
   }
 
   ngOnDestroy() {

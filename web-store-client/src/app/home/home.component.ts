@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterService } from '../services/filter.service';
 import {ProductListComponent} from '../product/product-list/product-list.component';
 import { Options, LabelType } from '@m0t0r/ngx-slider';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
   public m_possibleTypes: string[] = ['wingtips','sneakers','slippers','sandals','espadrilles','boots','dustboots','rainboots','snowboots'];
   public m_bagTypes: string[] = ['daypack','belt bag','waist bag','rucksack','knapsack'];
 
-  constructor(private m_productService: FilterService) {
+  constructor(private m_productService: FilterService,public userService: UserService) {
     this.updateFilters();
   }
 

@@ -32,7 +32,7 @@ module.exports.getRecommendedByEmail  = async function(req,res,next){
     const email = req.params.userEmail;
     
     try{
-        const savedObject = await Recommended.find({email:email}).populate('products').exec();
+        const savedObject = await Recommended.findOne({email:email}).populate('products').exec();
         res.status(201).json(savedObject);
 
     }catch(err){
@@ -41,14 +41,15 @@ module.exports.getRecommendedByEmail  = async function(req,res,next){
 }
 module.exports.patchRecommended = async function(req,res,next){
     const email = req.params.userEmail;
-    const newProduct = req.body.product;
+    const newProduct = req.body.p_id;
+    console.log(newProduct);
     
     try{
         const productPatch = {};
         const recommended = await Recommended.findOne({email:email}).exec();
         
         productPatch.products = recommended.products.slice(Math.max(recommended.products.length-5, 0));
-        productPatch.products.push(newProduct._id);
+        productPatch.products.push(newProduct);
         const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
         res.status(201).json(savedObject);
 

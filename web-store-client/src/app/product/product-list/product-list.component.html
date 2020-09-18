@@ -2,7 +2,7 @@
   <div class="row" >
     <div class="col-lg-4" id="productListContent" *ngFor= "let product of this.m_productList | orderBy: false">
       <div id="jumpingDiv">
-        <div  class="h-100 my-2 py-2 px-2 text-center"  id="productInfoContent" [routerLink]="['/products/',product._id]">
+        <div  class="h-100 my-2 py-2 px-2 text-center" id="productInfoContent" [routerLink]="['/products/',product._id]">
           
           <h4 id="productName">{{ product.name }}</h4>
           <p>{{ product.desription }}</p>

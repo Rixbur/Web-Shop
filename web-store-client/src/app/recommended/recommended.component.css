@@ -83,6 +83,9 @@ a {
     right: 0px;
     visibility: hidden;
  }
+ #productInfoContent:hover{
+     cursor: pointer;
+ }
  #productInfoContent:hover .btn{
     visibility: visible;
  }
