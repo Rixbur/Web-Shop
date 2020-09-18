@@ -39,7 +39,7 @@ a {
     min-width: 150px;
     padding: 0.5rem;
     border-radius: 16px 0px 16px 16px;
-    background: #302741;
+    background: rgba(255, 255, 255, .2);
     box-shadow: -1rem 0 3rem #000;
     display: flex;
     flex-direction: column;
@@ -81,7 +81,18 @@ a {
     position: absolute;
     top: 0px;
     right: 0px;
+    visibility: hidden;
  }
+ #productInfoContent:hover .btn{
+    visibility: visible;
+ }
+ .productName{
+     visibility: hidden;
+ }
+ #productInfoContent:hover .productName{
+     visibility: visible;
+ }
+
 
  #productInfoContent {
      background: transparent;

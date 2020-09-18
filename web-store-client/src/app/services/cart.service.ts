@@ -24,13 +24,13 @@ export class CartService extends HttpErrorHandler {
   public addToCart(product: ExportableProduct): boolean {
 
     for (const cartProduct of this.getItems()) {
-      if(cartProduct['_id'] == product['_id'] ){  
+      if(cartProduct['_id'] == product['_id'] ){
         console.log(cartProduct);
         console.log(product);
         return false;
       }
     }
-    console.log(product);
+    console.dir(product);
     this.items.push(product);
     return true;
   }
@@ -68,7 +68,7 @@ export class CartService extends HttpErrorHandler {
         .get<Order[]>(this.ordersUrl+"searchbyemail/" + email)
         .pipe(catchError(super.handleError()));
     }
-    
+
   getOrderById(id: string): Observable<Order> {
     return this.http
       .get<Order>(this.ordersUrl + id)

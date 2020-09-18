@@ -25,7 +25,7 @@
               <div>
                 <form [formGroup]="addToCartForm"  (ngSubmit)="addToCart(selectedSize)">
                   <select class="form-control" formControlName="selectedSize" #selectedSize>
-                      <option *ngFor="let item of product['mapa'] | keyvalue">
+                      <option *ngFor="let item of product['map'] | keyvalue">
                         {{  item.key }}
                       </option>
                     </select>

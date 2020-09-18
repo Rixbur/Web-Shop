@@ -12,7 +12,7 @@
   "price": 55,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[36,2],[37,5],[38,4],[39,6],[40,4],[41,4],[42,5]]",
+  "mapSizeQuantities": "[[36,2],[37,5],[38,4],[39,6],[40,4],[41,4],[42,5]]",
   "__v": 0
 },{
   "_id": {
@@ -28,7 +28,7 @@
   "price": 33,
   "articleType": "obuca",
   "category": "papuce",
-  "mapQuantOfSizes": "[[42,3],[43,3],[40,2],[38,5],[45,4],[37,5]]",
+  "mapSizeQuantities": "[[42,3],[43,3],[40,2],[38,5],[45,4],[37,5]]",
   "__v": 0
 },{
   "_id": {
@@ -44,7 +44,7 @@
   "price": 11,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[36,3],[37,4],[38,3],[40,5],[43,5]]",
+  "mapSizeQuantities": "[[36,3],[37,4],[38,3],[40,5],[43,5]]",
   "__v": 0
 },{
   "_id": {
@@ -60,7 +60,7 @@
   "price": 44,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[44,4],[42,3],[46,4]]",
+  "mapSizeQuantities": "[[44,4],[42,3],[46,4]]",
   "__v": 0
 },{
   "_id": {
@@ -76,7 +76,7 @@
   "price": 56,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[42,2],[38,1],[46,2],[41,2]]",
+  "mapSizeQuantities": "[[42,2],[38,1],[46,2],[41,2]]",
   "__v": 0
 },{
   "_id": {
@@ -92,7 +92,7 @@
   "price": 33,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[40,2],[42,3]]",
+  "mapSizeQuantities": "[[40,2],[42,3]]",
   "__v": 0
 },{
   "_id": {
@@ -108,7 +108,7 @@
   "price": 11,
   "articleType": "obuca",
   "category": "stikle",
-  "mapQuantOfSizes": "[[37,3],[42,3],[43,2],[39,2]]",
+  "mapSizeQuantities": "[[37,3],[42,3],[43,2],[39,2]]",
   "__v": 0
 },{
   "_id": {
@@ -124,7 +124,7 @@
   "price": 44,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[44,2],[39,3],[40,4],[42,4]]",
+  "mapSizeQuantities": "[[44,2],[39,3],[40,4],[42,4]]",
   "__v": 0
 },{
   "_id": {
@@ -140,6 +140,6 @@
   "price": 44,
   "articleType": "obuca",
   "category": "sandale",
-  "mapQuantOfSizes": "[[36,5],[39,3],[38,4],[45,4]]",
+  "mapSizeQuantities": "[[36,5],[39,3],[38,4],[45,4]]",
   "__v": 0
 }]

@@ -6,12 +6,28 @@
 }
 #productListContent{
     padding:1%;
+    transition: 0.2;
 }
 #productInfoContent {
     background: rgba(255, 255, 255, .2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-    padding: 1%;
+    border-radius: 10px;
+
 }
+h4#productName {
+    padding-left: 15%;
+}
+h4#pruductPrice{
+    padding-top: 2%;
+    padding-left: 21%;
+}
+#jumpingDiv :hover{
+    transform: scale(1.02, 1.02);
+    cursor: pointer;
+}
+#productInfoContent :hover{
+    cursor: pointer;
+} 
 #productInfoContent h4{
     color:rgb(137, 43, 226);
     max-height:30px;
@@ -30,5 +46,6 @@
     overflow: hidden; 
     white-space: nowrap;
 }
+
 
 

@@ -10,13 +10,19 @@ import { Options, LabelType } from '@m0t0r/ngx-slider';
 })
 export class HomeComponent implements OnInit {
 
-  public m_isShoe: boolean = undefined;
-  public m_type: string = "";
+  public m_selectedCategory: string = "shoes";
+  public m_selectedTypes: string[] = [];
   public m_selectedName: string = "";
-  public m_selectedSeason: string = "";
+  public m_selectedSeasons: string[] = [];
   public m_maxPrice: number = 100;
-  public m_minPrice: number = 50;
-  public m_shoeSize: number = 39;
+  public m_minPrice: number = 0;
+  public m_selectedShoeSize: number = undefined;
+
+  private m_summerShoeTypes: string[] = ['slippers','sandals','espadrilles'];
+  private m_allSeasonShoeTypes: string[] = ['wingtips','sneakers'];
+  private m_winterShoeTypes: string[] = ['boots','dustboots','rainboots','snowboots'];
+  public m_possibleTypes: string[] = ['wingtips','sneakers','slippers','sandals','espadrilles','boots','dustboots','rainboots','snowboots'];
+  public m_bagTypes: string[] = ['daypack','belt bag','waist bag','rucksack','knapsack'];
 
   constructor(private m_productService: FilterService) {
     this.updateFilters();
@@ -26,30 +32,50 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeType(_event: Event): void {
-    let l_selectedType = (<HTMLOptionElement>(_event.target)).value;
-    this.m_type = l_selectedType;
-    this.updateFilters();
-  }
-  onChangeProductCategory(_event: Event): void {
-    let l_selectedCategory = (<HTMLOptionElement>(_event.target)).value;
-    console.log("onChangeProductCategory function:");
-    console.log("html value:" + l_selectedCategory);
 
-    if(l_selectedCategory == 'obuca'){
+    let l_inputElement = (<HTMLInputElement>(_event.target));
+    let l_inputValue = (<HTMLInputElement>(_event.target)).value;
 
-      this.m_isShoe=true;
 
-    }else if(l_selectedCategory == 'ostalo'){
-
-      this.m_isShoe=false;
-
-    }else{
-      this.m_isShoe=undefined;
+    // If the checked value isn't the m_selectedTypes array, add it
+    if(l_inputElement.checked && this.m_selectedTypes.indexOf(l_inputValue) == -1){
+      this.m_selectedTypes.push(l_inputValue);
     }
+    // if the value is unchecked, remove the element from the m_selectedTypes array
+    else if(!l_inputElement.checked && this.m_selectedTypes.indexOf(l_inputValue) != -1){
+      let l_indexOfElem = this.m_selectedTypes.indexOf(l_inputValue);
+      this.m_selectedTypes.splice(l_indexOfElem,1);
+    }
+    // console.dir(this.m_selectedTypes);
+
     this.updateFilters();
   }
-  onSearch(_event: Event): void{
-    this.m_isShoe=true;
+
+  onChangeProductCategory(_event: Event): void {
+
+    let l_inputElement = (<HTMLInputElement>(_event.target));
+    let l_inputValue = (<HTMLInputElement>(_event.target)).value;
+
+    if(l_inputValue != "shoes"){
+      this.wipeSelection();
+      this.m_possibleTypes=[];
+    }
+    else if(l_inputValue == "shoes"){
+      this.wipeSelection();
+      this.m_possibleTypes=[];
+      this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes,this.m_winterShoeTypes,this.m_summerShoeTypes);
+
+    }
+
+
+    this.m_selectedCategory = l_inputValue;
+    this.updateFilters();
+  }
+
+  wipeSelection(): void{
+    this.m_selectedTypes = [];
+    this.m_selectedSeasons = [];
+    this.m_selectedShoeSize = undefined;
   }
 
   onChangeName(_event: Event): void{
@@ -58,51 +84,89 @@ export class HomeComponent implements OnInit {
 
   }
   onChangeSeason(_event: Event): void{
-    this.m_selectedSeason=(<HTMLOptionElement>_event.target).value;
+    let l_inputElement = (<HTMLInputElement>(_event.target));
+    let l_inputValue = (<HTMLInputElement>(_event.target)).value;
+
+    // If the checked value isn't the m_selectedSeasons array, add it
+    if(l_inputElement.checked && this.m_selectedSeasons.indexOf(l_inputValue) == -1){
+      if(this.m_possibleTypes.length==0){
+        // console.dir(this.m_possibleTypes);
+        this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes);
+      }
+      if(l_inputValue == 'summer' || l_inputValue == 'spring' ){
+        if(this.m_selectedSeasons.filter(season => season=='summer' || season=='spring').length == 0){
+          this.m_possibleTypes = this.m_possibleTypes.concat(this.m_summerShoeTypes);
+        }
+      }
+      else if(l_inputValue == 'winter' || l_inputValue == 'autumn' ){
+        if(this.m_selectedSeasons.filter(season => season=='winter' || season=='autumn').length == 0){
+          this.m_possibleTypes = this.m_possibleTypes.concat(this.m_winterShoeTypes);
+        }
+      }
+      this.m_selectedSeasons.push(l_inputValue);
+
+    }
+    // If the value is unchecked, remove the element from the m_selectedSeasons array
+    else if(!l_inputElement.checked && this.m_selectedSeasons.indexOf(l_inputValue) != -1){
+      let l_indexOfElem = this.m_selectedSeasons.indexOf(l_inputValue);
+
+      if(l_inputValue == 'summer' || l_inputValue == 'spring' ){
+        // Check if there are any relevant seasons that imply keeping similar types of shoes
+        if(this.m_selectedSeasons.filter(season => season=='summer' || season=='spring').length == 1){
+        this.m_possibleTypes= this.m_possibleTypes.filter(item => this.m_summerShoeTypes.indexOf(item) == -1);
+        this.m_possibleTypes= this.m_possibleTypes.filter(item => this.m_summerShoeTypes.indexOf(item) == -1);
+        }
+      }
+      else if(l_inputValue == 'winter' || l_inputValue == 'autumn' ){
+        if(this.m_selectedSeasons.filter(season => season=='winter' || season=='autumn').length == 1){
+        this.m_possibleTypes = this.m_possibleTypes.filter(item => this.m_winterShoeTypes.indexOf(item) == -1);
+        }
+      }
+
+      //In case we uncheck all season, we show all the shoes
+      if(this.m_possibleTypes == this.m_allSeasonShoeTypes){
+        this.m_possibleTypes = this.m_possibleTypes.concat(this.m_summerShoeTypes).concat(this.m_winterShoeTypes);
+      }
+
+      // Remove the unchecked season
+      this.m_selectedSeasons.splice(l_indexOfElem,1);
+
+      // Update the currently selected types to not containt noncompatible values
+      this.m_selectedTypes = this.m_selectedTypes.filter(type => this.m_possibleTypes.indexOf(type) != -1);
+    }
+    // console.dir(this.m_possibleTypes);
+    // console.dir(this.m_selectedTypes);
     this.updateFilters();
   }
-
-  isWinterAutumn(): boolean {
-    return this.m_selectedSeason=='zima' || this.m_selectedSeason=='jesen';
-  }
-  isSummerSpring(): boolean {
-    return this.m_selectedSeason=='prolece' || this.m_selectedSeason=="leto";
-  }
-
 
   onChangeRange(): void{
     this.updateFilters();
   }
 
   onShoeSizeChange(_event: Event){
-    this.m_shoeSize = parseInt((<HTMLInputElement>_event.target).value);
+    this.m_selectedShoeSize = parseInt((<HTMLInputElement>_event.target).value);
     this.updateFilters();
   }
 
+
   updateFilters(){
     this.m_productService.updateFilters({
-      isShoe : this.m_isShoe,
-      selectedSeason : this.m_selectedSeason,
+      selectedTypes : this.m_selectedTypes,
+      selectedSeasons : this.m_selectedSeasons,
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,
-      shoeSize : this.m_shoeSize,
-      name: this.m_selectedName,
-      type: this.m_type
+      shoeSize : this.m_selectedShoeSize,
+      selectedName: this.m_selectedName,
+      selectedCategory: this.m_selectedCategory
       });
   }
 
   options: Options = {
     floor: 0,
-    ceil: 350,
+    ceil: 100,
     translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Min price:</b> $' + value;
-        case LabelType.High:
-          return '<b>Max price:</b> $' + value;
-        default:
-          return '$' + value;
-      }
+
+      return '';
     }
   };
 }

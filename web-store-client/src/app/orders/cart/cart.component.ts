@@ -109,7 +109,7 @@ export class CartComponent implements OnInit, OnDestroy {
         this.checkoutForm.reset();
       });
     this.activeSubscriptions.push(createSub);
-    window.location.href='http://localhost:4200/';
+    
   }
 
   register(data) {

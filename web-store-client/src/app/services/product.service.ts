@@ -45,7 +45,7 @@ export class ProductService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
   }
   public patchProduct(id: string,data):Observable<ExportableProduct>{
-    
+
     return this.http
       .patch<any>(this.productsUrl + id,{'size':data})
       .pipe(catchError(super.handleError()));
@@ -66,9 +66,9 @@ export class ProductService extends HttpErrorHandler {
           uploadData.append('productImage', image, image.name);
         }
       }
-      if(key == 'mapQuantOfSizes'){
-        const mapa = JSON.stringify(Array.from(data[key].entries()));
-        uploadData.append(key,mapa);
+      if(key == 'mapSizeQuantities'){
+        const map = JSON.stringify(Array.from(data[key].entries()));
+        uploadData.append(key,map);
       }
       else {
         uploadData.append(key, data[key]);
