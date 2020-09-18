@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { Subscribable, Subscription } from 'rxjs';
+import { Route } from '@angular/compiler/src/core';
 // import { nameValidator } from './name-validator';
 
 @Component({
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   password: string = '';
   loginSub: Subscription = null;
   activeSubscriptions: Subscription[] = [];
-  constructor(private userService: UserService, router: Router) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       console.log(err);
     },
     () => {
-      // this.getRouter.navigate(['/']);
+      this.router.navigate(['/']);
     });
     this.activeSubscriptions.push(this.loginSub);
   }
