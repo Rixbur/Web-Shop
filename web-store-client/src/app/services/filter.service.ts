@@ -24,7 +24,7 @@ export class FilterService {
               map((_prodList: ExportableProduct[]) =>
                 _prodList
                 .map(_prod => this.mapParsing(_prod))
-                .filter(_prod => this.applyFilter(_prod)))
+                .filter(_prod => this.applyFilter2(_prod)))
             );
   }
   mapParsing(_prod:ExportableProduct){
@@ -42,6 +42,10 @@ export class FilterService {
 
   applyFilter2(_prod:ExportableProduct){
 
+    // Ovo Cukic da pogleda obavezno
+    // ~Dusan i Vlada~
+    // Ostavicemo alternativni applyfilter koji ovaj zamenjuje c:
+    // #FP #Math #CHADusMaximus
     let f = (a: any[], b: any[]): any[] => [].concat(...a.map(a2 => b.map(b2 => [].concat(a2, b2))));
 
     let cartesianProduct = (a: any[], b: any[], ...c: any[]) => {
@@ -54,11 +58,20 @@ export class FilterService {
     };
     let a1 =this.m_filterObject['selectedSeasons'];
     let a2 =[this.m_filterObject['selectedCategory']];
-    let ljubiBrat2 = cartesianProduct(a1,a2);
+    let a3 =this.m_filterObject['selectedTypes'];
+    let ljubiBrat2 = cartesianProduct(a1,a2,a3);
     let searchArray = [];
     searchArray.push(_prod['season'],
-                     _prod['articleType']);
-    return ljubiBrat2.indexOf(searchArray) != -1;
+                     _prod['articleType'],
+                     _prod['category']);
+
+    if(_prod['price']==33){
+      console.dir(searchArray);
+
+      console.dir(ljubiBrat2);
+    }
+    let len = ljubiBrat2.map(ljubiBrat2Elem => JSON.stringify(ljubiBrat2Elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length;
+    return len>0;
 
   }
   applyFilter(_prod:ExportableProduct){
