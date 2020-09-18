@@ -10,7 +10,7 @@ import { Options, LabelType } from '@m0t0r/ngx-slider';
 })
 export class HomeComponent implements OnInit {
 
-  public m_selectedCategory: boolean = undefined;
+  public m_selectedCategory: string = "";
   public m_selectedTypes: string[] = [];
   public m_selectedName: string = "";
   public m_selectedSeasons: string[] = [];
@@ -54,28 +54,19 @@ export class HomeComponent implements OnInit {
   onChangeProductCategory(_event: Event): void {
 
     let l_inputElement = (<HTMLInputElement>(_event.target));
-    let l_inputValue = (<HTMLInputElement>(_event.target)).value == "shoes" ? true : false;
+    let l_inputValue = (<HTMLInputElement>(_event.target)).value;
 
-    if(l_inputValue == false){
+    if(l_inputValue != "shoes"){
       this.wipeSelection();
       this.m_possibleTypes=[];
     }
-    else if(l_inputValue == true){
+    else if(l_inputValue == "shoes"){
       this.wipeSelection();
       this.m_possibleTypes=[];
       this.m_possibleTypes = this.m_possibleTypes.concat(this.m_allSeasonShoeTypes,this.m_winterShoeTypes,this.m_summerShoeTypes);
 
     }
 
-    // // If the checked value isn't the m_selectedCategory array, add it
-    // if(l_inputElement.checked && this.m_selectedCategory.indexOf(l_inputValue) == -1){
-    //   this.m_selectedCategory.push(l_inputValue);
-    // }
-    // // if the value is unchecked, remove the element from the m_selectedCategory array
-    // else if(!l_inputElement.checked && this.m_selectedCategory.indexOf(l_inputValue) != -1){
-    //   let l_indexOfElem = this.m_selectedCategory.indexOf(l_inputValue);
-    //   this.m_selectedCategory.splice(l_indexOfElem,1);
-    // }
 
     this.m_selectedCategory = l_inputValue;
     this.updateFilters();
@@ -143,8 +134,8 @@ export class HomeComponent implements OnInit {
       // Update the currently selected types to not containt noncompatible values
       this.m_selectedTypes = this.m_selectedTypes.filter(type => this.m_possibleTypes.indexOf(type) != -1);
     }
-    console.dir(this.m_possibleTypes);
-    console.dir(this.m_selectedTypes);
+    // console.dir(this.m_possibleTypes);
+    // console.dir(this.m_selectedTypes);
     this.updateFilters();
   }
 
@@ -159,23 +150,14 @@ export class HomeComponent implements OnInit {
 
 
   updateFilters(){
-    console.dir({
-      selectedType : this.m_selectedCategory,
-      selectedSeasons : this.m_selectedSeasons,
-      maxPrice : this.m_maxPrice,
-      minPrice : this.m_minPrice,
-      shoeSize : this.m_selectedShoeSize,
-      name: this.m_selectedName,
-      selectedCategories: this.m_selectedTypes
-      });
     this.m_productService.updateFilters({
-      selectedType : this.m_selectedCategory,
+      selectedTypes : this.m_selectedTypes,
       selectedSeasons : this.m_selectedSeasons,
       maxPrice : this.m_maxPrice,
       minPrice : this.m_minPrice,
       shoeSize : this.m_selectedShoeSize,
-      name: this.m_selectedName,
-      selectedCategories: this.m_selectedTypes
+      selectedName: this.m_selectedName,
+      selectedCategory: this.m_selectedCategory
       });
   }
 
