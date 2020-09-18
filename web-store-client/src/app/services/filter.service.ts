@@ -38,7 +38,16 @@ export class FilterService {
       return _prod;
   }
 
+  doStaticChecks(_prod: ExportableProduct): boolean{
+    let conditionArray = [false,false];
+    let prodName: string = _prod['name'].toLowerCase();
+    let keyword = (this.m_filterObject['selectedName']).toLowerCase();
 
+    conditionArray[0] = prodName.indexOf(keyword) != -1;
+    conditionArray[1] = this.m_filterObject['minPrice'] <= _prod['price']
+                        &&this.m_filterObject['maxPrice'] >= _prod['price'];
+    return conditionArray.reduce((acc,elem)=> acc && elem,true);
+  }
 
   applyFilter2(_prod:ExportableProduct){
 
@@ -56,22 +65,85 @@ export class FilterService {
       const fab = f(a, b);
       return cartesianProduct(fab, b2, ...c2);
     };
-    let a1 =this.m_filterObject['selectedSeasons'];
-    let a2 =[this.m_filterObject['selectedCategory']];
-    let a3 =this.m_filterObject['selectedTypes'];
-    let ljubiBrat2 = cartesianProduct(a1,a2,a3);
-    let searchArray = [];
-    searchArray.push(_prod['season'],
+
+    let boolArray: boolean[] = [false,false,false];
+    let tmpDataFrame;
+    if(this.m_filterObject['selectedCategory'] != ""){
+      boolArray[0] = true;
+      tmpDataFrame.push([this.m_filterObject['selectedCategory']]);
+    }
+    if(this.m_filterObject['selectedSeasons'].length == 0){
+      boolArray[1] = true;
+      tmpDataFrame.push(this.m_filterObject['selectedSeasons']);
+    }
+    if(this.m_filterObject['selectedTypes'].length == 0){
+      boolArray[2] = true;
+      tmpDataFrame.push(this.m_filterObject['selectedTypes']);
+    }
+
+    let numElements = boolArray.filter(a=>a==true).length
+    if(numElements==0){
+      return this.doStaticChecks(_prod);
+    }
+    else if(numElements==3){
+      let carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
+                                        this.m_filterObject['selectedSeasons'],
+                                        this.m_filterObject['selectedTypes']);
+      let searchArray = [];
+      searchArray.push(_prod['season'],
                      _prod['articleType'],
                      _prod['category']);
+      let len = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length;
 
-    if(_prod['price']==33){
-      console.dir(searchArray);
-
-      console.dir(ljubiBrat2);
+      return len!=0 && this.doStaticChecks(_prod);
     }
-    let len = ljubiBrat2.map(ljubiBrat2Elem => JSON.stringify(ljubiBrat2Elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length;
-    return len>0;
+    else if(numElements==1){
+
+      let retVal=false;
+      if(boolArray[0]){
+        retVal = this.m_filterObject['selectedCategory'] == _prod['articleType'];
+      }
+      else if(boolArray[1]){
+        retVal = this.m_filterObject['selectedSeasons'].indexOf(_prod['season']) != -1;
+      }
+      else if(boolArray[2]){
+        retVal = this.m_filterObject['selectedTypes'].indexOf(_prod['category']) != -1;
+      }
+
+      return retVal && this.doStaticChecks(_prod);
+    }
+    else if(numElements==2){
+
+      let carthesian;
+      let searchArray = [];
+      let retVal=false;
+
+      if(boolArray[0] && boolArray[1]){
+        carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
+                                      this.m_filterObject['selectedSeasons']);
+        searchArray.push(_prod['season'],
+                         _prod['articleType']);
+        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
+      }
+      else if(boolArray[0] && boolArray[2]){
+        carthesian = cartesianProduct(this.m_filterObject['selectedCategory'],
+                                      this.m_filterObject['selectedTypes']);
+        searchArray.push(_prod['season'],
+                         _prod['category']);
+        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
+      }
+      else if(boolArray[1] && boolArray[2]){
+        carthesian = cartesianProduct(this.m_filterObject['selectedSeasons'],
+                                      this.m_filterObject['selectedTypes']);
+        searchArray.push(_prod['sarticleTypeeason'],
+                         _prod['category']);
+        retVal = carthesian.map(elem => JSON.stringify(elem) == JSON.stringify(searchArray)).filter(elem=>elem==true).length != 0;
+      }
+
+      return retVal && this.doStaticChecks(_prod);
+    }
+
+    return false;
 
   }
   applyFilter(_prod:ExportableProduct){
