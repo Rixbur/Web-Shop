@@ -7,41 +7,39 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/']">Home</a>
         </li>
-        <div  *ngIf="hasUser()" >
+        <div *ngIf="hasUser()">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/profile']">Profile</a>
           </li>
         </div>
-        <div  *ngIf="hasUser()" >
+        <div *ngIf="hasUser()">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/logout']">Log out</a>
           </li>
         </div>
 
-        <div  *ngIf="!hasUser()" >
+        <div *ngIf="!hasUser()">
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/login']">Login</a>
           </li>
         </div>
-          <div  *ngIf="!hasUser()" >
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/register']">Register</a>
-        </li>
-      </div>
+        <div *ngIf="!hasUser()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/register']">Register</a>
+          </li>
+        </div>
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/checkout']">Checkout</a>
         </li>
-        <div  *ngIf="isAdmin()" >
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/add-a-product']"
-            >Add a product</a
-          >
-        </li>
-      </div>
-        <div  *ngIf="hasUser()" >
-        <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/view-orders']">View orders</a>
-        </li>
+        <div *ngIf="isAdmin()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/add-a-product']">Add a product</a>
+          </li>
+        </div>
+        <div *ngIf="hasUser()">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/view-orders']">View orders</a>
+          </li>
         </div>
         <div>
           <li class="nav-item">

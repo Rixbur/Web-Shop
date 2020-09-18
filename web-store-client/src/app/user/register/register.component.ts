@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from '../../orders/cart/name-validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
 
   constructor(private userService: UserService,
     private formBuilder: FormBuilder,
+    public router: Router
 ) {
   this.registerForm = this.formBuilder.group({
     name: ['', [Validators.required, nameValidator]],
@@ -74,7 +76,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       console.log(err);
     },
     () => {
-      // this.getRouter.navigate(['/']);
+      this.router.navigate(['/']);
     });
     this.activeSubscriptions.push(this.registerSub);
   }

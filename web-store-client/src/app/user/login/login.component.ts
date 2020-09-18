@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit,OnDestroy {
   password: string = '';
   loginSub: Subscription = null;
   activeSubscriptions: Subscription[] = [];
-  constructor(private userService: UserService, router: Router) {}
+  constructor(private userService: UserService, public router: Router) {}
 
   ngOnInit(): void {}
 
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       console.log(err);
     },
     () => {
-      // this.getRouter.navigate(['/']);
+      this.router.navigate(['/']);
     });
     this.activeSubscriptions.push(this.loginSub);
   }
