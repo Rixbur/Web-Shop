@@ -42,16 +42,31 @@ module.exports.getRecommendedByEmail  = async function(req,res,next){
 module.exports.patchRecommended = async function(req,res,next){
     const email = req.params.userEmail;
     const newProduct = req.body.p_id;
-    console.log(newProduct);
     
     try{
-        const productPatch = {};
         const recommended = await Recommended.findOne({email:email}).exec();
-        
-        productPatch.products = recommended.products.slice(Math.max(recommended.products.length-5, 0));
-        productPatch.products.push(newProduct);
-        const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
-        res.status(201).json(savedObject);
+        console.log(recommended);
+        if(recommended!==null){
+            console.log('poz1');
+            const productPatch = {};
+            productPatch.products = recommended.products.slice(Math.max(recommended.products.length-5, 0));
+            productPatch.products.push(newProduct);
+            const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
+            res.status(201).json(savedObject);
+        }else{
+            console.log('Poz');
+            let object = new Recommended ({
+                _id: new mongoose.Types.ObjectId(),
+                email:email,
+                products:[]
+            })
+            object.products.push(newProduct);
+            console.log(object);
+
+            const savedObject = await object.save();
+            res.status(201).json(savedObject);
+            
+        }
 
     }catch(err){
         next(err);
