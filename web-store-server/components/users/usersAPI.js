@@ -35,11 +35,18 @@ userRouter.post("/update", async (req, res, next) => {
     console.log("hello I found you");
     if(query==null){
       console.log("update failed");
+
       return res.status(202).send();
     }
-    const updated={email: info.email, password: info.newPassword, address: info.address, name: info.name};
+    const updated={
+      _id: query._id, 
+      email: info.email, 
+      password: info.newPassword, 
+      address: info.address, 
+      name: info.name
+    };
     console.log(updated);
-     await userModel.updateOne({ email: info.email }, { $set: updated }).exec();
+    await userModel.updateOne({ _id: query._id }, {$set: updated}).exec();
     console.log(update.success);
     return res.status(201).send();
 
@@ -52,10 +59,12 @@ userRouter.post("/update", async (req, res, next) => {
 userRouter.get("/info/:email", async (req, res) => {
   const userEmail = req.params.email;
   console.log(req.params.email);
-  const userInfo = await userModel.find({email: userEmail}).exec();
+  const userInfo = await userModel.findOne({email: userEmail}).exec();
   if(userInfo==null){
     return res.status(202).send();
   }
+  // console.log(userInfo);
+  // console.log(userInfo.email);
   return res.status(201).json(userInfo);
 });
 

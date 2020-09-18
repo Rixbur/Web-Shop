@@ -23,7 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
   // email: string = '';
   // address: string='';
   // name: string='';
-
+  private user: {name: string, email: string, address: string};
   constructor(
     private cartService: CartService,
     public http: ConnectionService,
@@ -44,7 +44,17 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("popunjavamo!");
+    console.log(this.getUserInfo());    
+    // console.log(this.user.name);
+    // this.checkoutForm.setValue({
+    //   name: this.user.name, 
+    //   address: this.user.address, 
+    //   email: this.user.email
+    // });
+
+  }
 
   ngOnDestroy() {
     this.activeSubscriptions.forEach((sub) => {
@@ -161,34 +171,23 @@ export class CartComponent implements OnInit, OnDestroy {
     },
     nav: true
   }
-  getUserName(){
-    const info=this.getUserInfo();
-    if(info==null) return "";
-    else return info.name;
-  }
-  getUserEmail(){
-    const info=this.getUserInfo();
-    if(info==null) return "";
-    else return info.email;
-  }
-  getUserAddress(){
-    const info=this.getUserInfo();
-    if(info==null) return "";
-    else return info.address;
-  }
+
   getUserInfo(){
-    if(this.userService.hasUser()){
-      var user;
+     if(this.userService.hasUser()){
       const userSub = this.userService.userInfo(this.userService.getUserEmail()).subscribe(
       data => {
         if(data!=null){
-          user={email: data.email, name: data.name, address: data.address};
-          // this.email=data.email;
-          // this.name=data.name;
-          // this.address=data.address;
+          this.user={email: data.email, name: data.name, address: data.address};
+          console.log(this.user);
+          this.checkoutForm.setValue({
+            name: this.user.name, 
+            address: this.user.address, 
+            email: this.user.email
+          });
+          return this.user;
         }
         else{
-          user=null;
+          return null;
         }
         
       },
@@ -198,8 +197,6 @@ export class CartComponent implements OnInit, OnDestroy {
       () => {
         // this.getRouter.navigate(['/']);
       });
-      return user;
     }
-    else return null;
   }
 }
