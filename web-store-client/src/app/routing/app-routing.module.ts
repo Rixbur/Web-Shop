@@ -10,6 +10,7 @@ import { OrderInfoComponent } from '../orders/order-info/order-info.component';
 import { LoginComponent } from '../user/login/login.component';
 import { LogoutComponent } from '../user/logout/logout.component';
 import { RegisterComponent } from '../user/register/register.component';
+import { ProfileComponent } from '../user/profile/profile.component';
 import { AboutComponent } from '../about/about.component';
 
 import { HomeComponent } from '../home/home.component';
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'about', component: AboutComponent }
+  { path: 'about', component: AboutComponent },
+  { path: 'profile', component: ProfileComponent}
 ];
 
 @NgModule({

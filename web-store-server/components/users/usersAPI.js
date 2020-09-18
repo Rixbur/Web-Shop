@@ -27,10 +27,31 @@ userRouter.post("/register", async (req, res) => {
   return res.status(202).json({ message: "Already registered!"});
 });
 
+userRouter.post("/update", async (req, res, next) => {
+  console.log("hello im updating");
+  try{
+    const info = req.body;
+    const query  = await userModel.findOne({ email: info.email, password: info.password }).exec();
+    console.log("hello I found you");
+    if(query==null){
+      console.log("update failed");
+      return res.status(202).send();
+    }
+    const updated={email: info.email, password: info.newPassword, address: info.address, name: info.name};
+    console.log(updated);
+     await userModel.updateOne({ email: info.email }, { $set: updated }).exec();
+    console.log(update.success);
+    return res.status(201).send();
+
+  }
+  catch(e){
+    next(e);
+  }
+});
 
 userRouter.get("/info/:email", async (req, res) => {
-  const userEmail = req.params.userEmail;
-  console.log(req.params);
+  const userEmail = req.params.email;
+  console.log(req.params.email);
   const userInfo = await userModel.find({email: userEmail}).exec();
   if(userInfo==null){
     return res.status(202).send();

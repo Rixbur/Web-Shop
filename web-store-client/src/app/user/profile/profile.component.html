@@ -1,20 +1,10 @@
 
 <div class="container m-xl-5 m-xr-5">
-  <div class="row">
-    <div class="col-lg-3">
-    <div class = "container">
-      <form class="my-2">
-        <ng-template #noItems>
-          <h2>Checkout</h2>
-          <hr />
-          <h4> The cart is empty</h4>
-        </ng-template>
-
-        <div *ngIf="items.length > 0; else noItems">
-          <h2>Checkout</h2>
-          <h4 class="text">Total price: {{ items | sum | currency }}</h4>
-
-          <form [formGroup]="checkoutForm" (ngSubmit)="submitForm(checkoutForm.value)">
+    <div class="row">
+      <div class="col-lg-3">
+      <div class = "container">
+        <form class="my-2">
+          <form [formGroup]="profileForm" (ngSubmit)="submitForm(profileForm.value)">
             <div class="form-group">
               <label for="name">Name</label>
               <input
@@ -32,7 +22,7 @@
                 name="address"
                 id="address"
                 class="form-control"
-                formControlName="address" 
+                formControlName="address"
               />
             </div>
             <div class="form-group">
@@ -44,17 +34,36 @@
                 class="form-control"
                 formControlName="email"
               />
-            </div>
-
+            </div>        
+            <div class="form-group">
+                <label for="password">New password</label>
+                <input
+                  type="password"
+                  name="newPassword"
+                  id="newPassword"
+                  class="form-control"
+                  formControlName="newPassword"
+                />
+              </div>
+              <div class="form-group">
+                <label for="password">Confirm old password</label>
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="form-control"
+                  formControlName="password"
+                />
+              </div>
             <button
               class="btn btn-primary btn-block"
               type="submit"
-              [disabled]="!checkoutForm.valid"
+              [disabled]="!profileForm.valid"
             >
-              Purchase
+              Update info
             </button>
           </form>
-
+  
           <div class="alert alert-danger" *ngIf="name.errors?.required">
             Name is required
           </div>
@@ -74,36 +83,17 @@
           <div class="alert alert-danger" *ngIf="email.errors?.email">
             Email is not valid
           </div>
-        </div>
-      </form>
-    </div>
-  </div>
-    <div class="col-lg-9" >
-      <div id="productListContent" class="container mx-10" *ngIf="this.items" >
-        <div class="row" >
-          <div id="productInfoContent" class="col-lg-4" *ngFor= "let product of this.items | orderBy: false ; let i=index">
-            <div class="h-100 bg-dark my-2 py-2 px-2" >
-
-              <a><h4 >{{ product.name }}</h4></a>
-              <h6>{{ product.price }}$</h6>
-              <p>{{ product.desription }}</p>
-              <owl-carousel-o [options]="customOptions">
-                  <ng-template carouselSlide>
-                    <img src="http://localhost:3000/images/{{product.productImage[0]}}" >
-                  </ng-template>
-              </owl-carousel-o>
-
-              <button id="crveni-button" class = "btn btn-danger" (click)="removeFromCart(i)"
-              >Remove from cart</button>
-
-            </div>
+          <div class="alert alert-danger" *ngIf="password.errors?.required">
+            Password is required
           </div>
-        </div>
+          <div class="alert alert-danger" *ngIf="password.errors?.minLength">
+            Password must be at least six characters long
+          </div>
+        </form>
       </div>
-
-      <hr>
     </div>
   </div>
-</div>
-
-
+  
+  
+  
+  

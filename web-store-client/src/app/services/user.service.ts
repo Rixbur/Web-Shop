@@ -12,6 +12,13 @@ type User = {
   address: string;
   name: string;
 };
+type UserUpdate = {
+  email: string;
+  password: string;
+  address: string;
+  name: string;
+  newPassword: string;
+};
 type LoginInfo = {
   email: string;
   password: string;
@@ -48,6 +55,11 @@ export class UserService extends HttpErrorHandler{
   public register(user: User) {
     return this.http
       .post<User>(usersUrl + '/register', user, {observe: "response"})
+      .pipe(catchError(super.handleError()));
+  }
+  public update(user: UserUpdate) {
+    return this.http
+      .post<UserUpdate>(usersUrl + '/update', user, {observe: "response"})
       .pipe(catchError(super.handleError()));
   }
  

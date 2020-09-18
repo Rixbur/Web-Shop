@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 import { Order } from '../order.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CartService } from '../../services/cart.service';
+import { UserService } from '../../services/user.service';
 import { ExportableProduct } from '../../product/model/exportable.product.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from './name-validator';
@@ -19,6 +20,9 @@ export class CartComponent implements OnInit, OnDestroy {
   public items: ExportableProduct[];
   public checkoutForm: FormGroup;
   private activeSubscriptions: Subscription[];
+  // email: string = '';
+  // address: string='';
+  // name: string='';
 
   constructor(
     private cartService: CartService,
@@ -26,6 +30,7 @@ export class CartComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private productService: ProductService,
     private filterServise: FilterService,
+    private userService: UserService,
   ) {
     this.activeSubscriptions = [];
     this.items = this.cartService.getItems();
@@ -155,5 +160,46 @@ export class CartComponent implements OnInit, OnDestroy {
       }
     },
     nav: true
+  }
+  getUserName(){
+    const info=this.getUserInfo();
+    if(info==null) return "";
+    else return info.name;
+  }
+  getUserEmail(){
+    const info=this.getUserInfo();
+    if(info==null) return "";
+    else return info.email;
+  }
+  getUserAddress(){
+    const info=this.getUserInfo();
+    if(info==null) return "";
+    else return info.address;
+  }
+  getUserInfo(){
+    if(this.userService.hasUser()){
+      var user;
+      const userSub = this.userService.userInfo(this.userService.getUserEmail()).subscribe(
+      data => {
+        if(data!=null){
+          user={email: data.email, name: data.name, address: data.address};
+          // this.email=data.email;
+          // this.name=data.name;
+          // this.address=data.address;
+        }
+        else{
+          user=null;
+        }
+        
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        // this.getRouter.navigate(['/']);
+      });
+      return user;
+    }
+    else return null;
   }
 }
