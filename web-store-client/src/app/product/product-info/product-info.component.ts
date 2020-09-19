@@ -55,8 +55,9 @@ export class ProductInfoComponent implements OnDestroy {
 
   findInWishlist(){ 
     const sub = this.wishlistService.getWishlist(this.userService.getUserEmail())
-        .subscribe(data => {
-          if(data != null && data.products != null && data.products.indexOf(this.product._id) != -1){
+        .subscribe(r => {
+          const data = r[0];
+          if(data != null && data.products.indexOf(this.product._id) != -1){
             this.isInWishlist = true;
           }
         });

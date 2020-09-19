@@ -46,8 +46,6 @@ export class WishlistService extends HttpErrorHandler {
     .subscribe(data =>{
       console.log("The product is added to the wishlist.");  
     });
-    
-  return this.wishlist;
   }
 
   removeProductFromWislist (user: string, productId:string){
