@@ -1,13 +1,56 @@
 .inner{
-    margin-left: 50px;
+  margin-left: 50px;
 
 }
- 
+
 .logoText1{
-  color: white;
+color: white;
 }
- 
+
 #parentContainer{
-  width: 30%;
-  height: 30%;
+width: 30%;
+height: 30%;
+}
+
+#wishlist{
+padding:1%;
+transition: 0.2;
+}
+#wishlist {
+background: rgba(255, 255, 255, .2);
+box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+border-radius: 10px;
+
+}
+h4#productName {
+padding-left: 15%;
+}
+h4#pruductPrice{
+padding-top: 2%;
+padding-left: 21%;
+}
+#jumpingDiv :hover{
+transform: scale(1.02, 1.02);
+cursor: pointer;
+}
+#wishlistContent :hover{
+cursor: pointer;
+} 
+#wishlistContent h4{
+color:rgb(137, 43, 226);
+max-height:30px;
+max-width: 80%;
+text-size-adjust: auto;
+text-overflow: ellipsis; 
+overflow: hidden; 
+white-space: nowrap;
+}
+#wishlistContent h6{
+color:white;
+max-height:30px;
+max-width: 80%;
+text-size-adjust: auto;
+text-overflow: ellipsis; 
+overflow: hidden; 
+white-space: nowrap;
 }

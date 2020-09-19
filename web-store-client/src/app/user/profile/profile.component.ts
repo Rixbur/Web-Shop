@@ -4,6 +4,9 @@ import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { nameValidator } from '../../orders/cart/name-validator';
+import { WishlistService } from 'src/app/services/wishlist.service';
+import { ExportableProduct } from 'src/app/product/model/exportable.product.model';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,12 +20,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public showAddress: string='';
   public showEdit: boolean=false;
   private profileSub: Subscription=null;
-  private activeSubscriptions: Subscription[] = []
+  private activeSubscriptions: Subscription[] = [];
   public profileForm: FormGroup;
+  public wishlistProducts: ExportableProduct[] = [];
   private user: {name: string, email: string, address: string};
 
   constructor(private userService: UserService,
     private formBuilder: FormBuilder,
+    private wishlistService: WishlistService,
+    private productService: ProductService
 ) {
   this.profileForm = this.formBuilder.group({
     name: ['', [Validators.required, nameValidator]],
@@ -35,8 +41,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("popunjavamo!");
-    this.getUserInfo();    
+    this.getUserInfo();   
+    
+    if(this.userService.hasUser()){
+      const sub = this.wishlistService.getWishlist(this.userService.getUserEmail())
+        .subscribe(data => {  
 
+          const element = data[0];
+          const listOfIds =element.products;
+
+          //Getting products from ids
+          listOfIds.forEach( id => {
+            const userSub = this.productService.getProductById(id).subscribe(product => {
+              this.wishlistProducts.push(product);
+            });
+            this.activeSubscriptions.push(userSub);
+          });
+        });
+        this.activeSubscriptions.push(sub);
+    }
  }
 
   ngOnDestroy(){

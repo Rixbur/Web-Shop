@@ -18,11 +18,10 @@
     </div>
 </div>
 
-
-<div *ngIf="showEdit">
+<div>
     <div class="row">
         <div class="col-lg-3">
-            <div class="container">
+            <div class="container" *ngIf="showEdit">
                 <form class="my-2">
                     <form [formGroup]="profileForm" (ngSubmit)="submitForm(profileForm.value)">
                         <div class="form-group">
@@ -83,5 +82,23 @@
                 </form>
             </div>
         </div>
+
+        <div class="col-lg-4" id="wishlist" *ngFor= "let product of this.wishlistProducts | orderBy: false">
+            <div id="jumpingDiv">
+                <div  class="h-100 my-2 py-2 px-2 text-center" id="wishlistContent" [routerLink]="['/products/',product._id]">
+                
+                    <h4 id="productName">{{ product.name }}</h4>
+                    <p>{{ product.desription }}</p>
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide>
+                            <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
+                        </ng-template>
+                    </owl-carousel-o>  
+                    <h4 id="pruductPrice">Price:{{ product.price }}$</h4>
+      
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

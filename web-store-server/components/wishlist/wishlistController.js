@@ -4,7 +4,7 @@ const Wishlist = require("./listModel");
 module.exports.getList = async function (req, res, next) {
     const userId = req.body.user;
     try{
-        const result  = await Wishlist.findOne({ user: userId }).exec();
+        const result  = await Wishlist.find({ user: userId }).exec();
         if(result==null){
         return res.status(204).send();
         }
@@ -20,9 +20,6 @@ module.exports.createList = async function (req, res, next) {
         user: req.body.user,
         products: []
     });
-    console.log(list);
-    console.log("-----------------");
-    console.log(req.body);
     try {
         const savedObject = await list.save();
         res.status(201).json(savedObject);
