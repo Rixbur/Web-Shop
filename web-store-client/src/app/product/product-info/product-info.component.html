@@ -1,79 +1,99 @@
 <div class="container">
   <h2>Product details</h2>
   <hr>
-  
-  <div *ngIf="product">
-    <div class="container" id="productListContent">
-      <div class="row" id="productInfoContent">
-          <div class="col-8">
-                <owl-carousel-o [options]="customOptions">
-                  <ng-container>
-                    <ng-template carouselSlide *ngFor="let image of product['productImage'], let i = index">
-                      <img src="http://localhost:3000/images/{{product['productImage'][i]}}" width="50%" height="50%">
-                      <div class="carousel-caption">
-                      </div>
-                    </ng-template>
-                  </ng-container>
-                </owl-carousel-o>
-          </div>
-  
-          <div class="col-4">
-              <h3>{{ product['name'] }}</h3>
-              <h4>{{ product['price'] | currency }}</h4>
-              <p>{{ product['description'] }}</p>
+  <div class = "row">
+    <div class = "col-8" *ngIf="product">
+      <div class="container" id="productListContent">
+        <div class="row" id="productInfoContent">
+            <div class="col-8">
+                  <owl-carousel-o [options]="customOptions">
+                    <ng-container>
+                      <ng-template carouselSlide *ngFor="let image of product['productImage'], let i = index">
+                        <img src="http://localhost:3000/images/{{product['productImage'][i]}}" width="50%" height="50%">
+                        <div class="carousel-caption">
+                        </div>
+                      </ng-template>
+                    </ng-container>
+                  </owl-carousel-o>
+            </div>
+    
+            <div class="col-4">
+                <h3>{{ product['name'] }}</h3>
+                <h4>{{ product['price'] | currency }}</h4>
+                <p>{{ product['description'] }}</p>
 
-              <div *ngIf="hasUser()">
-                <div *ngIf="isInWishlist; else notInWishlist">
-                  <button id="wish1Button"
-                          class="btn toRed btn-block"
-                          (click)="removeFromWishlist()"
-                  >
-                    Added to wishlist
-                  </button>
-                </div>
-                <ng-template #notInWishlist>
-                  <button id="wish2Button"
-                    class="btn toBlue btn-block"
-                    (click)="addToWishlist()"
-                  >
-                    Add to wishlist
-                  </button>
-                </ng-template>
-              </div>
-              
-              <div>
-                <div>
-                  <form [formGroup]="addToCartForm"  (ngSubmit)="addToCart(selectedSize)">
-                    <select class="form-control" formControlName="selectedSize" #selectedSize>
-                        <option *ngFor="let item of product['map'] | keyvalue">
-                          {{  item.key }}
-                        </option>
-                      </select>
-  
-                    <button
-                      id="myButton"
-                      class="btn btn-primary btn-block"
-                      type="submit"
+                <div *ngIf="hasUser()">
+                  <div *ngIf="isInWishlist; else notInWishlist">
+                    <button id="wish1Button"
+                            class="btn toRed btn-block"
+                            (click)="removeFromWishlist()"
                     >
-                      Add a product
+                      Added to wishlist
                     </button>
-                  </form>
-                  <div *ngIf="isAdmin()">
-                    <button (click)="removeFromStore()" class="btn btn-danger btn-block">Remove from store</button>
                   </div>
+                  <ng-template #notInWishlist>
+                    <button id="wish2Button"
+                      class="btn toBlue btn-block"
+                      (click)="addToWishlist()"
+                    >
+                      Add to wishlist
+                    </button>
+                  </ng-template>
                 </div>
-              <hr/>
-  
-              </div>
+                
+                <div>
+                  <div>
+                    <form [formGroup]="addToCartForm"  (ngSubmit)="addToCart(selectedSize)">
+                      <select class="form-control" formControlName="selectedSize" #selectedSize>
+                          <option *ngFor="let item of product['map'] | keyvalue">
+                            {{  item.key }}
+                          </option>
+                        </select>
+    
+                      <button
+                        id="myButton"
+                        class="btn btn-primary btn-block"
+                        type="submit"
+                      >
+                        Add a product
+                      </button>
+                    </form>
+                    <div *ngIf="isAdmin()">
+                      <button (click)="removeFromStore()" class="btn btn-danger btn-block">Remove from store</button>
+                    </div>
+                  </div>
+                <hr/>
+    
+                </div>
+            </div>
+    
           </div>
-  
+        <div class="row">
+          <div class="col">
+            <app-recommended></app-recommended>
+          </div>
         </div>
-      <div class="row">
-        <div class="col">
-          <app-recommended></app-recommended>
+      </div>
+    </div>
+
+    <div class="col-lg-4"  *ngIf="this.similarProducts">
+      <div id="similarProducts" *ngFor= "let product of this.similarProducts | orderBy: false">
+        <div id="jumpingDiv">
+          <div  class="h-100 my-2 py-2 px-2 text-center" id="similarProductsInfo" [routerLink]="['/products/',product._id]">
+            
+            <h4 id="productName">{{ product.name }}</h4>
+            <p>{{ product.desription }}</p>
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                  <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
+                </ng-template>
+            </owl-carousel-o>  
+            <h4 id="pruductPrice">Price:{{ product.price }}$</h4>
+
+          </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
+</div>
   

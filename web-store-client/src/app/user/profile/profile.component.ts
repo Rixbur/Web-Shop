@@ -49,7 +49,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
           const element = data[0];
           const listOfIds =element.products;
-          let existsElement: boolean = false;
 
           //Getting products from ids
           listOfIds.forEach( id => {
@@ -58,20 +57,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
               for (const product of products) {
                 if(product._id == id) {
                   const userSub = this.productService.getProductById(id).subscribe(product => {
-                    console.log(product);
                     this.wishlistProducts.push(product);
                   });
                   this.activeSubscriptions.push(userSub);
-                  existsElement = true;
                   break;
                 }
               }
             });
-
-            if(!existsElement) {
-              this.wishlistService.removeProductFromWislist(this.userService.getUserEmail(), id);
-            }
-            
           });
         });
         this.activeSubscriptions.push(sub);

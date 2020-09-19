@@ -38,6 +38,24 @@ export class ProductService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
   }
 
+  public getProductsByArticleType(articleType: string): Observable<ExportableProduct[]> {
+    return this.http
+    .post<ExportableProduct[]>(this.productsUrl + 'atype', {articleType})
+    .pipe(catchError(super.handleError()));
+  }
+
+  public getProductsBySeason(season: string): Observable<ExportableProduct[]> {
+    return this.http
+    .post<ExportableProduct[]>(this.productsUrl + 'season', {season})
+    .pipe(catchError(super.handleError()));
+  }
+
+  public getProductsByCategory(category: string): Observable<ExportableProduct[]> {
+    return this.http
+    .post<ExportableProduct[]>(this.productsUrl + 'category', {category})
+    .pipe(catchError(super.handleError()));
+  }
+
   public addAProduct(data) {
     const uploadData = this.makeFormData(data);
     return this.http

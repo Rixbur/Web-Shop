@@ -170,4 +170,52 @@ deleteByProductId = async function (req, res, next) {
 };
 router.delete("/:productId", deleteByProductId);
 
+findByArticleType = async function (req, res, next) {
+  const value = req.body.articleType;
+
+  try{
+    const result  = await Product.find({ articleType: value }).exec();
+    if(result==null){
+    return res.status(204).send();
+    }
+    return res.status(200).json(result);
+  } catch (error){
+      next(error);
+  }
+}
+
+router.post("/atype", findByArticleType);
+
+findBySeason = async function (req, res, next) {
+  const value = req.body.season;
+
+  try{
+    const result  = await Product.find({ season: value }).exec();
+    if(result==null){
+    return res.status(204).send();
+    }
+    return res.status(200).json(result);
+  } catch (error){
+      next(error);
+  }
+}
+
+router.post("/season", findBySeason);
+
+findByCategory = async function (req, res, next) {
+  const value = req.body.category;
+
+  try{
+    const result  = await Product.find({ category: value }).exec();
+    if(result==null){
+    return res.status(204).send();
+    }
+    return res.status(200).json(result);
+  } catch (error){
+      next(error);
+  }
+}
+
+router.post("/category", findByCategory);
+
 module.exports = router;

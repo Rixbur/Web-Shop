@@ -19,9 +19,12 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 })
 export class ProductInfoComponent implements OnDestroy {
   public product: ExportableProduct;
+  public similarProducts: ExportableProduct[] = [];
   private activeSubscriptions: Subscription[];
   public addToCartForm: FormGroup;
 
+  private readonly displayedSimilars: number = 3;
+  private similarsCount: number = 0;
   public prodIsUpdated: boolean = false;
   private isInWishlist: boolean = false;
   public imageObject: Array<object>;
@@ -84,8 +87,11 @@ addToWishlist(){
           this.productService.getProductById(productIdParam)
         ),
         map(_prod => this.mapParsing(_prod))
-      ).subscribe((product) => {this.product = product;this.addToRecommended({p_id:product['_id']})}
-     );
+      ).subscribe((product) => {
+          this.product = product;
+          this.addToRecommended({p_id:product['_id']});
+          this.createSimilarProducts(product);
+      });
     this.activeSubscriptions.push(getProductSub);
   }
   addToRecommended(data){
@@ -174,5 +180,70 @@ addToWishlist(){
       }
     },
     nav: true
+  }
+
+  createSimilarProducts(product){
+
+    //console.log(product);
+
+    //TODO Refactor this function
+    const typeSub = this.productService.getProductsByArticleType(product.articleType)
+      .subscribe(pByType => {
+        if(pByType.length > 1){
+          for (const p of pByType) {
+            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+              this.similarProducts.push(p);
+              this.similarsCount += 1;
+            } else if(this.similarsCount >= this.displayedSimilars) {
+              break;
+            }
+          }
+        }
+      });
+
+    if(this.similarsCount < this.displayedSimilars){
+      this.productService.getProductsBySeason(product.season)
+      .subscribe(pByType => {
+        if(pByType.length > 1){
+          for (const p of pByType) {
+            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+              this.similarProducts.push(p);
+              this.similarsCount += 1;
+            } else if(this.similarsCount >= this.displayedSimilars) {
+              break;
+            }
+          }
+        }
+      });
+    }
+
+    if(this.similarsCount < this.displayedSimilars){
+      this.productService.getProductsByCategory(product.category)
+      .subscribe(pByType => {
+        if(pByType.length > 1){
+          for (const p of pByType) {
+            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+              this.similarsCount += 1;
+            } else if(this.similarsCount >= this.displayedSimilars) {
+              break;
+            }
+          }
+        }
+      });
+    }
+
+    //Any product goes to similar ones if the current array does not have enough elements
+    if(this.similarsCount < this.displayedSimilars) {
+      this.productService.getProducts().subscribe(products => {
+        let j = 0;
+        for(let i = this.similarsCount ; i < this.displayedSimilars && i< products.length; i++){
+          if(this.similarProducts.indexOf(products[j]) == -1){
+            this.similarProducts.push(products[j]);
+          }
+        }
+      });
+    }
+
+
   }
 }
