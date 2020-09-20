@@ -1,145 +1,80 @@
 [{
   "_id": {
-    "$oid": "5f59238ca2f9a02234f131b8"
+    "$oid": "5f63dde2518c5c054898d617"
   },
   "productImage": [
     "IMG_5281.JPG",
     "IMG_5282.JPG"
   ],
-  "name": "Zute sandale",
-  "description": "Super ponuda!",
-  "season": "leto",
-  "price": 55,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[36,2],[37,5],[38,4],[39,6],[40,4],[41,4],[42,5]]",
+  "name": "Yellow sandals",
+  "description": "This is some random description",
+  "season": "summer",
+  "price": 21,
+  "articleType": "shoes",
+  "category": "sandals",
+  "mapSizeQuantities": "[[37,3],[38,1]]",
   "__v": 0
 },{
   "_id": {
-    "$oid": "5f5923bca2f9a02234f131b9"
+    "$oid": "5f63de10518c5c054898d618"
   },
   "productImage": [
-    "IMG_5294.JPG",
+    "IMG_5311(1).JPG",
+    "IMG_5311.JPG"
+  ],
+  "name": "Blue sneakers",
+  "description": "This is some random longer than usual description. I am trying my best atm to write as many words as possible",
+  "season": "summer",
+  "price": 21,
+  "articleType": "shoes",
+  "category": "sneakers",
+  "mapSizeQuantities": "[[37,1],[39,2]]",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5f67e5610159fc331c3204cb"
+  },
+  "productImage": [
     "IMG_5747.JPG"
   ],
-  "name": "Papuce sa crvenom masnom",
-  "description": "Crvene papuce",
-  "season": "leto",
-  "price": 33,
-  "articleType": "obuca",
-  "category": "papuce",
-  "mapSizeQuantities": "[[42,3],[43,3],[40,2],[38,5],[45,4],[37,5]]",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f592405a2f9a02234f131ba"
-  },
-  "productImage": [
-    "IMG_5301.JPG",
-    "IMG_5305.JPG"
-  ],
-  "name": "Sive sandale",
-  "description": "Ni belo ni crno",
-  "season": "leto",
-  "price": 11,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[36,3],[37,4],[38,3],[40,5],[43,5]]",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f592437a2f9a02234f131bb"
-  },
-  "productImage": [
-    "IMG_5311.JPG",
-    "IMG_5317.JPG"
-  ],
-  "name": "Plave sandale",
-  "description": "Kao nebo plave",
-  "season": "leto",
+  "name": "Red sneakers",
+  "description": "Very fluffy and wonderful",
+  "season": "spring",
   "price": 44,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[44,4],[42,3],[46,4]]",
+  "articleType": "shoes",
+  "category": "sneakers",
+  "mapSizeQuantities": "[[40,5],[38,4],[36,2],[41,3],[43,2]]",
   "__v": 0
 },{
   "_id": {
-    "$oid": "5f59607761e1f41d20596c50"
-  },
-  "productImage": [
-    "IMG_5582(1).JPG",
-    "IMG_5583(1).JPG"
-  ],
-  "name": "Crvene sandale",
-  "description": "<3",
-  "season": "leto",
-  "price": 56,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[42,2],[38,1],[46,2],[41,2]]",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f59627d61e1f41d20596c53"
-  },
-  "productImage": [
-    "IMG_5313(1).JPG",
-    "IMG_5313.JPG"
-  ],
-  "name": "Sive sandale",
-  "description": "Lepo u patos!",
-  "season": "leto",
-  "price": 33,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[40,2],[42,3]]",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f5962fb61e1f41d20596c54"
+    "$oid": "5f67e5d70159fc331c3204cc"
   },
   "productImage": [
     "IMG_5525.JPG",
     "IMG_5526.JPG"
   ],
-  "name": "Crne stikle",
-  "description": "Za nocni provod i druzenje",
-  "season": "zima",
-  "price": 11,
-  "articleType": "obuca",
-  "category": "stikle",
-  "mapSizeQuantities": "[[37,3],[42,3],[43,2],[39,2]]",
+  "name": "Black maidens",
+  "description": "Only for strong woman",
+  "season": "Autumn",
+  "price": 99,
+  "articleType": "shoes",
+  "category": "espadrilles",
+  "mapSizeQuantities": "[[37,4],[38,7],[41,8],[42,8]]",
   "__v": 0
 },{
   "_id": {
-    "$oid": "5f59636561e1f41d20596c55"
+    "$oid": "5f67e61d0159fc331c3204cd"
   },
   "productImage": [
-    "IMG_5527.JPG",
-    "IMG_5528.JPG"
+    "IMG_5532.JPG",
+    "IMG_5533.JPG"
   ],
-  "name": "Sarene sandale",
-  "description": "fancy",
-  "season": "leto",
-  "price": 44,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[44,2],[39,3],[40,4],[42,4]]",
-  "__v": 0
-},{
-  "_id": {
-    "$oid": "5f5963aa61e1f41d20596c56"
-  },
-  "productImage": [
-    "IMG_6298.JPG",
-    "IMG_6299.JPG"
-  ],
-  "name": "Papuce sa masnom",
-  "description": "Masnicaa",
-  "season": "leto",
-  "price": 44,
-  "articleType": "obuca",
-  "category": "sandale",
-  "mapSizeQuantities": "[[36,5],[39,3],[38,4],[45,4]]",
+  "name": "Grey boots",
+  "description": "For cold weather",
+  "season": "winter",
+  "price": 67,
+  "articleType": "shoes",
+  "category": "boots",
+  "mapSizeQuantities": "[[41,4],[39,3],[36,2],[42,5],[37,1]]",
   "__v": 0
 }]
