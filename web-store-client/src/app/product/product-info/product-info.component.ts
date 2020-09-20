@@ -23,7 +23,7 @@ export class ProductInfoComponent implements OnDestroy {
   private activeSubscriptions: Subscription[];
   public addToCartForm: FormGroup;
 
-  private readonly displayedSimilars: number = 3;
+  private readonly DISPLAYED_SIMILARS: number = 2;
   private similarsCount: number = 0;
   public prodIsUpdated: boolean = false;
   private isInWishlist: boolean = false;
@@ -191,25 +191,31 @@ addToWishlist(){
       .subscribe(pByType => {
         if(pByType.length > 1){
           for (const p of pByType) {
-            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+            const alreadyInList = this.similarProducts.map(p => p._id)
+                    .some(id => id == p._id);
+
+            if((product._id != p._id) && !!alreadyInList && (this.similarsCount < this.DISPLAYED_SIMILARS)) {
               this.similarProducts.push(p);
               this.similarsCount += 1;
-            } else if(this.similarsCount >= this.displayedSimilars) {
+            } else if(this.similarsCount >= this.DISPLAYED_SIMILARS) {
               break;
             }
           }
         }
       });
 
-    if(this.similarsCount < this.displayedSimilars){
+    if(this.similarsCount < this.DISPLAYED_SIMILARS){
       this.productService.getProductsBySeason(product.season)
       .subscribe(pByType => {
         if(pByType.length > 1){
           for (const p of pByType) {
-            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+            const alreadyInList = this.similarProducts.map(p => p._id)
+                    .some(id => id == p._id);
+
+            if((product._id != p._id) && !alreadyInList && (this.similarsCount < this.DISPLAYED_SIMILARS)) {
               this.similarProducts.push(p);
               this.similarsCount += 1;
-            } else if(this.similarsCount >= this.displayedSimilars) {
+            } else if(this.similarsCount >= this.DISPLAYED_SIMILARS) {
               break;
             }
           }
@@ -217,14 +223,17 @@ addToWishlist(){
       });
     }
 
-    if(this.similarsCount < this.displayedSimilars){
+    if(this.similarsCount < this.DISPLAYED_SIMILARS){
       this.productService.getProductsByCategory(product.category)
       .subscribe(pByType => {
         if(pByType.length > 1){
           for (const p of pByType) {
-            if((product._id != p._id) && (this.similarProducts.indexOf(p) == -1) && (this.similarsCount < this.displayedSimilars)) {
+            const alreadyInList = this.similarProducts.map(p => p._id)
+                    .some(id => id == product._id);
+
+            if((product._id != p._id) && !alreadyInList && (this.similarsCount < this.DISPLAYED_SIMILARS)) {
               this.similarsCount += 1;
-            } else if(this.similarsCount >= this.displayedSimilars) {
+            } else if(this.similarsCount >= this.DISPLAYED_SIMILARS) {
               break;
             }
           }
@@ -233,11 +242,13 @@ addToWishlist(){
     }
 
     //Any product goes to similar ones if the current array does not have enough elements
-    if(this.similarsCount < this.displayedSimilars) {
+    if(this.similarsCount < this.DISPLAYED_SIMILARS) {
       this.productService.getProducts().subscribe(products => {
         let j = 0;
-        for(let i = this.similarsCount ; i < this.displayedSimilars && i< products.length; i++){
-          if(this.similarProducts.indexOf(products[j]) == -1){
+        for(let i = this.similarsCount ; i < this.DISPLAYED_SIMILARS && i< products.length; i++){
+          const alreadyInList = this.similarProducts.map(p => p._id)
+                  .some(id => id == product._id);
+          if(!alreadyInList){
             this.similarProducts.push(products[j]);
           }
         }

@@ -77,6 +77,7 @@
     </div>
 
     <div class="col-lg-4"  *ngIf="this.similarProducts">
+      <h4> You might also like this:</h4>
       <div id="similarProducts" *ngFor= "let product of this.similarProducts | orderBy: false">
         <div id="jumpingDiv">
           <div  class="h-100 my-2 py-2 px-2 text-center" id="similarProductsInfo" [routerLink]="['/products/',product._id]">
