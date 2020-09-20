@@ -1,13 +1,13 @@
 
 <body>
   <section class="card-list">
-      <article class="card" *ngFor="let product of this.recommended| async;let i = index">
-        <div id="productInfoContent"  class="h-100 my-2 py-2 px-2" [routerLink]="['/products/',product._id]">
+      <article class="card" *ngFor="let product of this.recommended | async;let i = index">
+        <div id="productInfoContent"  class="h-100 my-2 py-2 px-2" >
             <div class="productName">
-              <p>{{product['name']}}</p>
+              <p (click)="addToRecommended(product)" [routerLink]="['/products/',product._id]">{{product['name']}}</p>
             </div>
-            <img src="http://localhost:3000/images/{{product['productImage'][0]}}" >
-            <button class="btn">X</button>
+            <img src="http://localhost:3000/images/{{product['productImage'][0]}}" (click)="addToRecommended(product)" [routerLink]="['/products/',product._id]">
+            <button class="btn" (click)="removeFromRecommended(product)">X</button>
         </div>    
       </article>
 

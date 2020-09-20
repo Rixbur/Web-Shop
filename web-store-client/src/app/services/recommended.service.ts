@@ -33,10 +33,11 @@ export class RecommendedService extends HttpErrorHandler {
       .pipe(catchError(super.handleError()));
   }
 
-  public patchProduct(email: string,p_id:string):Observable<Recommended>{
+  public patchProduct(email: string,data):Observable<Recommended>{
 
     return this.http
-      .patch<any>(this.recommendedUrl + email,p_id)
+      .patch<any>(this.recommendedUrl + email,data)
       .pipe(catchError(super.handleError()));
   }
+  
 }

@@ -47,12 +47,20 @@ module.exports.patchRecommended = async function(req,res,next){
         const recommended = await Recommended.findOne({email:email}).exec();
         console.log(recommended);
         if(recommended!==null){
-            console.log('poz1');
+            
             const productPatch = {};
             productPatch.products = recommended.products.slice(Math.max(recommended.products.length-5, 0));
-            productPatch.products.push(newProduct);
-            const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
-            res.status(201).json(savedObject);
+            const index = productPatch.products.indexOf(newProduct);
+            if (index > -1) {//ako vec postoji
+                res.status(200).json({message:'already exits'});
+            }
+            else{
+                productPatch.products.push(newProduct);
+                const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
+                console.log(savedObject);
+                res.status(201).json(savedObject);
+            }
+            
         }else{
             console.log('Poz');
             let object = new Recommended ({
@@ -61,13 +69,32 @@ module.exports.patchRecommended = async function(req,res,next){
                 products:[]
             })
             object.products.push(newProduct);
-            console.log(object);
+            
 
             const savedObject = await object.save();
             res.status(201).json(savedObject);
-            
         }
 
+    }catch(err){
+        next(err);
+    }
+}
+module.exports.patchRecommendedRemove = async function(req,res,next){
+    const email = req.params.userEmail;
+    const newProduct = req.body.p_id;
+    console.log(email);
+    console.log(newProduct);
+    
+    try{
+        const recommended = await Recommended.findOne({email:email}).exec();
+        const productPatch = {};
+        productPatch.products = recommended.products.slice(Math.max(recommended.products.length-5, 0));
+        const index = productPatch.products.indexOf(newProduct);
+        if (index > -1) {
+            productPatch.products.splice(index, 1);
+        }
+        const savedObject = await Recommended.findOneAndUpdate({email:email},{$set: productPatch })
+        res.status(201).json(savedObject);
     }catch(err){
         next(err);
     }

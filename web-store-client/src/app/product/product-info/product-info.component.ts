@@ -97,7 +97,8 @@ addToWishlist(){
   addToRecommended(data){
     if(this.userService.hasUser()){
       const newSub = this.recommendedService
-        .patchProduct(this.userService.getUserEmail(),data).subscribe();
+        .patchProduct(this.userService.getUserEmail(),data)
+        .subscribe();
       this.activeSubscriptions.push(newSub);
     }
   }
