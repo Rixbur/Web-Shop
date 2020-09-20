@@ -4,10 +4,13 @@ img {
   }
 
 #productListContent{
+    width: 100%;
+    text-size-adjust: auto;
     padding:1%;
 }
 #productInfoContent {
-    width:70%;
+    width: 70%;
+    text-size-adjust: auto;
     height: auto;
     background: rgba(255, 255, 255, .2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
@@ -19,7 +22,18 @@ img {
     text-align: center;
 }
 
-
+#wish1Button{
+    margin-top: 1%;
+}
+#wish2Button{
+    margin-top: 1%;
+}
+#selectOption{
+    margin-top: 1%;
+}
+#myButton{
+    margin-top: 1%;
+}
 .toRed {
     border-color: blue;
     color: blue;
@@ -43,9 +57,17 @@ img {
     color: white;
 }
 
-
-
-
+#descriptionBox {
+    background: rgba(255, 255, 255, .2);
+    width: 70%;
+    height: 100%;
+    border: 5px solid  rgb(176, 95, 251);
+    border-radius: 15px;
+    padding: 1%;
+    margin:2%;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
 #similarProducts{
     padding:1%;
     transition: 0.2;
@@ -57,11 +79,19 @@ img {
 
 }
 h4#productName {
-    padding-left: 15%;
+    padding-left: 25%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 h4#pruductPrice{
-    padding-top: 2%;
-    padding-left: 21%;
+    margin-left: 10%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+h4#pruductPriceValue{
+    margin-left:-20%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 #jumpingDiv :hover{
     transform: scale(1.02, 1.02);
@@ -92,3 +122,20 @@ h4#pruductPrice{
 #similarProductsInfo owl-carousel-o{
     max-height:50px;
 }
+#buttonDiv{
+    margin-top: 10%;
+    padding-bottom: 1%;
+    
+}
+#textDiv{
+    background: transparent;
+    margin-top: 10%;
+    margin-left: 2%;
+    margin-right: -2%;
+    padding: 2%;
+    height: 100%;
+    
+}
+#RecommendedDiv{
+    text-align: center;
+  }

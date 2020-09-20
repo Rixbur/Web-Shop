@@ -26,7 +26,7 @@ export class ProductInfoComponent implements OnDestroy {
   private readonly DISPLAYED_SIMILARS: number = 2;
   private similarsCount: number = 0;
   public prodIsUpdated: boolean = false;
-  private isInWishlist: boolean = false;
+  public isInWishlist: boolean = false;
   public imageObject: Array<object>;
 
   constructor(
