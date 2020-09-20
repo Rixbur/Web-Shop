@@ -12,6 +12,25 @@ width: 30%;
 height: 30%;
 }
 
+appearance.parent {
+  padding: 20px;
+}
+
+.split {
+  float: left;
+  padding: 20px;
+}
+
+.right {
+  width: 60%;
+  right: 0;
+}
+
+.left {
+  width: 40%;
+  left: 0;
+}
+
 #wishlist{
 padding:1%;
 transition: 0.2;
