@@ -1,4 +1,4 @@
-# Project 23-Fashion Unlimited
+# WEB-SHOP Fashion Unlimited
 
 Projekat obuhvata izradu Web Shopa koji treba da zadovoljava sve potrebe pretrage, filterovanja i odabira odgovaracuje robe, kao i komunikaciju sa serverskim katalogom koji automatski redukuje i dodaje proizvode na osnovu zahteva sa klijenta.
 
